@@ -1,9 +1,11 @@
+"use client"
+
 import Image from 'next/image'
 
 const Page = () => {
   return (
     <main>
-      Equix
+      EQUIX
     </main>
   )
 }

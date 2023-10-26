@@ -1,6 +1,8 @@
+"use client"
+
 import { View } from "./View";
 
-export const Bar = (props) => (
+export const Bar = (props: any) => (
   <View
     {...props}
     className={`px-2 h-auto items-center border-light ${

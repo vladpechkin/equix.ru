@@ -1,4 +1,6 @@
-export const View = (props) => {
+"use client"
+
+export const View = (props: any) => {
   const getWidth = () => {
     switch (props?.size) {
       case 4:

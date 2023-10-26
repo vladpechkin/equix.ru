@@ -1,14 +1,16 @@
+"use client"
+
 import Image from "next/image";
 import { Box } from "./Box";
 import React from "react";
 
-export const Ul = (props) => (
+export const Ul = (props: any) => (
   <ul className="flex flex-col gap-2 list-disc pl-4" {...props}>
     {props.children}
   </ul>
 );
 
-export const Avatar = (props) => (
+export const Avatar = (props: any) => (
   <Image
     {...props}
     className={`object-cover rounded-lg shrink-0 ${props.className || ""}`}
@@ -16,7 +18,7 @@ export const Avatar = (props) => (
   />
 );
 
-export const Logo = ({ size }) => (
+export const Logo = ({ size }: any) => (
   <Box
     href="/"
     className={`text-[1.5rem] leading-none gap-0 py-0 text-blue-800 font-black`}
@@ -24,7 +26,7 @@ export const Logo = ({ size }) => (
     <p>
       <span>p</span>
       {size === "big" && <span className="hidden sm:inline">echk.in</span>}
-      <span className={size === "big" && "sm:hidden"}>.</span>
+      <span className={size === "big" ? "sm:hidden" : ""}>.</span>
     </p>
   </Box>
 );

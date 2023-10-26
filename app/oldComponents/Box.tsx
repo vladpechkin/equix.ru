@@ -1,13 +1,15 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+"use client"
 
-export const Box = (props) => {
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+export const Box = (props: any) => {
   const router = useRouter();
 
   const isCurrentPath =
     props.href === "/"
-      ? router.pathname === props.href
-      : router.pathname.includes(props?.href);
+      // ? router.pathname === props.href
+      // : router.pathname.includes(props?.href);
 
   const color = props.primary
     ? "bg-blue-800 text-[#fff]"
