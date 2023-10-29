@@ -12,3 +12,7 @@ body {
   align-items: center;
   background: hsl(0, 0%, 96%);
 }
+
+ul, ol {
+  padding-left: 16px;
+}

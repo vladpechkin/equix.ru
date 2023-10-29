@@ -6,7 +6,7 @@ export const Box: FC<any> = (props) => {
   const css = `${props.href ? "color: #5162ff;" : ""}${props.css || ""}`
   return (
     // @ts-ignore
-    <Element style={cssToStyle(css)} {...props} />
+    <Element style={cssToStyle(css)} {...props} target={props.as === "a" ? "_blank" : undefined} />
   );
 };
 
