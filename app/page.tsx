@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { Landing } from "./equix/Landing";
 import { Box, Col } from "./equix/components";
 
@@ -9,12 +9,13 @@ export const metadata: Metadata = {
     "Программное обеспечение для быстрого создания креативных, современных и функциональных графических интерфейсов",
 };
 
-const Card = ({ children }: { children: ReactNode }) => (
+const Card: FC<{ children: ReactNode }> = (props) => (
   <Box
     as="p"
     css="background:white; gap:8px; display: flex; flex-direction: column; padding: 8px; border-radius: 8px;"
+    {...props}
   >
-    {children}
+    {props.children}
   </Box>
 );
 
@@ -55,7 +56,7 @@ const Page = () => (
       {
         heading: "Существующие решения",
         content: [
-          <Card>
+          <Card key={1}>
             Среди ПО:
             <ul>
               <li>
@@ -76,7 +77,7 @@ const Page = () => (
               </li>
             </ul>
           </Card>,
-          <Card>
+          <Card key={2}>
             Среди компаний:
             <ul>
               <li>
