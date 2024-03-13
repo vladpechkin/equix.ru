@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 import { Box, Col, Row } from "./components";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Section {
   heading: string;
@@ -8,7 +9,7 @@ interface Section {
 }
 
 interface Props {
-  logoSrc: string;
+  logo: string | ReactNode;
   links?: ReactNode[];
   title: string;
   description: string;
@@ -18,7 +19,7 @@ interface Props {
 }
 
 export const Landing: FC<Props> = ({
-  logoSrc,
+  logo,
   links,
   title: heading,
   description,
@@ -28,26 +29,23 @@ export const Landing: FC<Props> = ({
 }) => (
   <Box
     as="main"
-    css="margin: 0 auto; max-width: 944px; width: 100%; padding: 24px 8px; display: flex; flex-direction: column; gap: 5vw; min-height: 100vh; justify-content: center;"
+    css="margin: 0 auto; max-width: 944px; padding: 5vw; display: flex; flex-direction: column; gap: 5vw; min-height: 100vh; justify-content: center;"
   >
     <Box
       as="header"
       css="display: flex; align-items: center; justify-content: space-between; width: 100%;"
     >
-      <img src={logoSrc} />
-      {links && <Row>{links}</Row>}
+      {logo}
+      <Row>{links || sections.map(({ heading }, index) => <Box as={Link} href={`#${heading.replaceAll(" ", "_")}`} key={index}>{heading}</Box>)}</Row>
     </Box>
-    <Box css="display: grid; grid-template-columns: repeat(auto-fit, minmax(304px, 1fr)); gap: 8px; width: 100%;">
+    <Box css="display: grid; grid-template-columns: repeat(auto-fit, minmax(304px, 1fr)); gap: 2.5vw; width: 100%;">
       <Box
-        as={Image}
-        width={0}
-        sizes="100vw"
+        as="img"
         css="object-fit: cover; border-radius: 8px; width: 100%;"
         src={heroImageSrc}
         alt={heading}
-        height={460}
       />
-      <Box css="background: white; height: 460px; border-radius: 8px; padding: 16px; width: 100%; display: flex; justify-content: center; flex-direction: column;">
+      <Box css="background: hsla(260, 100%, 50%, 5%); border-radius: 8px; padding: 2.5vw; display: flex; justify-content: center; flex-direction: column; gap: 2.5vw;">
         <Box as="h1" css="font-weight: 600; font-size: 32px;">
           {heading}
         </Box>
@@ -55,10 +53,10 @@ export const Landing: FC<Props> = ({
       </Box>
     </Box>
     {sections.map(({ heading, content }, index) => (
-      <Col key={index}>
-        <h2>{heading}</h2>
-        {Array.isArray(content) ? <Box css="display: grid; grid-template-columns: repeat(auto-fit, minmax(304px, 1fr)); gap: 8px; width: 100%;">{content}</Box> : content}
-      </Col>
+      <Box key={index} id={heading.replaceAll(" ", "_")} css="display: flex; justify-content: space-between;">
+        <Box as="h2">{heading}</Box>
+        {Array.isArray(content) ? <Box css="display: grid; grid-template-columns: repeat(auto-fit, minmax(304px, 1fr)); gap: 2.5vw; width: 100%;">{content}</Box> : content}
+      </Box>
     ))}
     <Box
       as="footer"
