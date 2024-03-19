@@ -122,20 +122,20 @@ const Page = () => {
         {
           heading: "Попробовать",
           content: (
-            <Card>Ниже находятся интерактивные редактор кода и маленькое превью лендинга, который создается этим кодом, который вы можете изменять и в режиме реального времени видеть, компоненты EQUIX создают страницы!</Card>
+            <Card>Ниже находятся интерактивные редактор кода и маленькая копия этого сайта, созданная этим кодом, который вы можете ред и в режиме реального времени видеть, как в EQUIX/Лендинг вносятся изменения.</Card>
           )
         },
         {
           content: (
             <Box css="display: flex; flex-direction: column; width: 100%; border-radius: 8px; overflow: hidden;">
               <Box css="background: hsl(260, 100%, 20%); color: white; padding: 2.5vw; font-family: monospace;">
-                &lt;Landing<br/>&nbsp;&nbsp;заголовок={'{"'}
-                <TextInput value={previewTitle} onChange={setPreviewTitle} />{'"}'}<br/>&nbsp;&nbsp;описание={'{"'}
+                &lt;Landing<br />&nbsp;&nbsp;заголовок={'{"'}
+                <TextInput value={previewTitle} onChange={setPreviewTitle} />{'"}'}<br />&nbsp;&nbsp;описание={'{"'}
                 <TextInput value={previewDescription} onChange={setPreviewDescription} />{'"}'}
-                <br/>&nbsp;&nbsp;фоновыйЦвет={'{"'}
-                <TextInput value={previewBackgroundColor} onChange={setPreviewBackgroundColor} />{'"}'} <br/>&nbsp;&nbsp;секции={"{[{"}<br/>&nbsp;&nbsp;&nbsp;&nbsp;заголовокСекции: <TextInput value={previewSectionHeading} onChange={setPreviewSectionHeading} />,<br/>&nbsp;&nbsp;&nbsp;&nbsp;текстСекции: <TextInput value={previewSectionText} onChange={setPreviewSectionText} />,
-                <br/>&nbsp;&nbsp;{"}]}"}
-                <br/>/&gt;
+                <br />&nbsp;&nbsp;фоновыйЦвет={'{"'}
+                <TextInput value={previewBackgroundColor} onChange={setPreviewBackgroundColor} />{'"}'} <br />&nbsp;&nbsp;секции={"{[{"}<br />&nbsp;&nbsp;&nbsp;&nbsp;заголовокСекции: <TextInput value={previewSectionHeading} onChange={setPreviewSectionHeading} />,<br />&nbsp;&nbsp;&nbsp;&nbsp;текстСекции: <TextInput value={previewSectionText} onChange={setPreviewSectionText} />,
+                <br />&nbsp;&nbsp;{"}]}"}
+                <br />/&gt;
               </Box>
               <Box css={`border: 1px solid hsla(260, 100%, 50%, 5%); background-color: ${previewBackgroundColor}`}>
                 <Landing

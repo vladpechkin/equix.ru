@@ -18,7 +18,7 @@ export const Row: FC<any> = (props) => (
   <Box css="display: flex; gap: 2.5vw;" {...props} />
 );
 
-export const TextInput = ({ value, onChange }: { value: string, onChange: (value: string) => void }) => <input type="text" value={value} onChange={(e) => onChange(e.target.value)} style={cssToStyle("display: inline; width: 600px; border: none; border-bottom: 1px solid #5500ff; background: transparent; color: inherit; font-family: inherit; font-size: inherit;")} />
+export const TextInput = ({ value, onChange }: { value: string, onChange: (value: string) => void }) => <input type="text" value={value} onChange={(e) => onChange(e.target.value)} style={cssToStyle("display: inline; width: 400px; border: none; border-bottom: 1px solid #5500ff; background: transparent; color: inherit; font-family: inherit; font-size: inherit;")} />
 
 // NEWCODE
 
