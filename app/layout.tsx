@@ -1,8 +1,14 @@
 import { Inter } from "next/font/google";
-import "./equix/style.css"
-import { Box } from "./equix/components";
+import "./globals.css";
+import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "EQUIX — Не утруждайтесь созданием интерфейсов приложений.",
+  description:
+    "Дизайн-система для быстрого и легкого создания дизайна и превращения его в рабочий сайт, мобильное или десктопное приложение.",
+};
 
 export default function RootLayout({
   children,
@@ -10,8 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <Box as="body" className={inter.className} css="background: hsl(260, 100%, 90%); color: hsl(260, 100%, 20%);">{children}</Box>
+    <html lang="ru">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      />
+      <body className={`${inter.className}`}>{children}</body>
     </html>
   );
 }
