@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { InputProps, InputBase } from "./Base";
 import { Box } from "../Box";
-import { Icon } from "..";
+import { Icon } from "../Icon";
 
 export interface TextProps extends InputProps {
   value: string;

@@ -17,10 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-      />
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+        />
+      </head>
       <body className={`${inter.className}`}>{children}</body>
     </html>
   );

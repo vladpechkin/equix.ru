@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { InputBase } from "./Base";
 import { TextProps } from "./Text";
-import { Icon } from "..";
 import { Box } from "../Box";
+import { Icon } from "../Icon";
 
 export interface DateProps extends TextProps {
   dateOptions?: Intl.DateTimeFormatOptions;
@@ -13,7 +13,6 @@ export const DateInput: FC<DateProps> = ({
   label,
   value,
   onChange,
-  dateOptions,
   inline,
 }) => {
   return (

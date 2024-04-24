@@ -15,6 +15,7 @@ import { Route } from "../types";
 import { LandingSection } from "./LandingSection";
 import config from "./config";
 import { Section } from "./types";
+import ErrorPageProvider from "../components/ErrorPageProvider";
 
 interface Props {
   sections?: Section[];
@@ -27,48 +28,50 @@ export const LandingLayout: FC<Props> = (props) => {
   const { className, sections, children, sidebarRoutes } = props;
   const { logo, routes, siteName } = config;
   return (
-    <DarkThemeProvider>
-      <div
-        className={`dark:bg-dark dark:text-light bg-light text-dark min-h-screen flex flex-col items-center  
+    <ErrorPageProvider>
+      <DarkThemeProvider>
+        <div
+          className={`dark:bg-dark dark:text-light bg-light text-dark min-h-screen flex flex-col items-center  
       ${className || ""}`}
-      >
-        <Header
-          logo={logo}
-          routes={
-            routes ||
-            sections?.map(
-              ({ heading }) =>
-                heading && {
-                  href: `#${heading.replaceAll(" ", "_")}`,
-                  label: heading,
-                }
-            )
-          }
-        />
-        <div className="flex grow max-w-[944px] w-full">
-          {sidebarRoutes && <Sidebar routes={sidebarRoutes} />}
-          <View as="main" className="items-center gap">
-            <Col className="w-full h-full p gap-8">
-              {children}
-              {sections?.map((section, index) => (
-                <LandingSection {...section} key={index} />
-              ))}
-            </Col>
-          </View>
+        >
+          <Header
+            logo={logo}
+            routes={
+              routes ||
+              sections?.map(
+                ({ heading }) =>
+                  heading && {
+                    href: `#${heading.replaceAll(" ", "_")}`,
+                    label: heading,
+                  }
+              )
+            }
+          />
+          <div className="flex grow max-w-[944px] w-full">
+            {sidebarRoutes && <Sidebar routes={sidebarRoutes} />}
+            <View as="main" className="items-center">
+              <Col className="w-full h-full p">
+                {children}
+                {sections?.map((section, index) => (
+                  <LandingSection {...section} key={index} />
+                ))}
+              </Col>
+            </View>
+          </div>
+          <Bar as="footer" className="justify-between" position="bottom">
+            <div>
+              © {new Date().getFullYear()} {siteName}
+            </div>
+            <div>
+              Создано с помощью{" "}
+              <Box as="a" isInline href="https://equix.ru">
+                EQUIX/Лендинг
+              </Box>
+            </div>
+            <DarkThemeToggle />
+          </Bar>
         </div>
-        <Bar as="footer" className="justify-between" position="bottom">
-          <div>
-            © {new Date().getFullYear()} {siteName}
-          </div>
-          <div>
-            Создано с помощью{" "}
-            <Box as="a" isinline href="https://equix.ru">
-              EQUIX/Лендинг
-            </Box>
-          </div>
-          <DarkThemeToggle />
-        </Bar>
-      </div>
-    </DarkThemeProvider>
+      </DarkThemeProvider>
+    </ErrorPageProvider>
   );
 };

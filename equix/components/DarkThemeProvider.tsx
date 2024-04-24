@@ -11,7 +11,6 @@ export const DarkThemeProvider: FC<Props> = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const isDarkThemeSelected = localStorage.getItem("dark-theme");
-    console.log(isDarkThemeSelected);
     if (
       isDarkThemeSelected === "true" ||
       (isDarkThemeSelected === null &&
@@ -28,11 +27,21 @@ export const DarkThemeProvider: FC<Props> = (props) => {
 };
 
 export const DarkThemeToggle = () => {
-  const isDarkThemeSelected = localStorage.getItem("dark-theme");
+  const storedValue = localStorage.getItem("dark-theme");
+  const [isDarkThemeSelected, setIsDarkThemeSelected] = useState(
+    storedValue === "true"
+  );
+
   return (
     <Box
       onClick={() => {
+        if (isDarkThemeSelected) {
+          document.body.classList.remove("dark");
+        } else {
+          document.body.classList.add("dark");
+        }
         localStorage.setItem("dark-theme", `${!isDarkThemeSelected}`);
+        setIsDarkThemeSelected(!isDarkThemeSelected);
       }}
     >
       {isDarkThemeSelected ? "Светлая тема" : "Темная тема"}

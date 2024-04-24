@@ -1,20 +1,18 @@
-import { Row, Col } from "../components";
-import { Box } from "../components/Box";
-import config from "./config";
-import { Card } from "../components/Card";
+import { Col, Row } from "../components";
 import { H1 } from "../components/Heading";
+import config from "./config";
 
 export const HeroSection = () => {
-  const { heroImageSrc, title, description, heading } = config;
+  const { heroImageSrc, title, description, heading, action } = config;
   return (
-    <Row>
+    <Row className="justify-center items-enter py-12">
       <Col className="w-full justify-center">
         <H1>{heading}</H1>
         <p>{description}</p>
-        <Box className="bg-accent text-light h-auto">Попробовать</Box>
+        {action}
       </Col>
       <img
-        className="object-cover rounded max-w-[460px] w-full min-w-0"
+        className="object-cover rounded max-w-[460px] w-full min-w-0 h-auto"
         src={heroImageSrc}
         alt={title}
       />

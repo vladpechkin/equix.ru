@@ -7,6 +7,7 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./equix/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  plugins: [require("@tailwindcss/typography")],
   darkMode: "class",
   theme: {
     extend: {
@@ -27,5 +28,4 @@ module.exports = {
       },
     },
   },
-  plugins: [],
 };

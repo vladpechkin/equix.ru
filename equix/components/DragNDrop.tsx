@@ -1,10 +1,25 @@
+import Link from "next/link";
+import { FC } from "react";
 import {
   DragDropContext,
   Droppable,
   OnDragEndResponder,
 } from "react-beautiful-dnd";
+import { capitalize } from "../utils";
 
-export const DragNDropZone = () => {
+type Item = {
+  id?: number;
+} & {
+  [key: string]: string | number | boolean;
+};
+
+interface Props {
+  items: Item[];
+  setItems: (items: Item[]) => void;
+}
+
+export const DragNDropZone: FC<Props> = (props) => {
+  const { items, setItems } = props;
   const handleDragEnd: OnDragEndResponder = ({ destination, source }) => {
     if (!destination) return;
     if (
@@ -13,73 +28,63 @@ export const DragNDropZone = () => {
     )
       return;
 
-    setOrders(
-      // @ts-ignore
-      orders.map((x) =>
-        // @ts-ignore
-        x.id === source.index ? { ...x, status: destination.droppableId } : x
+    setItems(
+      items.map((item) =>
+        item.id === source.index
+          ? { ...item, status: destination.droppableId }
+          : item
       )
     );
 
-    let targetOrder = orders.find(({ id }) => id === source.index);
-    if (targetOrder) {
-      // @ts-ignore
-      targetOrder.state = destination.droppableId;
-      // @ts-ignore
-      submitEntity("Orders", targetOrder, targetOrder.id);
+    let targetItem = items.find(({ id }) => id === source.index);
+    if (targetItem) {
+      targetItem.state = destination.droppableId;
     }
   };
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      {states.map((state, index) => (
-        <Droppable droppableId={state} key={index}>
-          {(provided) => (
-            <div
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-              className="flex flex-col gap-2 p-2 w-full min-h-full border border-border rounded-lg"
-            >
-              <h2 className="font-semibold p-2">
-                {capitalize(state.toLowerCase()).replaceAll("_", " ")}
-              </h2>
-              {orders.map(
-                (order, index) =>
-                  // @ts-ignore
-                  order.state === state && (
-                    // <Draggable
-                    <div
-                      key={index}
-                      // draggableId={order.id.toString()}
-                      // index={order.id}
-                    >
-                      {/* {(provided) => ( */}
+      TODO
+      {/* <Droppable droppableId={state} key={index}>
+        {(provided) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className="flex flex-col gap-2 p-2 w-full min-h-full border border-border rounded-lg"
+          >
+            <h2 className="font-semibold p-2">
+              {capitalize(state.toLowerCase()).replaceAll("_", " ")}
+            </h2>
+            {items.map(
+              (item, index) =>
+                item.state === state && (
+                  <Draggable
+                    key={index}
+                    draggableId={order.id.toString()}
+                    index={order.id}
+                  >
+                    {(provided) => (
                       <Link
                         ref={provided.innerRef}
-                        // {...provided.draggableProps}
-                        // {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
                         className="flex flex-col gap-2 text-accent rounded-lg border border-border p-2"
-                        // @ts-ignore
-                        href={`/orders/${order.id}`}
+                        href={`/orders/${item.id}`}
                       >
-                        {/* @ts-ignore */}
-                        <span>Order {order.number}</span>
+                        <span>Order {item.number}</span>
                         <span>
-                          {new Date(
-                            // @ts-ignore
-                            order.createdAt as string
-                          ).toLocaleString("ru")}
+                          {new Date(item.createdAt as string).toLocaleString(
+                            "ru"
+                          )}
                         </span>
                       </Link>
-                      {/* )} */}
-                      {/* </Draggable> */}
-                    </div>
-                  )
-              )}
-            </div>
-          )}
-        </Droppable>
-      ))}
+                    )}
+                  </Draggable>
+                )
+            )}
+          </div>
+        )}
+      </Droppable> */}
     </DragDropContext>
   );
 };

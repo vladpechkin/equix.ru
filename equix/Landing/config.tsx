@@ -8,6 +8,11 @@ export default {
   logo: (
     <Box className="text-accent font-thin tracking-[8px] text-4xl">EQUIX</Box>
   ),
+  action: (
+    <Box href="/overview" className="bg-accent text-light h-auto">
+      Узнать больше
+    </Box>
+  ),
   routes: [
     { href: "/", label: "Главная" },
     { href: "/overview", label: "Обзор" },

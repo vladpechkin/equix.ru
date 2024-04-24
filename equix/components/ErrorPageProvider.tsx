@@ -23,7 +23,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
   }
 
   public render() {
-    if (this.state.hasError) {
+    if (this.state.hasError || !this.props.children) {
       return <ErrorPage />;
     }
 

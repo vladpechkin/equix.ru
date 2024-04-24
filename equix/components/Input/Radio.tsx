@@ -3,9 +3,9 @@ import { Input } from ".";
 import { Dialog } from "../Dialog";
 import { InputProps, InputBase } from "./Base";
 import { InputOption } from "@/equix/types";
-import { Icon } from "..";
 import { capitalize } from "@/equix/utils";
 import { Box } from "../Box";
+import { Icon } from "../Icon";
 
 type OnChange = (value: InputOption) => void;
 

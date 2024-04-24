@@ -1,9 +1,11 @@
 "use client";
 import { HeroSection } from "@/equix/Landing/HeroSection";
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
-import { Card } from "@/equix/components/Card";
+import { Card } from "@/equix/components/Box";
 import { Row } from "@/equix/components";
 import { H3 } from "@/equix/components/Heading";
+import { Box } from "@/equix/components/Box";
+import Image from "next/image";
 
 const Page = () => {
   return (
@@ -22,11 +24,11 @@ const Page = () => {
               </Card>
               <Card>
                 <H3>Универсальность</H3>
-                <div>
+                <p>
                   EQUIX включает в себя решения для всех основных типов
                   приложений - Сайт (Лендинг), Интернет-магазин, Новостной
                   портал (Блог), СУБД.
-                </div>
+                </p>
               </Card>
               <Card>
                 <H3>Производительность</H3>
@@ -52,10 +54,39 @@ const Page = () => {
         {
           heading: "Наши ресурсы",
           children: (
-            <Row>
-              <Card>Figma</Card>
-              <Card>NPM</Card>
-              <Card>GitHub</Card>
+            <Row className="w-full">
+              {[
+                {
+                  label: "Figma",
+                  href: "https://www.figma.com/file/npn6mOk53B6pBNRnTUgB7P/EQUIX?type=design&mode=design&t=JwiI541x0rVd0W9P-1",
+                  src: "figma.svg",
+                },
+                {
+                  label: "Node Package Manager",
+                  href: "https://www.npmjs.com/package/equix",
+                  src: "npm.svg",
+                },
+                {
+                  label: "GitHub",
+                  href: "https://github.com/vladpechkin/equix.git",
+                  src: "/github.png",
+                },
+              ].map(({ label, href, src }, index) => (
+                <Box
+                  className="p-4 border-border border items-center font-semibold gap-4 w-full"
+                  href={href}
+                  key={index}
+                >
+                  <Image
+                    src={src}
+                    height={60}
+                    width={60}
+                    alt=""
+                    className="w-[60px] h-[60px]"
+                  />
+                  {label}
+                </Box>
+              ))}
             </Row>
           ),
         },

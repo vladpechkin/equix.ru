@@ -1,25 +1,19 @@
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
-import { Box } from "@/equix/components/Box";
-import { Card } from "@/equix/components/Card";
-import { Sidebar } from "@/equix/components/Sidebar";
-import { Col, Row } from "@/equix/components";
+import { getAllMarkdownFiles } from "@/lib/api";
 import { ReactNode } from "react";
 
-const Layout = ({ children }: { children: ReactNode }) => (
-  <LandingLayout
-    sidebarRoutes={[
-      {
-        href: "/docs",
-        label: "Начало работы",
-      },
-      {
-        href: "/docs/css",
-        label: "Варианты написания стилей",
-      },
-    ]}
-  >
-    {children}
-  </LandingLayout>
-);
+const Layout = async ({ children }: { children: ReactNode }) => {
+  const posts = await getAllMarkdownFiles();
+  return (
+    <LandingLayout
+      sidebarRoutes={posts.map((post) => ({
+        href: post.realId,
+        label: post.title,
+      }))}
+    >
+      {children}
+    </LandingLayout>
+  );
+};
 
 export default Layout;

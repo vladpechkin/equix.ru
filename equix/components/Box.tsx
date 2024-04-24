@@ -9,7 +9,7 @@ interface Props {
   isStrictHref?: boolean;
   isDimmed?: boolean;
   isDisabled?: boolean;
-  isinline?: boolean;
+  isInline?: boolean;
   onClick?: () => void;
   id?: string;
   className?: string;
@@ -24,9 +24,10 @@ export const Box: FC<Props> = (props) => {
     isDisabled,
     isDimmed = false,
     onClick,
-    isinline: isInline,
+    isInline,
     className,
     children,
+    id,
     as,
   } = props;
   const pathname = usePathname();
@@ -82,10 +83,19 @@ export const Box: FC<Props> = (props) => {
 
   return (
     <Element
-      {...props}
+      onClick={onClick}
+      id={id}
+      children={children}
       href={href as string}
       className={getClassName()}
       target={href?.includes(":") ? "_blank" : undefined}
     />
   );
 };
+
+export const Card: FC<Props> = (props) => (
+  <Box
+    {...props}
+    className={`flex-col p-4 border border-border max-w-[460px] ${props.className}`}
+  ></Box>
+);

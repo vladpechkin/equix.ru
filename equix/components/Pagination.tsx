@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { Icon, Row } from ".";
+import { Row } from ".";
 import { Box } from "./Box";
+import { Icon } from "./Icon";
 
 interface Props {
   limit?: number;

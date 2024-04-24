@@ -1,6 +1,6 @@
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
 import { Box } from "@/equix/components/Box";
-import { Card } from "@/equix/components/Card";
+import { Card } from "@/equix/components/Box";
 
 const Page = () => (
   <LandingLayout
@@ -24,7 +24,7 @@ const Page = () => (
               Поскольку существует риск ухода зарубежных компаний из России и
               наложения ими запрета на использование в России их продуктов, при
               разработке графических интерфейсов опираться приходится на{" "}
-              <Box as="a" isinline href="http://designsystemsclub.ru/">
+              <Box as="a" href="http://designsystemsclub.ru/" isInline>
                 отечественные наработки
               </Box>
               , но ни одна из них не предлагает решения, покрывающего все этапы
