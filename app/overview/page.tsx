@@ -8,22 +8,19 @@ const Page = () => (
     <H2>Компоненты</H2>
     <p className="max-w-[615px]">
       Ниже вы можете видеть все компоненты EQUIX - составные части, из которых
-      создаются приложения. Большая их часть применима к приложениям любой
-      направленности, но некоторые являются частью продуктов (например,
-      EQUIX/Данные) и предназначены для использования в приложениях
-      соответствующей тематики.
+      создаются приложения.
     </p>
     <Row className="flex-wrap w-full">
       {[
+        "Box",
         "Input",
         "Bar",
-        "Box",
-        "Header",
+        "Dialog",
+        "Icon",
         "Img",
-        "Map",
-        "Sidebar",
+        // "Map",
         "Textarea",
-        "Video",
+        // "Video",
         "View",
       ].map((component, index) => (
         <Card key={index} href={`/components/${component}`}>

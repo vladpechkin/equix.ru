@@ -1,4 +1,6 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Box } from "./Box";
 import { Row, Col } from ".";
 import { Icon } from "./Icon";
@@ -7,12 +9,12 @@ export const ErrorPage = () => {
   const router = useRouter();
 
   return (
-    <Col className="items-center justify-center">
+    <Col className="items-center justify-center h-screen">
       <h2 className="font-semibold p-2">
         Something went wrong. The page may have been moved or deleted.
       </h2>
       <Row className="flex-wrap">
-        <Box onClick={() => router.reload()}>
+        <Box onClick={() => router.refresh()}>
           <Icon name="arrow-clockwise" />
           Reload page
         </Box>
