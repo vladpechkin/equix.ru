@@ -18,9 +18,9 @@ const Page = () => (
         "Dialog",
         "Icon",
         "Img",
-        // "Map",
+        "Map",
         "Textarea",
-        // "Video",
+        "Video",
         "View",
       ].map((component, index) => (
         <Card key={index} href={`/components/${component}`}>

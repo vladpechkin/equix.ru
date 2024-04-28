@@ -1,3 +1,5 @@
+"use client";
+
 import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
 import { FC } from "react";
 
@@ -17,12 +19,14 @@ interface Props {
   zoom?: number;
   center?: Coordinates;
   markers?: Marker[];
+  apiKey: string;
+  className?: string;
 }
 
 export const Map: FC<Props> = (props) => {
-  const { markers } = props;
+  const { markers, apiKey } = props;
   return (
-    <LoadScript googleMapsApiKey="AIzaSyDM4qydoo3er32dypIu4QbW88snBUFM998">
+    <LoadScript googleMapsApiKey={apiKey}>
       <GoogleMap
         {...props}
         options={{
