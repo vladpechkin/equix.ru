@@ -13,19 +13,35 @@ import { View } from "../components/View";
 import { Col } from "../components";
 import { Route } from "../types";
 import { LandingSection } from "./LandingSection";
-import config from "./config";
+import defaultConfig from "./config";
 import { Section } from "./types";
 import ErrorPageProvider from "../components/ErrorPageProvider";
 
-interface Props {
+export interface LandingLayoutProps {
   sections?: Section[];
   className?: string;
   children?: ReactNode;
   sidebarRoutes?: Route[];
+  config?: Partial<{
+    title: string;
+    heading: string;
+    description: string;
+    logo: ReactNode;
+    action: string;
+    routes: Route[];
+    hero: ReactNode;
+    siteName: string;
+  }>;
 }
 
-export const LandingLayout: FC<Props> = (props) => {
-  const { className, sections, children, sidebarRoutes } = props;
+export const LandingLayout: FC<LandingLayoutProps> = (props) => {
+  const {
+    className,
+    sections,
+    children,
+    sidebarRoutes,
+    config = defaultConfig,
+  } = props;
   const { logo, routes, siteName } = config;
   return (
     <ErrorPageProvider>
@@ -38,18 +54,18 @@ export const LandingLayout: FC<Props> = (props) => {
             logo={logo}
             routes={
               routes ||
-              sections?.map(
+              (sections?.map(
                 ({ heading }) =>
                   heading && {
                     href: `#${heading.replaceAll(" ", "_")}`,
                     label: heading,
                   }
-              )
+              ) as Route[])
             }
           />
           <div className="flex grow max-w-[944px] w-full">
             {sidebarRoutes && <Sidebar routes={sidebarRoutes} />}
-            <View as="main" className="items-center">
+            <View as="main" className="items-center w-full">
               <Col className="w-full h-full p">
                 {children}
                 {sections?.map((section, index) => (

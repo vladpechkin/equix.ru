@@ -7,7 +7,7 @@ import { Route } from "../types";
 
 interface Props {
   logo: ReactNode;
-  routes: Route[];
+  routes?: Route[];
   children?: ReactNode;
 }
 

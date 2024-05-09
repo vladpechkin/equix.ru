@@ -20,6 +20,6 @@ export default {
     { href: "/docs", label: "Документация" },
     { href: "/about", label: "О стартапе" },
   ],
-  heroImageSrc: "/intro.png",
+  hero: <img className="object-cover" src="intro.png" alt="" />,
   siteName: "ООО Эквикс",
 };

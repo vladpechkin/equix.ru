@@ -1,6 +1,5 @@
 "use client";
-import { HeroSection } from "@/equix/Landing/HeroSection";
-import { LandingLayout } from "@/equix/Landing/LandingLayout";
+import { LandingPage } from "@/equix/Landing/LandingPage";
 import { Card } from "@/equix/components/Box";
 import { Row } from "@/equix/components";
 import { H3 } from "@/equix/components/Heading";
@@ -9,7 +8,7 @@ import Image from "next/image";
 
 const Page = () => {
   return (
-    <LandingLayout
+    <LandingPage
       sections={[
         {
           heading: "Наши преимущества",
@@ -153,9 +152,7 @@ const Page = () => {
           ),
         },
       ]}
-    >
-      <HeroSection />
-    </LandingLayout>
+    />
   );
 };
 
