@@ -36,7 +36,7 @@ export const TextInput: FC<TextProps> = ({
       {type === "search" && (
         <Box onClick={onClick}>
           <Icon name="search" />
-          Search
+          Поиск
         </Box>
       )}
     </div>

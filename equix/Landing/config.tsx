@@ -1,4 +1,6 @@
+import { Col } from "../components";
 import { Box } from "../components/Box";
+import { Input } from "../components/Input";
 
 export default {
   title: "EQUIX — Не утруждайтесь созданием интерфейсов приложений.",
@@ -20,6 +22,31 @@ export default {
     { href: "/docs", label: "Документация" },
     { href: "/about", label: "О стартапе" },
   ],
-  hero: <img className="object-cover" src="intro.png" alt="" />,
+  hero: (
+    <Col className="bg-border rounded p">
+      <Input
+        type="search"
+        value=""
+        onChange={() => {}}
+        placeholder="Что ищем?"
+      />
+      <Box className="bg-accent text-light" onClick={() => {}}>
+        Скрыть опции
+      </Box>
+      <menu className="border border-border rounded overflow-hidden">
+        <Box onClick={() => {}}>Показать открытые папки</Box>
+        <Box onClick={() => {}}>Закрыть все</Box>
+        <Box onClick={() => {}}>Закрыть сохраненные файлы</Box>
+      </menu>
+      <Input
+        type="radio"
+        options={[
+          { id: "0", name: "Соглашаюсь с политикой конфиденциальности" },
+        ]}
+        value={{ id: "0", name: "Соглашаюсь с политикой конфиденциальности" }}
+        onChange={() => {}}
+      />
+    </Col>
+  ),
   siteName: "ООО Эквикс",
 };
