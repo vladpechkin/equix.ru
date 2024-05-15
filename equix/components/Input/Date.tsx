@@ -9,12 +9,14 @@ export interface DateProps extends TextProps {
   inline?: boolean;
 }
 
-export const DateInput: FC<DateProps> = ({
-  label,
-  value,
-  onChange,
-  inline,
-}) => {
+export const DateInput: FC<DateProps> = (props) => {
+  const {
+    label,
+    value,
+    onChange,
+    inline,
+  } = props;
+  
   return (
     <InputBase
       className={`relative ${inline ? "flex items-center gap-1" : ""}`}

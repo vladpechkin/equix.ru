@@ -12,16 +12,18 @@ export interface CheckboxProps extends Omit<RadioProps, "value" | "onChange"> {
   onChange: (value: InputOption[]) => void;
 }
 
-export const Checkbox: FC<CheckboxProps> = ({
-  label,
-  minOptions = 0,
-  maxOptions,
-  options,
-  value = [],
-  onChange,
-  className,
-  isCollapsed = false,
-}) => {
+export const Checkbox: FC<CheckboxProps> = (props) => {
+  const {
+    label,
+    minOptions = 0,
+    maxOptions,
+    options,
+    value = [],
+    onChange,
+    className,
+    isCollapsed = false,
+  } = props;
+
   const handleChange = (option: InputOption) => {
     if (maxOptions && value.length === maxOptions) return;
 

@@ -26,14 +26,15 @@ interface InputBaseProps {
   label?: string;
 }
 
-export const InputBase: FC<InputBaseProps> = ({
-  as = "label",
-  className,
-  children,
-  errorMessage,
-  label,
-  isRequired,
-}) => {
+export const InputBase: FC<InputBaseProps> = (props) => {
+  const {
+    as = "label",
+    className,
+    children,
+    errorMessage,
+    label,
+    isRequired,
+  } = props;
   const Element = as;
   return (
     <Element className={`max-w-screen-sm ${className || ""}`}>
