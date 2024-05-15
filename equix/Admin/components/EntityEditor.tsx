@@ -1,22 +1,10 @@
-import { useRouter } from "next/router";
+import { capitalize, fetchApi, getEntityTemplate } from "@/equix/utils";
 import { FC, useEffect, useState } from "react";
-import { Row } from "../../components";
 import config from "../config.json";
-import { Box } from "../../components/Box";
+import { EntityEditorEntries } from "./EntityEditorEntries";
 import { EntityEditorHeader } from "./EntityEditorHeader";
-import { Input } from "../../components/Input";
-import { InputOption } from "@/equix/types";
-import {
-  getEntityTemplate,
-  getKeyType,
-  capitalize,
-  renderValue,
-  fetchApi,
-  getInputType,
-  getOptions,
-  getAdditionalEntitiesEndpoints,
-  getEntityEntries,
-} from "@/equix/utils";
+import { EntityEditorLinks } from "./EntityEditorLinks";
+import { Entity } from "@/equix/types";
 
 interface Props {
   entitiesName: string;
@@ -32,177 +20,16 @@ export const EntityEditor: FC<Props> = ({
   const [initialEntity, setInitialEntity] = useState<Object>(
     getEntityTemplate(entitiesName)
   );
-  const [changedEntity, setChangedEntity] = useState<Object>(
+  const [changedEntity, setChangedEntity] = useState<Entity>(
     getEntityTemplate(entitiesName)
   );
   const [innerEntityIdEntries, setInnerEntityIdEntries] = useState<
-    [key: string, value: any][]
+    [key: string, value: string | number | boolean][]
   >([]);
-  const [additionalEntries, setAdditionalEntries] = useState([]);
-  let changedObject: Object = {};
-  const [newCashBalance, setNewCashBalance] = useState("");
-  const [newCardBalance, setNewCardBalance] = useState("");
   const [fleetIds, setFleetIds] = useState("");
-  const router = useRouter();
-
-  const getChangedValue = (
-    changedOption: InputOption,
-    key: string,
-    value: any
-  ) => {
-    if (changedOption?.name) {
-      return changedOption?.name;
-    } else {
-      if (getKeyType(entitiesName, key) === "string[]") {
-        return value?.replaceAll(", ", ",").split(",");
-      } else return value;
-    }
-  };
-
-  const renderObject = (label: string, object: Object) => (
-    <Box className="flex-col border mb-4 gap-0">
-      <label className="font-semibold">{capitalize(label)}</label>
-      {Object.entries(object).map(([key, value], index) => (
-        <div key={index}>
-          {capitalize(key)}: {renderValue(key, value)}
-        </div>
-      ))}
-      {label === "cash" && (
-        <div>
-          <Input
-            label="Withdraw"
-            type="text"
-            value={newCashBalance}
-            onChange={setNewCashBalance}
-          />
-          <Box
-            onClick={() => {
-              fetchApi("driverTransactions", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  paymentMethod: "CASH",
-                  type: "WRITE_OFF",
-                  destination: "BALANCE",
-                  amount: parseInt(newCashBalance) * 100,
-                  driverId: entityId,
-                }),
-              }).then(() => {
-                setNewCashBalance("");
-                router.reload();
-              });
-            }}
-          >
-            Save
-          </Box>
-        </div>
-      )}
-      {label === "card" && (
-        <div>
-          <Input
-            label="Withdraw"
-            type="text"
-            value={newCardBalance}
-            onChange={setNewCardBalance}
-          />
-          <Box
-            onClick={() => {
-              fetchApi("driverTransactions", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  paymentMethod: "CARD",
-                  type: "DEBIT",
-                  destination: "BALANCE",
-                  amount: parseInt(newCardBalance) * 100,
-                  driverId: entityId,
-                }),
-              }).then(() => {
-                setNewCardBalance("");
-                router.reload();
-              });
-            }}
-          >
-            Save
-          </Box>
-        </div>
-      )}
-    </Box>
-  );
-
-  const renderEntry = (entry: [string, any]) => {
-    const [key, value] = entry;
-    if (key.includes("Id")) return;
-    if (value) {
-      if (Array.isArray(value) && key !== "carModels") {
-        if (typeof value[0] === "object") {
-          return value.map((object: any, index) =>
-            renderObject(`${key.slice(0, -1)} ${index + 1}`, object)
-          );
-        } else
-          return (
-            <Box className="border mb-4 gap-0">
-              {capitalize(key)}: {value.toString()}
-            </Box>
-          );
-      }
-      if (typeof value === "object" && key !== "carModels") {
-        return renderObject(key, value);
-      }
-    }
-    return (
-      <div className="mb-4">
-        <Input
-          key={key}
-          label={
-            // @ts-ignore
-            config.renamed_fields[key] ||
-            capitalize(key).replace(/([a-z])([A-Z])/g, "$1 $2")
-          }
-          type={getInputType(entitiesName, key, value)}
-          value={
-            getInputType(entitiesName, key, value) === "date"
-              ? (changedEntity as any)[key]
-              : key.toLowerCase().includes("fee")
-              ? `${value * 100}%`
-              : key === "cashLimit" || key === "price"
-              ? value / 100
-              : getInputType(entitiesName, key, value) === "radio"
-              ? getOptions(entitiesName, key).find(
-                  (option) => option.name === (changedEntity as any)[key]
-                )
-              : parseInt(value)
-              ? String(Math.round((changedEntity as any)[key] * 10) / 10)
-              : value === null
-              ? ""
-              : (changedEntity as any)[key]
-          }
-          isCollapsed
-          onChange={(value: any) => {
-            const changedOption = getOptions(entitiesName, key).find(
-              (option) => option.id === value.id
-            );
-
-            // @ts-ignore
-            changedObject[key] = getChangedValue(changedOption, key, value);
-            setChangedEntity((prevState: any) => ({
-              ...prevState,
-              ...changedObject,
-            }));
-          }}
-          options={
-            getInputType(entitiesName, key, value) === "radio"
-              ? getOptions(entitiesName, key)
-              : undefined
-          }
-        />
-      </div>
-    );
-  };
+  const [additionalEntries, setAdditionalEntries] = useState<
+    [string, unknown][]
+  >([]);
 
   useEffect(() => {
     if (entityId !== "new") {
@@ -210,10 +37,10 @@ export const EntityEditor: FC<Props> = ({
         .then((res) => res.json())
         .then((res) => {
           let entity = res.data;
+          type EntityName = keyof typeof config.additional_entity_endpoints;
           const additionalEntityEndpoints =
-            // @ts-ignore
             config.additional_entity_endpoints[
-              capitalize(entitiesName as string)
+              capitalize(entitiesName) as EntityName
             ];
 
           if (additionalEntityEndpoints) {
@@ -227,16 +54,17 @@ export const EntityEditor: FC<Props> = ({
               )
                 .then((res) => res.json())
                 .then((res) => {
-                  // @ts-ignore
                   setAdditionalEntries(Object.entries(res.data));
                 })
             );
           }
 
           if (setInnerEntityIdEntries) {
+            type EntityName = keyof typeof config.entities;
             const configKeys = Object.keys(
-              // @ts-ignore
-              config.entities[capitalize(entitiesName.slice(0, -1))]
+              config.entities[
+                capitalize(entitiesName.slice(0, -1)) as EntityName
+              ]
             );
             const entries: [key: string, value: any][] = [];
             configKeys.map(
@@ -268,70 +96,21 @@ export const EntityEditor: FC<Props> = ({
         changedEntity={changedEntity}
         initialEntity={initialEntity}
       />
-      <div className="flex">
-        {getAdditionalEntitiesEndpoints(entitiesName as string)?.map(
-          (endpoint: string, index: number) => (
-            <a
-              className="p-2 text-blue-700"
-              href={`/${endpoint}=${entityId}`}
-              key={index}
-            >
-              {capitalize(endpoint.split("?")[0])}
-            </a>
-          )
-        )}
-        {innerEntityIdEntries?.map(([key, value], index) => {
-          const entityName = key.replace("Id", "s").replace("ss", "s");
-          return (
-            <a
-              className="p-2 text-blue-700"
-              key={index}
-              href={`/${entityName}/${value || "new"}`}
-            >
-              {capitalize(entityName.slice(0, -1))}
-            </a>
-          );
-        })}
-      </div>
-      <div className="columns-2 gap-4">
-        {initialEntity &&
-          entitiesName &&
-          getEntityEntries(initialEntity, entitiesName as string)?.map(
-            renderEntry
-          )}
-        {additionalEntries?.map(renderEntry)}
-        {entitiesName === "drivers" && (
-          <Row>
-            <div>
-              <Input
-                label="Fleet ids"
-                type="text"
-                value={fleetIds}
-                onChange={setFleetIds}
-              />
-              <Box
-                onClick={() => {
-                  fetchApi(`drivers/${entityId}/fleets`, {
-                    method: "PATCH",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      fleets: fleetIds
-                        .replaceAll(" ", "")
-                        .split(",")
-                        .map((id) => parseInt(id)),
-                    }),
-                  });
-                  setFleetIds("");
-                }}
-              >
-                Save
-              </Box>
-            </div>
-          </Row>
-        )}
-      </div>
+      <EntityEditorLinks
+        entitiesName={entitiesName}
+        innerEntityIdEntries={innerEntityIdEntries}
+        entityId={entityId}
+      />
+      <EntityEditorEntries
+        changedEntity={changedEntity}
+        entitiesName={entitiesName}
+        entityId={entityId}
+        fleetIds={fleetIds}
+        initialEntity={initialEntity}
+        setChangedEntity={setChangedEntity}
+        setFleetIds={setFleetIds}
+        additionalEntries={additionalEntries}
+      />
     </div>
   ) : null;
 };

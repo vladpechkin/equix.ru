@@ -31,7 +31,6 @@ export const Radio: FC<RadioProps> = ({
   const handleChange = (option: InputOption) => {
     if (minOptions === 1 && value?.id === option.id) return;
 
-    // @ts-ignore
     (onChange as NullableOnChange)(
       value?.id === option.id
         ? options[0].name === "true"

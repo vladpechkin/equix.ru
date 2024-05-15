@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
+import { FC } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,11 +11,12 @@ export const metadata: Metadata = {
     "Дизайн-система для быстрого и легкого создания дизайна и превращения его в рабочий сайт, мобильное или десктопное приложение.",
 };
 
-export default function RootLayout({
-  children,
-}: {
+interface Props {
   children: React.ReactNode;
-}) {
+}
+
+const RootLayout: FC<Props> = (props) => {
+  const { children } = props;
   return (
     <html lang="ru">
       <head>
@@ -26,4 +28,6 @@ export default function RootLayout({
       <body className={`${inter.className}`}>{children}</body>
     </html>
   );
-}
+};
+
+export default RootLayout;

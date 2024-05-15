@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
+import { LandingPage } from "@/equix/Landing/LandingPage";
 import { Col, Row } from "@/equix/components";
 import { Box, Card } from "@/equix/components/Box";
 import { Input } from "@/equix/components/Input";
-import config from "@/equix/Landing/config";
-import { LandingPage } from "@/equix/Landing/LandingPage";
+import { useState } from "react";
 
 const Page = () => {
   const [previewTitle, setPreviewTitle] = useState(

@@ -1,18 +1,18 @@
 import config from "./Admin/config.json";
-import { InputOption } from "./types";
+import { Entity, InputOption } from "./types";
 
-export const areEntitiesEqual = (x: any, y: any): boolean => {
+export const areEntitiesEqual = (entity1: any, entity2: any): boolean => {
   const ok = Object.keys,
-    tx = typeof x,
-    ty = typeof y;
-  return x && y && tx === "object" && tx === ty
-    ? ok(x).length === ok(y).length &&
-        ok(x).every((key) => areEntitiesEqual(x[key], y[key]))
-    : x === y;
+    type1 = typeof entity1,
+    type2 = typeof entity2;
+  return entity1 && entity2 && type1 === "object" && type1 === type2
+    ? ok(entity1).length === ok(entity2).length &&
+        ok(entity1).every((key) => areEntitiesEqual(entity1[key], entity2[key]))
+    : entity1 === entity2;
 };
 
 export const getMonthLength = (month: number, year: number) => {
-  if (month === 2 && year % 4 == 0 && year % 100 != 0) return 29;
+  if (month === 2 && year % 4 === 0 && year % 100 !== 0) return 29;
   switch (month) {
     case 2:
       return 28;
@@ -36,8 +36,9 @@ export const toOptions = (arr: readonly string[]): InputOption[] =>
   }));
 
 export const getKeyType = (entitiesName: string, key: string) => {
-  // @ts-ignore
-  return config.entities[capitalize(entitiesName.slice(0, -1))][key];
+  type EntityName = keyof typeof config.entities;
+  const name = capitalize(entitiesName.slice(0, -1)) as EntityName;
+  return (config.entities[name] as any)[key];
 };
 
 export const getInputDate = (date: Date) =>
@@ -52,14 +53,19 @@ export const convertInputDateToIso = (string: string) => {
   return date.toISOString();
 };
 
-export const getEntityEntries = (initialEntity: Object, entitiesName: string) =>
-  initialEntity &&
-  Object.entries(initialEntity).filter(
+export const getNonHiddenEntityEntries = (
+  initialEntity: Object,
+  entitiesName: string
+) => {
+  type HiddenField = keyof typeof config.hidden_fields;
+  return Object.entries(initialEntity).filter(
     ([key]) =>
-      !config.hidden_fields.ALL.includes(key) &&
-      // @ts-ignore
-      !config.hidden_fields[entitiesName]?.includes(key)
+      !(
+        config.hidden_fields.ALL.includes(key) ||
+        config.hidden_fields[entitiesName as HiddenField]?.includes(key)
+      )
   );
+};
 
 export const getInputType = (entitiesName: string, key: string, value: any) => {
   const keyType = getKeyType(entitiesName, key);
@@ -80,20 +86,24 @@ export const getInputType = (entitiesName: string, key: string, value: any) => {
 };
 
 export const getOptions = (entitiesName: string, key: string) => {
+  type KeyEnum = keyof typeof config.enums;
   const keyEnum =
-    // @ts-ignore
-    config.enums[capitalize(key)] ||
-    // @ts-ignore
-    config.enums[capitalize(entitiesName.slice(0, -1)) + capitalize(key)];
+    config.enums[capitalize(key) as KeyEnum] ||
+    config.enums[
+      (capitalize(entitiesName.slice(0, -1)) + capitalize(key)) as KeyEnum
+    ];
   return keyEnum ? toOptions(Object.keys(keyEnum)) : toOptions(["true"]);
 };
 
 export const getEntityTemplate = (entitiesName: string) => {
-  // @ts-ignore
-  const entity = config?.entities[capitalize(entitiesName?.slice(0, -1))];
-  return entity
-    ? Object.fromEntries(Object.entries(entity)?.map(([key]) => [key, ""]))
-    : {};
+  type EntityName = keyof typeof config.entities;
+  const entity =
+    config?.entities[capitalize(entitiesName?.slice(0, -1)) as EntityName];
+  return (
+    entity
+      ? Object.fromEntries(Object.entries(entity)?.map(([key]) => [key, ""]))
+      : {}
+  ) as Entity;
 };
 
 const convertObjectEntriesToStrings = (object: Object) => {
@@ -121,9 +131,12 @@ export const getWeekAgo = () => {
   return date;
 };
 
-export const getAdditionalEntitiesEndpoints = (entitiesName: string) =>
-  // @ts-ignore
-  config.additional_entities_endpoints[capitalize(entitiesName as string)];
+export const getAdditionalEntitiesEndpoints = (entitiesName: string) => {
+  type EntityName = keyof typeof config.additional_entities_endpoints;
+  return config.additional_entities_endpoints[
+    capitalize(entitiesName as string) as EntityName
+  ];
+};
 
 export const renderValue = (key: string, value: any) => {
   if (value === null) return "";

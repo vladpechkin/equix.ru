@@ -31,13 +31,18 @@
       "frozenFee",
       "cashLimit"
     ],
-    "Orders": ["cancellationReason", "comment", "cancellationComment", "cancelledBy"]
+    "Orders": [
+      "cancellationReason",
+      "comment",
+      "cancellationComment",
+      "cancelledBy"
+    ]
   },
   "hidden_fields": {
     "ALL": ["updatedAt", "deleted"],
     "Fleets": ["createdAt"]
   },
-  "uneditable_fields":{
+  "uneditable_fields": {
     "ALL": ["createdAt"]
   },
   "additional_entity_endpoints": {
@@ -46,7 +51,11 @@
   },
   "additional_entities_endpoints": {
     "Clients": ["orders?clientId", "clientTransactions?clientId"],
-    "Drivers": ["orders?driverId", "driverTransactions?driverId", "fleets?driverId"],
+    "Drivers": [
+      "orders?driverId",
+      "driverTransactions?driverId",
+      "fleets?driverId"
+    ],
     "Orders": ["stops?orderId"]
   },
   "renamed_fields": {

@@ -1,12 +1,9 @@
-import { useRouter } from "next/router";
+import { Entity } from "@/equix/types";
+import { fetchApi } from "@/equix/utils";
 import { FC, useCallback, useEffect, useState } from "react";
-import config from "../config.json";
-import { Box } from "../../components/Box";
-import { Input } from "../../components/Input";
 import { Pagination } from "../../components/Pagination";
-import { Row } from "@/equix/components";
-import { Icon } from "@/equix/components/Icon";
-import { fetchApi, capitalize, renderValue } from "@/equix/utils";
+import { EntitiesEditorHeader } from "./EntitiesEditorHeader";
+import { EntitiesEditorTable } from "./EntitiesEditorTable";
 
 interface Props {
   entitiesName: string;
@@ -25,10 +22,8 @@ export const EntitiesEditor: FC<Props> = ({
     entitiesName = "drivers";
     entitiesEndpoint = `drivers?state=NEW`;
   }
-  const router = useRouter();
-  const [sortKey, setSortKey] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [entities, setEntities] = useState<Object[]>([]);
+  const [sortKey, setSortKey] = useState("");
+  const [entities, setEntities] = useState<Entity[]>([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState<number>();
 
@@ -60,98 +55,23 @@ export const EntitiesEditor: FC<Props> = ({
     [entities, sortKey]
   );
 
-  const getEntityEntries = useCallback(
-    (entity: Object) =>
-      Object.entries(entity).filter(
-        ([key]) =>
-          !(config.collapsed_fields.ALL as string[]).includes(key) &&
-          !config.hidden_fields.ALL.includes(key) &&
-          // @ts-ignore
-          !config.collapsed_fields[capitalize(entitiesName)]?.includes(key) &&
-          // @ts-ignore
-          !config.hidden_fields[capitalize(entitiesName)]?.includes(key)
-      ),
-    [entitiesName, entities]
-  );
-
   return (
     <div>
-      <Row className="items-center flex-wrap">
-        <h1 className="font-semibold p-2">
-          {title || capitalize(entitiesName).replaceAll("_", " ")}
-        </h1>
-        <Input
-          value={searchQuery}
-          onChange={setSearchQuery}
-          type="search"
-          placeholder="Enter search query"
-          autoFocus
-          onClick={() => {
-            if (entitiesEndpoint instanceof URL)
-              entitiesEndpoint.searchParams.set(
-                "search",
-                searchQuery.toLowerCase()
-              );
-            fetchEntities();
-          }}
-        />
-        <Box href={`/${entitiesName.toLowerCase()}/new`}>
-          <Icon name="plus-lg" />
-          Create new
-        </Box>
-      </Row>
+      <EntitiesEditorHeader
+        title={title}
+        entitiesName={entitiesName}
+        entitiesEndpoint={entitiesEndpoint}
+        fetchData={fetchEntities}
+      />
       {entities && entities[0] && getSortedEntities().length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              {getEntityEntries(entities[0]).map(([key], index) => (
-                <td
-                  key={index}
-                  className="p-2 font-semibold"
-                  onClick={() => setSortKey(key)}
-                >
-                  <span className="flex items-center gap-2">
-                    {capitalize(key).replace(/([a-z])([A-Z])/g, "$1 $2")}
-                    {sortKey === key && <i className="bi bi-sort-down-alt"></i>}
-                  </span>
-                </td>
-              ))}
-              <td className="p-2 font-semibold">Actions</td>
-            </tr>
-          </thead>
-          <tbody>
-            {getSortedEntities().map((entity, entityIndex) => (
-              <tr key={entityIndex}>
-                {getEntityEntries(entity).map(([key, value], index) => (
-                  <td key={index} className="p-2">
-                    <span className="w-full break-all line-clamp-1">
-                      {renderValue(key, value)}
-                    </span>
-                  </td>
-                ))}
-                <td className="p-0">
-                  <Box
-                    // @ts-ignore
-                    // href={`/${entitiesName.toLowerCase()}/${entity.id}`}
-                    onClick={() =>
-                      router
-                        .replace(
-                          entityEndpoint ||
-                            // @ts-ignore
-                            `/${entitiesName}/${entity.id}`
-                        )
-                        .then(() => router.reload())
-                    }
-                    className="p-0 h-auto"
-                  >
-                    <Icon name="pencil" />
-                    Edit
-                  </Box>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <EntitiesEditorTable
+          entities={entities}
+          entitiesName={entitiesName}
+          entityEndpoint={entityEndpoint}
+          getSortedEntities={getSortedEntities}
+          setSortKey={setSortKey}
+          sortKey={sortKey}
+        />
       ) : (
         <tr className="h-full">
           <td colSpan={100} className="text-gray-400 text-center h-full">
@@ -163,6 +83,7 @@ export const EntitiesEditor: FC<Props> = ({
     </div>
   );
 };
+// Пример использования
 // <EntitiesEditor
 // entitiesName="drivers"
 // entitiesEndpoint={`drivers?state=MODERATION`}

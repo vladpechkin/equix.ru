@@ -1,8 +1,13 @@
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
 import { getAllMarkdownFiles } from "@/lib/api";
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 
-const Layout = async ({ children }: { children: ReactNode }) => {
+interface Props {
+  children: ReactNode;
+}
+
+const Layout: FC<Props> = async (props) => {
+  const { children } = props;
   const posts = await getAllMarkdownFiles();
   return (
     <LandingLayout
