@@ -6,6 +6,7 @@ import { InputOption } from "@/equix/types";
 import { capitalize } from "@/equix/utils";
 import { Box } from "../Box";
 import { Icon } from "../Icon";
+import { Option } from "./Option";
 
 type OnChange = (value: InputOption) => void;
 
@@ -19,15 +20,22 @@ export interface RadioProps extends InputProps {
   isCollapsed?: boolean;
 }
 
-export const Radio: FC<RadioProps> = ({
-  label,
-  minOptions = 0,
-  options,
-  value = null,
-  onChange,
-  className,
-  isCollapsed = false,
-}) => {
+export const Radio: FC<RadioProps> = (props) => {
+  const {
+    label,
+    minOptions = 0,
+    options,
+    value,
+    onChange,
+    className,
+    isCollapsed = false,
+  } = props;
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const isSwitch = options.length === 1;
+
   const handleChange = (option: InputOption) => {
     if (minOptions === 1 && value?.id === option.id) return;
 
@@ -42,39 +50,18 @@ export const Radio: FC<RadioProps> = ({
     if (isDialogOpen) setIsDialogOpen(false);
   };
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const isSwitch = options.length === 1;
-
-  const Option = ({ option }: { option: InputOption }) => (
-    <label
-      className={`flex gap-2 w-full ${isSwitch ? "" : "relative p-2"}`}
-      onClick={() => handleChange(option)}
-    >
-      <input
-        type="radio"
-        checked={value?.id === option.id}
-        onChange={() => {}}
-        className="w-full top-0 left-0 h-full absolute opacity-0"
-      />
-      <Icon
-        name={
-          value?.name === "true" || option.id === value?.id
-            ? "check-circle-fill"
-            : "circle"
-        }
-        className="text-accent"
-      />
-      {option.name !== "true" &&
-        capitalize(option.name.toLowerCase()).replaceAll("_", " ")}
-    </label>
-  );
-
   const renderOptions = (options: InputOption[]) => (
     <div className="flex flex-col">
       {options?.length > 0 ? (
-        options.map((option, index) => <Option option={option} key={index} />)
+        options.map((option, index) => (
+          <Option
+            option={option}
+            key={index}
+            handleChange={handleChange}
+            isSwitch={isSwitch}
+            value={value}
+          />
+        ))
       ) : (
         <span className="text-gray-400">Nothing found</span>
       )}

@@ -1,8 +1,7 @@
 import { FC } from "react";
-import { Bar } from "./Bar";
 import { Route } from "../types";
+import { Bar } from "./Bar";
 import { Box } from "./Box";
-import { Details } from "./Details";
 
 interface Props {
   routes: Route[];
@@ -14,15 +13,15 @@ export const Sidebar: FC<Props> = (props) => {
   const groups = [...new Set(routes.map((route) => route.group))].filter(
     (x) => !!x
   );
+
   return (
     <Bar position="left" className="w-[320px]">
-      {routes.map(
-        (route, index) =>
-          !route.group && (
-            <Box isStrictHref key={index} {...route}>
-              {route.label || route.href}
-            </Box>
-          )
+      {routes.map((route, index) =>
+        !route.group ? (
+          <Box isStrictHref key={index} {...route}>
+            {route.label || route.href}
+          </Box>
+        ) : null
       )}
       {/* {groups.map((group, index) => (
         <li key={index} className="w-full">

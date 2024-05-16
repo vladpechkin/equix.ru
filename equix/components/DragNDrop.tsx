@@ -1,11 +1,8 @@
-import Link from "next/link";
 import { FC } from "react";
 import {
   DragDropContext,
-  Droppable,
-  OnDragEndResponder,
+  OnDragEndResponder
 } from "react-beautiful-dnd";
-import { capitalize } from "../utils";
 
 type Item = {
   id?: number;
@@ -20,6 +17,7 @@ interface Props {
 
 export const DragNDropZone: FC<Props> = (props) => {
   const { items, setItems } = props;
+  
   const handleDragEnd: OnDragEndResponder = ({ destination, source }) => {
     if (!destination) return;
     if (
@@ -44,7 +42,7 @@ export const DragNDropZone: FC<Props> = (props) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      TODO
+      // TODO
       {/* <Droppable droppableId={state} key={index}>
         {(provided) => (
           <div

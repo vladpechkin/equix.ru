@@ -19,7 +19,6 @@ const Page = () => (
     <H3>Пример:</H3>
     <Box
       onClick={() => {
-        console.log("Тест");
       }}
     >
       Кнопка

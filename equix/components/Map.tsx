@@ -25,6 +25,7 @@ interface Props {
 
 export const Map: FC<Props> = (props) => {
   const { markers, apiKey } = props;
+
   return (
     <LoadScript googleMapsApiKey={apiKey}>
       <GoogleMap
@@ -37,16 +38,15 @@ export const Map: FC<Props> = (props) => {
         }}
         mapContainerStyle={{ width: "100%", height: "100%", marginTop: -8 }}
       >
-        {markers &&
-          markers.map((marker, index) => (
-            <MarkerF
-              key={index}
-              onClick={marker.onClick}
-              position={marker.position}
-              title={marker.title}
-              icon={marker.iconSrc}
-            />
-          ))}
+        {markers?.map((marker, index) => (
+          <MarkerF
+            key={index}
+            onClick={marker.onClick}
+            position={marker.position}
+            title={marker.title}
+            icon={marker.iconSrc}
+          />
+        ))}
       </GoogleMap>
     </LoadScript>
   );

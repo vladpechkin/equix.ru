@@ -24,6 +24,9 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
     isCollapsed = false,
   } = props;
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const handleChange = (option: InputOption) => {
     if (maxOptions && value.length === maxOptions) return;
 
@@ -34,9 +37,6 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
       onChange(value.filter(({ id }) => id !== option.id));
     } else onChange([...new Set([...value, option])]);
   };
-
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
   const renderOptions = (options: InputOption[]) => (
     <div className="flex flex-col">

@@ -1,4 +1,4 @@
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Box } from "./Box";
 import { Row, Col } from ".";
 import { LandingLayout } from "../Landing/LandingLayout";
@@ -14,7 +14,7 @@ export const PlaceholderPage = () => {
           This page is under development, check back later.
         </h2>
         <Row className="flex-wrap">
-          <Box onClick={() => Router.back()}>
+          <Box onClick={() => router.back()}>
             <Icon name="chevron-left" />
             Go back
           </Box>

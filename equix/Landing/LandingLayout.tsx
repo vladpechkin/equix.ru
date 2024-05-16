@@ -14,7 +14,7 @@ import { Col } from "../components";
 import { Route } from "../types";
 import { LandingSection } from "./LandingSection";
 import defaultConfig from "./config";
-import { Section } from "./types";
+import { Section } from "../types";
 import ErrorPageProvider from "../components/ErrorPageProvider";
 
 export interface LandingLayoutProps {
@@ -43,6 +43,17 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
     config = defaultConfig,
   } = props;
   const { logo, routes, siteName } = config;
+
+  const getRoutesFromSection = () =>
+    sections?.map(
+      ({ heading }) =>
+        heading &&
+        ({
+          href: `#${heading.replaceAll(" ", "_")}`,
+          label: heading,
+        })
+    ) as Route[]
+
   return (
     <ErrorPageProvider>
       <DarkThemeProvider>
@@ -50,21 +61,9 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
           className={`dark:bg-dark dark:text-light bg-light text-dark min-h-screen flex flex-col items-center  
       ${className || ""}`}
         >
-          <Header
-            logo={logo}
-            routes={
-              routes ||
-              (sections?.map(
-                ({ heading }) =>
-                  heading && {
-                    href: `#${heading.replaceAll(" ", "_")}`,
-                    label: heading,
-                  }
-              ) as Route[])
-            }
-          />
+          <Header logo={logo} routes={routes || getRoutesFromSection()} />
           <div className="flex grow max-w-[944px] w-full">
-            {sidebarRoutes && <Sidebar routes={sidebarRoutes} />}
+            {sidebarRoutes ? <Sidebar routes={sidebarRoutes} /> : null}
             <View as="main" className="items-center w-full">
               <Col className="w-full h-full p">
                 {children}

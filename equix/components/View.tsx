@@ -11,6 +11,8 @@ interface Props {
 export const View: FC<Props> = (props) => {
   const { className, size, direction = "v", as } = props;
 
+  const Element = as || "div";
+
   const getWidth = () => {
     switch (size) {
       case 3:
@@ -24,14 +26,16 @@ export const View: FC<Props> = (props) => {
     }
   };
 
-  const Element = as || "div";
+  const getDirection = () => {
+    if (direction === "h") {
+      return "flex-row";
+    } else return "flex-col";
+  };
 
   return (
     <Element
       {...props}
-      className={`flex ${getWidth()} ${
-        direction === "h" ? "flex-row" : "flex-col"
-      } ${className || ""}`}
+      className={`flex ${getWidth()} ${getDirection()} ${className || ""}`}
     />
   );
 };

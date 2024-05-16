@@ -65,9 +65,7 @@ export const EntityEditorHeader: FC<Props> = ({
           onClick={() =>
             fetchApi(`${entitiesName}/${entityId}/approve`, {
               method: "PATCH",
-            })
-              .then((res) => res.json())
-              .then((res) => res && alert("Success"))
+            }).then((res) => res.json())
           }
         >
           Approve

@@ -1,10 +1,13 @@
 import fsPromises from "fs/promises";
 import path from "path";
 
-export default async function handler(req, res) {
-  let {entityName, id} = req.query;
+const handler = async (req, res) => {
+  let { entityName, id } = req.query;
+
   if (entityName !== "acts") id = +id;
+
   const dataFilePath = path.join(process.cwd(), `/public/${entityName}.json`);
+
   try {
     switch (req.method) {
       case "GET": {
@@ -15,15 +18,14 @@ export default async function handler(req, res) {
       }
       case "PUT": {
         const fileData = await fsPromises.readFile(dataFilePath);
-        let objectData = JSON.parse(fileData);      
+        let objectData = JSON.parse(fileData);
         const body = req.body;
         if (Object.keys(body).length === 0) {
           res.status(411);
           return;
         }
         objectData = objectData.map((x) => (x.id === id ? body : x));
-        console.log(objectData);
-        await fsPromises.writeFile(dataFilePath, JSON.stringify(objectData)); 
+        await fsPromises.writeFile(dataFilePath, JSON.stringify(objectData));
         res.status(200).json("PUT");
         break;
       }
@@ -41,4 +43,6 @@ export default async function handler(req, res) {
   } catch (error) {
     res.status(500).json({ message: error });
   }
-}
+};
+
+export default handler;

@@ -1,4 +1,4 @@
-import { CSSProperties, ElementType, FC, ReactNode } from "react";
+import { ElementType, FC, ReactNode } from "react";
 import { Row } from ".";
 
 interface Props {
@@ -26,19 +26,27 @@ export const Bar: FC<Props> = (props) => {
     }
   };
 
+  const getRowDirection = () => {
+    if (position === "top" || position === "bottom") {
+      return "flex-row items-center";
+    } else return "flex-col";
+  };
+
+  const getBarWidth = () => {
+    if (position === "top" || position === "bottom") {
+      return "w-full";
+    } else return "";
+  };
+
   return (
     <Element
       {...props}
-      className={`border-border flex items-center justify-center shrink-0  ${
-        position === "top" || position === "bottom" ? "w-full" : ""
-      } ${getBorder()}`}
+      className={`border-border flex items-center justify-center shrink-0 ${getBarWidth()} ${getBorder()}`}
     >
       <Row
-        className={`p-2 min-h-[56px] min-w-[56px] max-w-[944px] h-full w-full ${
-          position === "top" || position === "bottom"
-            ? "flex-row items-center"
-            : "flex-col"
-        } ${className || ""}`}
+        className={`p-2 min-h-[56px] min-w-[56px] max-w-[944px] h-full w-full ${getRowDirection()} ${
+          className || ""
+        }`}
       >
         {children}
       </Row>

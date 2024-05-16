@@ -30,26 +30,32 @@ export const Box: FC<Props> = (props) => {
     id,
     as,
   } = props;
+
   const pathname = usePathname();
 
-  const isActiveLink =
-    href &&
-    (href === "/" || isStrictHref
-      ? pathname === href
-      : pathname.includes(href));
+  const getIsActiveLink = () => {
+    if (href) {
+      if (href === "/" || isStrictHref) {
+        return pathname === href;
+      } else return pathname.includes(href);
+    } else return false;
+  };
 
-  const color =
-    isDisabled || isDimmed
-      ? "text-gray-400"
-      : (href && !isActiveLink) || onClick
-      ? "text-accent"
-      : "";
+  const getColor = () => {
+    if (isDisabled || isDimmed) {
+      return "text-gray-400";
+    } else if ((href && !getIsActiveLink) || onClick) {
+      return "text-accent";
+    } else return "";
+  };
 
-  const cursor = props.isDisabled
-    ? "cursor-not-allowed"
-    : (props.href && !isActiveLink) || props.onClick
-    ? "cursor-pointer"
-    : "";
+  const getCursor = () => {
+    if (props.isDisabled) {
+      return "cursor-not-allowed";
+    } else if ((props.href && !getIsActiveLink) || props.onClick) {
+      return "cursor-pointer";
+    } else return "";
+  };
 
   const getClassName = () => `
     gap-2 rounded-lg focused:outline
@@ -58,9 +64,9 @@ export const Box: FC<Props> = (props) => {
         ? `inline-flex ${href ? "hover:underline" : ""} rounded-sm`
         : "flex p-2 min-h-[2.5rem]"
     } 
-    ${isActiveLink && "font-semibold"} 
-    ${color}
-    ${cursor}
+    ${getIsActiveLink() && "font-semibold"} 
+    ${getColor()}
+    ${getCursor()}
     ${className || ""}
     `;
 

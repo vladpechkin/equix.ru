@@ -9,6 +9,7 @@ export const PasswordProvider: FC<Props> = (props) => {
   const { children } = props;
   const router = useRouter();
   const [pass, setPass] = useState("");
+
   useEffect(() => {
     let storedPass = localStorage.getItem("pass");
     setPass(storedPass as string);
@@ -17,5 +18,8 @@ export const PasswordProvider: FC<Props> = (props) => {
       newPass && localStorage.setItem("pass", newPass);
     }
   }, [router]);
-  return pass === "12345678" ? children : null;
+
+  if (pass === "12345678") {
+    return children;
+  } else return null;
 };

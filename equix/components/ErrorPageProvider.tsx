@@ -18,10 +18,6 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     return { hasError: true };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
-  }
-
   public render() {
     if (this.state.hasError || !this.props.children) {
       return <ErrorPage />;

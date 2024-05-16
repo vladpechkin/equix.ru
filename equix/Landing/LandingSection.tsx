@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Col } from "../components";
-import { Section } from "./types";
+import { Section } from "../types";
 import { H2 } from "../components/Heading";
 
 export const LandingSection: FC<Section> = (props) => {

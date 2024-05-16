@@ -1,7 +1,7 @@
 import fsPromises from "fs/promises";
 import path from "path";
 
-export default async function handler(req, res) {
+const handler = async (req, res) => {
   const { entityName } = req.query;
   const dataFilePath = path.join(process.cwd(), `/public/${entityName}.json`);
 
@@ -16,4 +16,6 @@ export default async function handler(req, res) {
     await fsPromises.writeFile(dataFilePath, updatedData);
     res.status(200).json("POSTED");
   }
-}
+};
+
+export default handler;

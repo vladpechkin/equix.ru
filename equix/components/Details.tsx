@@ -6,8 +6,10 @@ interface Props {
   open?: boolean;
 }
 
-export const Details: FC<Props> = ({ summary, children, open = false }) => {
+export const Details: FC<Props> = (props) => {
+  const { summary, children, open = false } = props;
   const [isOpen, setOpen] = useState(open);
+
   return (
     <details
       open={isOpen ? true : undefined}

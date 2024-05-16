@@ -174,7 +174,6 @@ export const fetchApi = (endpoint: string, options?: RequestInit) =>
       ...options?.headers,
     },
   }).then((res) => {
-    // alert(res.status)
     if (res.status === 401) {
       localStorage.clear();
       // Router.push("/auth");
@@ -196,7 +195,7 @@ export const submitEntity = (
       method: id && id !== "new" ? "PATCH" : "POST",
       body: JSON.stringify(entity),
     }
-  ).then((res) => alert(res.ok ? "Success" : "Error"));
+  )
 
 export const deleteEntity = (entitiesName: string, id: string) =>
   fetchApi(`${entitiesName.toLowerCase()}/${id}`, {
@@ -253,7 +252,6 @@ export const postOctetStream = (url: string, filename: string) =>
 //   const itemAbove = items[index];
 //   items[key - 1] = items[key];
 //   items[key] = itemAbove;
-//   console.log(items);
 //   setSortedClips(items);
 // };
 

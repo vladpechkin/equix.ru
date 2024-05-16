@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface InputOption {
   name: string;
   id: string;
@@ -28,4 +30,9 @@ export type DeepPartial<T> = T extends object
 export interface Entity {
   id: string;
   [key: string]: string | number | boolean | undefined | null;
+}
+
+export interface Section {
+  heading?: string;
+  children: ReactNode;
 }

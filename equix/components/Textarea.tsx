@@ -7,14 +7,23 @@ export const Textarea: FC<TextProps> = ({
   onChange,
   label,
   className,
-}) => (
-  <InputBase as="label" label={label}>
-    <textarea
-      className={`flex items-center border border-accent px-2 py-1 min-h-[2.5rem] ${
-        className || ""
-      }`}
-      value={value}
-      onChange={({ target }) => onChange(target.value)}
-    ></textarea>
-  </InputBase>
-);
+}) => {
+  
+  const handleChange = ({
+    target,
+  }: {
+    target: EventTarget & HTMLTextAreaElement;
+  }) => onChange(target.value);
+
+  return (
+    <InputBase as="label" label={label}>
+      <textarea
+        className={`flex items-center border border-accent px-2 py-1 min-h-[2.5rem] ${
+          className || ""
+        }`}
+        value={value}
+        onChange={handleChange}
+      ></textarea>
+    </InputBase>
+  );
+};

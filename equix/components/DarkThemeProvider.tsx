@@ -8,7 +8,9 @@ interface Props {
 
 export const DarkThemeProvider: FC<Props> = (props) => {
   const { children } = props;
+
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const isDarkThemeSelected = localStorage.getItem("dark-theme");
     if (
@@ -23,6 +25,7 @@ export const DarkThemeProvider: FC<Props> = (props) => {
     }
     setIsLoading(false);
   }, []);
+  
   return !isLoading ? children : null;
 };
 

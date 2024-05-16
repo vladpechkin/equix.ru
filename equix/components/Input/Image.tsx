@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ChangeEventHandler, FC } from "react";
 import { Row } from "..";
 import { Img } from "../Img";
 import { InputBase, InputProps } from "./Base";
@@ -11,6 +11,9 @@ export interface ImageProps extends InputProps {
 export const ImageInput: FC<ImageProps> = (props) => {
   const { label, value, onChange } = props;
 
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = ({ target }) =>
+    onChange(target.value);
+
   return (
     <InputBase label={label} as="label">
       <Row>
@@ -18,7 +21,7 @@ export const ImageInput: FC<ImageProps> = (props) => {
         <textarea
           className="border border-accent rounded-lg w-full p-2 resize-none h-[88px] overflow-hidden"
           value={value}
-          onChange={({ target }) => onChange(target.value)}
+          onChange={handleChange}
         />
       </Row>
     </InputBase>
