@@ -1,8 +1,5 @@
 import { FC } from "react";
-import {
-  DragDropContext,
-  OnDragEndResponder
-} from "react-beautiful-dnd";
+import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 
 type Item = {
   id?: number;
@@ -17,7 +14,7 @@ interface Props {
 
 export const DragNDropZone: FC<Props> = (props) => {
   const { items, setItems } = props;
-  
+
   const handleDragEnd: OnDragEndResponder = ({ destination, source }) => {
     if (!destination) return;
     if (
@@ -36,7 +33,7 @@ export const DragNDropZone: FC<Props> = (props) => {
 
     let targetItem = items.find(({ id }) => id === source.index);
     if (targetItem) {
-      targetItem.state = destination.droppableId;
+      targetItem["state"] = destination.droppableId;
     }
   };
 

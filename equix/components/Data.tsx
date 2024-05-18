@@ -2,12 +2,12 @@ import { FC } from "react";
 
 interface Props {
   label: string;
-  value: string | number | null | undefined;
+  value?: string | number | null | undefined;
 }
 
 export const Data: FC<Props> = (props) => {
   const { label, value } = props;
-  
+
   return value ? (
     <label className="flex flex-col">
       <span className="font-medium">{label}</span>

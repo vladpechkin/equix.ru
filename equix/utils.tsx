@@ -1,43 +1,91 @@
+/* global RequestInit */
 import config from "./Admin/config.json";
 import { Entity, InputOption } from "./types";
 
+const HTTP_UNAUTHORIZED_CODE = 401;
+
+const convertObjectEntriesToStrings = (object: Object) => {
+  const newObject: Record<string, string> = {};
+
+  Object.entries(object).forEach(([key, value]) => {
+    newObject[key.toString()] = value.toString();
+  });
+
+  return newObject;
+};
+
+const initialOptions = {
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    Authorization: `Basic ${btoa(process.env["NEXT_PUBLIC_AUTH"] as string)}`,
+  },
+  redirect: "error",
+};
+
 export const areEntitiesEqual = (entity1: any, entity2: any): boolean => {
-  const ok = Object.keys,
-    type1 = typeof entity1,
-    type2 = typeof entity2;
+  const type1 = typeof entity1;
+  const type2 = typeof entity2;
+
   return entity1 && entity2 && type1 === "object" && type1 === type2
-    ? ok(entity1).length === ok(entity2).length &&
-        ok(entity1).every((key) => areEntitiesEqual(entity1[key], entity2[key]))
+    ? Object.keys(entity1).length === Object.keys(entity2).length &&
+        Object.keys(entity1).every((key) =>
+          areEntitiesEqual(entity1[key], entity2[key])
+        )
     : entity1 === entity2;
 };
 
 export const getMonthLength = (month: number, year: number) => {
-  if (month === 2 && year % 4 === 0 && year % 100 !== 0) return 29;
+  const FEBRUARY_INDEX = 2;
+  const APRIL_INDEX = 4;
+  const JUNE_INDEX = 6;
+  const SEPTEMBER_INDEX = 9;
+  const OCTOBER_INDEX = 10;
+  const LEAP_YEAR_DIVIDER = 4;
+  const YEARS_IN_CENTURY = 100;
+  const SHORT_MONTH_LENGTH = 30;
+  const MONTH_LENGTH = 31;
+  const FEBRUARY_LENGTH = 28;
+  const LEAP_YEAR_FEBRUARY_LENGTH = 29;
+
+  if (
+    month === FEBRUARY_INDEX &&
+    year % LEAP_YEAR_DIVIDER === 0 &&
+    year % YEARS_IN_CENTURY !== 0
+  )
+    return LEAP_YEAR_FEBRUARY_LENGTH;
+
   switch (month) {
-    case 2:
-      return 28;
-    case 4:
-    case 6:
-    case 9:
-    case 10:
-      return 30;
-    default:
-      return 31;
+    case FEBRUARY_INDEX: {
+      return FEBRUARY_LENGTH;
+    }
+    case APRIL_INDEX:
+    case JUNE_INDEX:
+    case SEPTEMBER_INDEX:
+    case OCTOBER_INDEX: {
+      return SHORT_MONTH_LENGTH;
+    }
+
+    default: {
+      return MONTH_LENGTH;
+    }
   }
 };
 
 export const capitalize = (word: string) =>
-  word.charAt && word.charAt(0)?.toUpperCase() + word.slice(1);
+  word.charAt && Boolean(word.charAt(0)?.toUpperCase()) + word.slice(1);
 
-export const toOptions = (arr: readonly string[]): InputOption[] =>
-  arr.map((name, index) => ({
+export const toOptions = (array: readonly string[]): InputOption[] =>
+  array.map((name, index) => ({
     name,
     id: index.toString(),
   }));
 
 export const getKeyType = (entitiesName: string, key: string) => {
   type EntityName = keyof typeof config.entities;
+
   const name = capitalize(entitiesName.slice(0, -1)) as EntityName;
+
   return (config.entities[name] as any)[key];
 };
 
@@ -45,11 +93,15 @@ export const getInputDate = (date: Date) =>
   date ? date.toLocaleDateString("ru").split(".").reverse().join("-") : "";
 
 export const convertInputDateToIso = (string: string) => {
-  const dmy = string.split("-").reverse();
+  const [day, month, year] = string.split("-").reverse();
   const date = new Date();
-  date.setDate(parseInt(dmy[0]));
-  date.setMonth(parseInt(dmy[1]));
-  date.setFullYear(parseInt(dmy[2]));
+
+  if (day) date.setDate(parseInt(day));
+
+  if (month) date.setMonth(parseInt(month));
+
+  if (year) date.setFullYear(parseInt(year));
+
   return date.toISOString();
 };
 
@@ -58,6 +110,7 @@ export const getNonHiddenEntityEntries = (
   entitiesName: string
 ) => {
   type HiddenField = keyof typeof config.hidden_fields;
+
   return Object.entries(initialEntity).filter(
     ([key]) =>
       !(
@@ -69,36 +122,46 @@ export const getNonHiddenEntityEntries = (
 
 export const getInputType = (entitiesName: string, key: string, value: any) => {
   const keyType = getKeyType(entitiesName, key);
-  if (value?.toString().match(/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i)) {
+
+  if (value?.toString().match(/\.(?:bmp|gif|jpe?g|png|tiff?|webp)$/u)) {
     return "image";
   }
+
   switch (keyType) {
     case "string":
     case "string[]":
     case "any":
-    case "number":
+    case "number": {
       return "text";
-    case "Date":
+    }
+    case "Date": {
       return "date";
-    default:
+    }
+
+    default: {
       return "radio";
+    }
   }
 };
 
 export const getOptions = (entitiesName: string, key: string) => {
   type KeyEnum = keyof typeof config.enums;
+
   const keyEnum =
     config.enums[capitalize(key) as KeyEnum] ||
     config.enums[
       (capitalize(entitiesName.slice(0, -1)) + capitalize(key)) as KeyEnum
     ];
+
   return keyEnum ? toOptions(Object.keys(keyEnum)) : toOptions(["true"]);
 };
 
 export const getEntityTemplate = (entitiesName: string) => {
   type EntityName = keyof typeof config.entities;
+
   const entity =
     config?.entities[capitalize(entitiesName?.slice(0, -1)) as EntityName];
+
   return (
     entity
       ? Object.fromEntries(Object.entries(entity)?.map(([key]) => [key, ""]))
@@ -106,66 +169,76 @@ export const getEntityTemplate = (entitiesName: string) => {
   ) as Entity;
 };
 
-const convertObjectEntriesToStrings = (object: Object) => {
-  const newObject: Record<string, string> = {};
-  Object.entries(object).map(([key, value]) => {
-    newObject[key.toString()] = value.toString();
-  });
-  return newObject;
-};
-
-export const getUrlWithParams = (url: string, params: object) =>
+export const getUrlWithParameters = (url: string, parameters: object) =>
   `${url}?${new URLSearchParams(
-    convertObjectEntriesToStrings(params)
+    convertObjectEntriesToStrings(parameters)
   ).toString()}`;
 
 export const getMonthAgo = () => {
   const date = new Date(Date.now());
+
   date.setMonth(new Date(Date.now()).getMonth() - 1);
+
   return date;
 };
 
 export const getWeekAgo = () => {
   const date = new Date(Date.now());
-  date.setDate(new Date(Date.now()).getDay() - 7);
+  const WEEK_LENGTH = 7;
+
+  date.setDate(new Date(Date.now()).getDay() - WEEK_LENGTH);
+
   return date;
 };
 
 export const getAdditionalEntitiesEndpoints = (entitiesName: string) => {
   type EntityName = keyof typeof config.additional_entities_endpoints;
+
   return config.additional_entities_endpoints[
     capitalize(entitiesName as string) as EntityName
   ];
 };
 
 export const renderValue = (key: string, value: any) => {
-  if (value === null) return "";
-  if (key.toLowerCase().includes("fee")) return `${value * 100}%`;
-  if (
-    key === "cashLimit" ||
-    key === "amount" ||
-    key.toLowerCase().includes("balance") ||
-    key.toLowerCase().includes("price")
-  )
-    return value / 100;
-  if (key.toLowerCase().includes("rating"))
-    return String(Math.round(value * 10) / 10);
-  if (
-    new RegExp(
-      "^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$"
-    ).test(value)
-  )
-    return new Date(value).toLocaleDateString("ru");
-  if (typeof value === "string" && (value as string).includes(".jpeg"))
-    return <img src={value} className="rounded-lg h-10 w-10" />;
-  if (parseInt(value)) {
-    return String(Math.round(value * 10) / 10);
+  const EXCHANGE_UNITS_IN_CURRENCY = 100;
+  const UNITS_IN_RATING_STAR = 10;
+
+  switch (true) {
+    case value === null: {
+      return "";
+    }
+    case key.toLowerCase().includes("fee"): {
+      return `${value * EXCHANGE_UNITS_IN_CURRENCY}%`;
+    }
+    case key === "cashLimit" ||
+      key === "amount" ||
+      key.toLowerCase().includes("balance") ||
+      key.toLowerCase().includes("price"): {
+      return value / EXCHANGE_UNITS_IN_CURRENCY;
+    }
+    case Boolean(parseInt(value)):
+    case key.toLowerCase().includes("rating"): {
+      return String(
+        Math.round(value * UNITS_IN_RATING_STAR) / UNITS_IN_RATING_STAR
+      );
+    }
+    case /^-?(?:[1-9]\d*)?\d{4}-(?:0[1-9]|1[0-2])-(?:3[01]|0[1-9]|[12]\d)T(?:2[0-3]|[01]\d)(?::[0-5]\d){2}(?:.\d+)?Z?$/u.test(
+      value
+    ): {
+      return new Date(value).toLocaleDateString("ru");
+    }
+    case typeof value === "string" && (value as string).includes(".jpeg"): {
+      return <img src={value} className="rounded-lg h-10 w-10" alt="" />;
+    }
+
+    default: {
+      return value;
+    }
   }
-  return value;
 };
 
-export const fetchApi = (endpoint: string, options?: RequestInit) =>
-  fetch(`${process.env.NEXT_PUBLIC_API}/${endpoint}`, {
+export const fetchApi = async (endpoint: string, options?: RequestInit) => {
+  const res = await fetch(`${process.env["NEXT_PUBLIC_API"]}/${endpoint}`, {
     ...options,
     headers: {
       Accept: "application/json",
@@ -173,13 +246,15 @@ export const fetchApi = (endpoint: string, options?: RequestInit) =>
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       ...options?.headers,
     },
-  }).then((res) => {
-    if (res.status === 401) {
-      localStorage.clear();
-      // Router.push("/auth");
-    }
-    return res;
   });
+
+  if (res.status === HTTP_UNAUTHORIZED_CODE) {
+    localStorage.clear();
+    // router.push("/auth");
+  }
+
+  return res;
+};
 
 export const submitEntity = (
   entitiesName: string,
@@ -195,27 +270,18 @@ export const submitEntity = (
       method: id && id !== "new" ? "PATCH" : "POST",
       body: JSON.stringify(entity),
     }
-  )
+  );
 
 export const deleteEntity = (entitiesName: string, id: string) =>
   fetchApi(`${entitiesName.toLowerCase()}/${id}`, {
     method: "DELETE",
   });
 
-const options: RequestInit = {
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    Authorization: `Basic ${btoa(process.env.NEXT_PUBLIC_AUTH as string)}`,
-  },
-  redirect: "error",
-};
-
 export const postOctetStream = (url: string, filename: string) =>
   fetch(url, {
-    ...options,
+    ...initialOptions,
     headers: {
-      ...options.headers,
+      ...initialOptions.headers,
       "Content-Type": "application/octet-stream",
     },
     method: "POST",
@@ -229,9 +295,11 @@ export const postOctetStream = (url: string, filename: string) =>
 
       link.download = filename;
       link.href = window.URL.createObjectURL(blob);
-      link.dataset.downloadurl = ["text/json", link.download, link.href].join(
-        ":"
-      );
+      link.dataset["downloadurl"] = [
+        "text/json",
+        link.download,
+        link.href,
+      ].join(":");
 
       const evt = new MouseEvent("click", {
         view: window,

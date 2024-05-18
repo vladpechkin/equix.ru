@@ -1,4 +1,4 @@
-import { FC, createContext, createElement, useContext } from "react";
+import { FC } from "react";
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
   level?: number | "auto";

@@ -12,6 +12,7 @@ interface Props {
 const Layout: FC<Props> = (props) => {
   const { children } = props;
   const pathname = usePathname();
+
   return (
     <LandingLayout>
       <H2>{pathname.split("/").pop()}</H2>

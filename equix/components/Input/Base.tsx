@@ -19,11 +19,11 @@ export interface InputProps {
 
 interface InputBaseProps {
   as?: ElementType;
-  className?: string;
+  className?: string | undefined;
   errorMessage?: string;
   children: ReactNode;
   isRequired?: boolean;
-  label?: string;
+  label?: string | undefined;
 }
 
 export const InputBase: FC<InputBaseProps> = (props) => {

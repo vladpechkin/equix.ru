@@ -1,4 +1,6 @@
-const handler = async (req, res) => {
+import { NextApiHandler } from "next";
+
+const handler: NextApiHandler = async (req, res) => {
   const body = JSON.parse(req.body);
 
   await fetch(

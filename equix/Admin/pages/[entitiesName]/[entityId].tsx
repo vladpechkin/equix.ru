@@ -10,6 +10,7 @@ const Page = () => {
       <EntityEditor
         entitiesName={entitiesName as string}
         entityId={entityId as string}
+        entityEndpoint={undefined}
       />
     )
   );

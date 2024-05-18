@@ -11,7 +11,7 @@ interface Props {
   entities: Entity[];
   sortKey: string;
   setSortKey: (value: string) => void;
-  entityEndpoint?: URL;
+  entityEndpoint?: URL | undefined;
   entitiesName: string;
 }
 
@@ -53,7 +53,7 @@ export const EntitiesEditorTable: FC<Props> = (props) => {
   };
 
   const getNonHiddenAndNonCollapsedEntityEntries = useCallback(
-    (entity: Object) =>
+    (entity: Entity) =>
       Object.entries(entity).filter(
         ([key]) =>
           !(
@@ -77,31 +77,35 @@ export const EntitiesEditorTable: FC<Props> = (props) => {
     <table>
       <thead>
         <tr>
-          {getNonHiddenAndNonCollapsedEntityEntries(entities[0]).map(([key], index) => (
-            <td
-              key={index}
-              className="p-2 font-semibold"
-              onClick={() => setSortKey(key)}
-            >
-              <span className="flex items-center gap-2">
-                {capitalize(key).replace(/([a-z])([A-Z])/g, "$1 $2")}
-                {sortKey === key && <i className="bi bi-sort-down-alt"></i>}
-              </span>
-            </td>
-          ))}
+          {entities[0] && getNonHiddenAndNonCollapsedEntityEntries(entities[0]).map(
+            ([key], index) => (
+              <td
+                key={index}
+                className="p-2 font-semibold"
+                onClick={() => setSortKey(key)}
+              >
+                <span className="flex items-center gap-2">
+                  {capitalize(key).replace(/([a-z])([A-Z])/g, "$1 $2")}
+                  {sortKey === key && <i className="bi bi-sort-down-alt"></i>}
+                </span>
+              </td>
+            )
+          )}
           <td className="p-2 font-semibold">Actions</td>
         </tr>
       </thead>
       <tbody>
         {getSortedEntities().map((entity, entityIndex) => (
           <tr key={entityIndex}>
-            {getNonHiddenAndNonCollapsedEntityEntries(entity).map(([key, value], index) => (
-              <td key={index} className="p-2">
-                <span className="w-full break-all line-clamp-1">
-                  {renderValue(key, value)}
-                </span>
-              </td>
-            ))}
+            {getNonHiddenAndNonCollapsedEntityEntries(entity).map(
+              ([key, value], index) => (
+                <td key={index} className="p-2">
+                  <span className="w-full break-all line-clamp-1">
+                    {renderValue(key, value)}
+                  </span>
+                </td>
+              )
+            )}
             <td className="p-0">
               <Box
                 href={`/${entitiesName.toLowerCase()}/${entity.id}`}

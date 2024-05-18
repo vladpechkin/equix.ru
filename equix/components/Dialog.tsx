@@ -1,4 +1,3 @@
-import { usePathname, useRouter } from "next/navigation";
 import { FC, ReactNode, useCallback, useEffect } from "react";
 import { Box } from "./Box";
 

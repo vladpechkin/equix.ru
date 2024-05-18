@@ -7,10 +7,10 @@ interface Props {
   option: InputOption;
   isSwitch: boolean;
   handleChange: (option: InputOption) => void;
-  value?: InputOption;
+  value?: InputOption | undefined;
 }
 
-export const Option: FC<Props> = (props) => {
+export const RadioOption: FC<Props> = (props) => {
   const { option, isSwitch, handleChange, value } = props;
 
   const getIconName = () => {

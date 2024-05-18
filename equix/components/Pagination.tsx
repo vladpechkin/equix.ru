@@ -4,7 +4,7 @@ import { Box } from "./Box";
 import { Icon } from "./Icon";
 
 interface Props {
-  limit?: number;
+  limit?: number | undefined;
   page: number;
   setPage: (value: number) => void;
 }

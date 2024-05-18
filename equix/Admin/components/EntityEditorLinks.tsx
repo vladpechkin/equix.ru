@@ -18,7 +18,7 @@ export const EntityEditorLinks: FC<Props> = (props) => {
             href={`/${endpoint}=${entityId}`}
             key={index}
           >
-            {capitalize(endpoint.split("?")[0])}
+            {endpoint && capitalize(endpoint.split("?")[0] as string)}
           </a>
         )
       )}

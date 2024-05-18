@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, useState } from "react";
 import { Input } from ".";
 import { Dialog } from "../Dialog";

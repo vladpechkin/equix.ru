@@ -10,7 +10,7 @@ interface Props {
   isDimmed?: boolean;
   isDisabled?: boolean;
   isInline?: boolean;
-  onClick?: () => void;
+  onClick?: (() => void) | undefined;
   id?: string;
   className?: string;
   as?: ElementType;

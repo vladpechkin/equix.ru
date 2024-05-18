@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const Page = () => {
   const [value, setValue] = useState("");
+
   return (
     <>
       <p>
@@ -21,4 +22,5 @@ const Page = () => {
     </>
   );
 };
+
 export default Page;

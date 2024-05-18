@@ -1,10 +1,14 @@
+import { Entity } from "@/equix/types";
 import fsPromises from "fs/promises";
+import { NextApiHandler } from "next";
 import path from "path";
 
-const handler = async (req, res) => {
-  let { entityName, id } = req.query;
+const handler: NextApiHandler = async (req, res) => {
+  const { entityName, id } = req.query;
 
-  if (entityName !== "acts") id = +id;
+  let numericalId = parseInt(id as string);
+
+  if (entityName !== "acts") numericalId = +numericalId;
 
   const dataFilePath = path.join(process.cwd(), `/public/${entityName}.json`);
 
@@ -12,28 +16,32 @@ const handler = async (req, res) => {
     switch (req.method) {
       case "GET": {
         const fileData = await fsPromises.readFile(dataFilePath);
-        let objectData = JSON.parse(fileData);
-        res.status(200).json(objectData.find((x) => x.id === id));
+        let objectData = JSON.parse(fileData.toString());
+        res
+          .status(200)
+          .json(objectData.find((entry: Entity) => entry.id === id));
         break;
       }
       case "PUT": {
         const fileData = await fsPromises.readFile(dataFilePath);
-        let objectData = JSON.parse(fileData);
+        let objectData = JSON.parse(fileData.toString());
         const body = req.body;
         if (Object.keys(body).length === 0) {
           res.status(411);
           return;
         }
-        objectData = objectData.map((x) => (x.id === id ? body : x));
+        objectData = objectData.map((entry: Entity) =>
+          entry.id === id ? body : entry
+        );
         await fsPromises.writeFile(dataFilePath, JSON.stringify(objectData));
         res.status(200).json("PUT");
         break;
       }
       case "DELETE": {
         const fileData = await fsPromises.readFile(dataFilePath);
-        let objectData = JSON.parse(fileData);
+        let objectData = JSON.parse(fileData.toString());
         const updatedData = JSON.stringify(
-          objectData.filter((x) => x.id !== id)
+          objectData.filter((entry: Entity) => entry.id !== id)
         );
         await fsPromises.writeFile(dataFilePath, updatedData);
         res.status(200).json("DELETED");

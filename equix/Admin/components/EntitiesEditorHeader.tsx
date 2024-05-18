@@ -6,7 +6,7 @@ import { capitalize } from "@/equix/utils";
 import { FC, useState } from "react";
 
 interface Props {
-  title?: string;
+  title?: string | undefined;
   entitiesName: string;
   entitiesEndpoint: string | URL;
   fetchData: () => void;

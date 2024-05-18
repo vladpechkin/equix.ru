@@ -4,7 +4,7 @@ interface Props {
   className?: string;
   children?: ReactNode;
   as?: ElementType;
-  id?: string;
+  id?: string | undefined;
 }
 
 export const Row: FC<Props> = (props) => {

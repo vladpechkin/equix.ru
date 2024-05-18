@@ -23,7 +23,7 @@ interface Props {
   className?: string;
 }
 
-export const Map: FC<Props> = (props) => {
+export const GeoMap: FC<Props> = (props) => {
   const { markers, apiKey } = props;
 
   return (

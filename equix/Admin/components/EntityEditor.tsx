@@ -9,7 +9,7 @@ import { Entity } from "@/equix/types";
 interface Props {
   entitiesName: string;
   entityId: string;
-  entityEndpoint?: string;
+  entityEndpoint?: string | undefined;
 }
 
 export const EntityEditor: FC<Props> = ({
@@ -44,14 +44,8 @@ export const EntityEditor: FC<Props> = ({
             ];
 
           if (additionalEntityEndpoints) {
-            additionalEntityEndpoints.map((endpoint: string) =>
-              fetchApi(
-                `${entityEndpoint}/${endpoint}${
-                  endpoint.includes("?")
-                    ? `/${entity[endpoint.split("?")[-1]]}`
-                    : ""
-                }`
-              )
+            additionalEntityEndpoints.map((endpoint) =>
+              fetchApi(`${entityEndpoint}/${endpoint}`)
                 .then((res) => res.json())
                 .then((res) => {
                   setAdditionalEntries(Object.entries(res.data));

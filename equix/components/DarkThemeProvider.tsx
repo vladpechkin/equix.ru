@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { Box } from "./Box";
 
@@ -25,7 +24,7 @@ export const DarkThemeProvider: FC<Props> = (props) => {
     }
     setIsLoading(false);
   }, []);
-  
+
   return !isLoading ? children : null;
 };
 

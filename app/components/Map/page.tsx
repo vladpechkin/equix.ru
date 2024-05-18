@@ -1,6 +1,6 @@
 import { Box } from "@/equix/components/Box";
 import { H3 } from "@/equix/components/Heading";
-import { Map } from "@/equix/components/Map";
+import { GeoMap } from "@/equix/components/GeoMap";
 
 const Page = () => (
   <>
@@ -20,14 +20,14 @@ const Page = () => (
       стандартное не устраивает).
     </p>
     <H3>Пример:</H3>
-    <Map
-      apiKey={process.env.API_KEY || ""}
+    <GeoMap
+      apiKey={process.env["API_KEY"] || ""}
       center={{ lat: 50, lng: 50 }}
       zoom={10}
     />
     <H3>Код:</H3>
     <code>{`
-      <Map
+      <GeoMap
         apiKey={process.env.API_KEY || ""}
         center={{ lat: 50, lng: 50 }}
         zoom={10}

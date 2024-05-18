@@ -4,11 +4,11 @@ import { Video } from "../Video";
 import { Img } from "../Img";
 
 interface Props {
-  label?: string;
+  label?: string | undefined;
   isRequired?: boolean;
   handleDrag: DragEventHandler<HTMLDivElement>;
   value: string;
-  className?: string;
+  className?: string | undefined;
   inputRef: MutableRefObject<any>;
   isLoading: boolean;
   handleFileChangeWithClick: (event: ChangeEvent<HTMLInputElement>) => void;

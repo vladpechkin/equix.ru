@@ -27,4 +27,5 @@ import Box from "equix"
 ``` */}
   </pre>
 );
+
 export default Page;

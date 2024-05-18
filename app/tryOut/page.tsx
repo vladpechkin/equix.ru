@@ -20,6 +20,7 @@ const Page = () => {
     useState("Описание секции");
   const [previewBackgroundColor, setPreviewBackgroundColor] =
     useState("#ccddff");
+    
   return (
     <LandingLayout
       sections={[

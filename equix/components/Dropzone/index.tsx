@@ -14,7 +14,7 @@ interface Props {
 export const Dropzone: FC<Props> = (props) => {
   const {
     label,
-    isRequired,
+    isRequired = false,
     value,
     filetype = "image",
     className,

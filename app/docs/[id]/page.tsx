@@ -10,6 +10,7 @@ const MarkdownPage: FC<Props> = async (props) => {
     params: { id },
   } = props;
   const { contentHtml } = await getMarkdownFileById(id);
+
   return (
     <div className="prose" dangerouslySetInnerHTML={{ __html: contentHtml }} />
   );
