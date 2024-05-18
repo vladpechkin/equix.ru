@@ -1,18 +1,19 @@
-import { areEntitiesEqual } from "@/equix/utils";
-import { FC } from "react";
+import { areEntitiesEqual, deleteEntity, submitEntity } from "@/equix/utils";
+import { Dispatch, FC, SetStateAction } from "react";
 import { Dialog } from "@/equix/components/Dialog";
 import { Input } from "@/equix/components/Input";
+import { Entity } from "../types";
 
 interface Props {
-  indexToEdit: number | null;
-  setChangedEntity: (object: any) => void;
+  indexToEdit: number | undefined;
+  setChangedEntity: Dispatch<SetStateAction<Entity>>;
   entityTemplate: any;
-  setIndexToEdit: (index: number | null) => void;
+  setIndexToEdit: (index: number | undefined) => void;
   entityKeys: string[];
   changedEntity: any;
-  entities: Object[];
-  entity: Object;
-  setEntities: (object: Object[]) => void;
+  entities: Entity[];
+  entity: Entity;
+  setEntities: (values: Entity[]) => void;
   entityName: string;
 }
 
@@ -28,16 +29,18 @@ export const EntityEditor: FC<Props> = ({
   entityName,
   setEntities,
 }) => {
-  let changedValue: any = {};
+  const changedValue: any = {};
 
-  const filteredEntities = entities.filter((_, index) => index !== indexToEdit);
+  const filteredEntities = entities.filter(
+    (_en, index) => index !== indexToEdit
+  );
 
   return (
     <Dialog
       isOpen={typeof indexToEdit === "number"}
       close={() => {
         setChangedEntity(entityTemplate);
-        setIndexToEdit(null);
+        setIndexToEdit(undefined);
       }}
       title={`Редактирование ${changedEntity.id ? `№${changedEntity.id}` : ""}`}
     >
@@ -50,8 +53,9 @@ export const EntityEditor: FC<Props> = ({
               value={changedEntity[key]}
               onChange={(value: any) => {
                 changedValue[key] = value;
-                setChangedEntity((prevState: any) => ({
-                  ...prevState,
+
+                setChangedEntity((previousState) => ({
+                  ...previousState,
                   ...changedValue,
                 }));
               }}
@@ -63,8 +67,7 @@ export const EntityEditor: FC<Props> = ({
           <li>
             <button
               onClick={() => {
-                // @ts-ignore
-                saveEntity(entityName, entity.id, changedEntity);
+                submitEntity(entityName, entity.id, changedEntity);
 
                 setEntities([
                   ...filteredEntities,
@@ -72,7 +75,7 @@ export const EntityEditor: FC<Props> = ({
                 ]);
 
                 setChangedEntity(entityTemplate);
-                setIndexToEdit(null);
+                setIndexToEdit(undefined);
               }}
             >
               Сохранить
@@ -85,12 +88,12 @@ export const EntityEditor: FC<Props> = ({
               className="text-red-600"
               onClick={() => {
                 const confirmed = confirm("Подтвердите удаление");
+
                 if (confirmed) {
-                  // @ts-ignore
                   deleteEntity(entityName, entity.id);
                   setEntities(filteredEntities);
                   setChangedEntity(entityTemplate);
-                  setIndexToEdit(null);
+                  setIndexToEdit(undefined);
                 }
               }}
             >

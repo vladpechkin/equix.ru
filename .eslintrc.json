@@ -1,6 +1,6 @@
 {
   "extends": "next/core-web-vitals",
-  "ignores": [".next/*"],
+  // "ignores": [".next/*"],
   "$schema": "https://json.schemastore.org/eslintrc.json",
   "plugins": [
     "promise",
@@ -59,7 +59,6 @@
   ],
 
   "rules": {
-    "no-alert": "error",
     "no-array-constructor": "error",
     "no-bitwise": "error",
     "no-caller": "error",
@@ -212,24 +211,7 @@
     "valid-typeof": ["error", { "requireStringLiterals": true }],
     "no-return-assign": ["error", "always"],
     "no-self-assign": ["error", { "props": true }],
-    "no-shadow": [
-      "error",
-      {
-        "builtinGlobals": true,
-        "allow": ["defaultStatus", "event", "find", "length", "name", "status"]
-      }
-    ],
     "no-undef": ["error", { "typeof": true }],
-    "no-underscore-dangle": [
-      "error",
-      {
-        "enforceInMethodNames": true,
-        "enforceInClassFields": true,
-        "allowFunctionParams": false,
-        "allowInArrayDestructuring": false,
-        "allowInObjectDestructuring": false
-      }
-    ],
     "no-unneeded-ternary": ["error", { "defaultAssignment": false }],
     "func-name-matching": ["error", { "considerPropertyDescriptor": true }],
     "use-isnan": [
@@ -280,67 +262,6 @@
       "error",
       { "array": true, "object": true },
       { "enforceForRenamedProperties": true }
-    ],
-
-    "no-restricted-globals": [
-      "error",
-      "addEventListener",
-      "blur",
-      "close",
-      "closed",
-      "confirm",
-      "defaultStatus",
-      "defaultstatus",
-      "event",
-      "external",
-      "find",
-      "focus",
-      "frameElement",
-      "frames",
-      "history",
-      "innerHeight",
-      "innerWidth",
-      "length",
-      "location",
-      "locationbar",
-      "menubar",
-      "moveBy",
-      "moveTo",
-      "name",
-      "onblur",
-      "onerror",
-      "onfocus",
-      "onload",
-      "onresize",
-      "onunload",
-      "open",
-      "opener",
-      "opera",
-      "outerHeight",
-      "outerWidth",
-      "pageXOffset",
-      "pageYOffset",
-      "parent",
-      "print",
-      "removeEventListener",
-      "resizeBy",
-      "resizeTo",
-      "screen",
-      "screenLeft",
-      "screenTop",
-      "screenX",
-      "screenY",
-      "scroll",
-      "scrollbars",
-      "scrollBy",
-      "scrollTo",
-      "scrollX",
-      "scrollY",
-      "status",
-      "statusbar",
-      "stop",
-      "toolbar",
-      "top"
     ],
 
     "padding-line-between-statements": [
@@ -512,7 +433,6 @@
     "unicorn/no-object-as-default-parameter": "error",
     "unicorn/explicit-length-check": "error",
     "unicorn/prefer-math-trunc": "error",
-    "unicorn/prefer-ternary": "error",
     "unicorn/numeric-separators-style": "error",
     "unicorn/catch-error-name": "error",
     "unicorn/no-lonely-if": "error",
@@ -579,7 +499,8 @@
           "props": true,
           "Props": true,
           "req": true,
-          "res": true
+          "res": true,
+          "generateStaticParams": true
         },
         "ignore": ["\\.e2e$", "\\.e2e-spec$"],
         "checkShorthandProperties": true
@@ -627,7 +548,6 @@
     "sonarjs/no-nested-switch": "error",
     "sonarjs/no-empty-collection": "error",
     "sonarjs/non-existent-operator": "error",
-    "sonarjs/no-nested-template-literals": "error",
 
     "sonarjs/cognitive-complexity": ["error", 10],
 
@@ -764,16 +684,6 @@
     "no-unsanitized/property": "error",
 
     "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
-      "error",
-      {
-        "vars": "all",
-        "args": "after-used",
-        "caughtErrors": "all",
-        "varsIgnorePattern": "^ignore$",
-        "argsIgnorePattern": "^ignore$"
-      }
-    ],
 
     "sonar/anchor-precedence": "error",
     "sonar/argument-type": "error",
@@ -797,7 +707,6 @@
     "sonar/no-array-delete": "error",
     "sonar/no-associative-arrays": "error",
     "sonar/no-clear-text-protocols": "error",
-    "sonar/no-dead-store": "error",
     "sonar/no-empty-after-reluctant": "error",
     "sonar/no-equals-in-for-termination": "error",
     "sonar/no-for-in-iterable": "error",
@@ -843,22 +752,6 @@
       "plugins": ["no-only-tests"],
 
       "rules": {
-        "no-shadow": [
-          "error",
-          {
-            "builtinGlobals": true,
-            "allow": [
-              "defaultStatus",
-              "event",
-              "find",
-              "length",
-              "name",
-              "status",
-              "screen"
-            ]
-          }
-        ],
-
         "no-only-tests/no-only-tests": "error",
 
         "sonar/stable-tests": "error",

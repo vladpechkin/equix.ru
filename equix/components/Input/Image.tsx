@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEventHandler, FC } from "react";
 import { Row } from "..";
 import { Img } from "../Img";

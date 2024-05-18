@@ -1,8 +1,10 @@
+"use client";
+
 import { Col } from "../components";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
 
-export default {
+const config = {
   title: "EQUIX — Не утруждайтесь созданием интерфейсов приложений.",
   heading: "Не утруждайтесь созданием интерфейсов приложений.",
   description:
@@ -27,16 +29,16 @@ export default {
       <Input
         type="search"
         value=""
-        onChange={() => {}}
+        onChange={() => ""}
         placeholder="Что ищем?"
       />
-      <Box className="bg-accent text-light" onClick={() => {}}>
+      <Box className="bg-accent text-light" onClick={() => ""}>
         Скрыть опции
       </Box>
       <menu className="border border-border rounded overflow-hidden">
-        <Box onClick={() => {}}>Показать открытые папки</Box>
-        <Box onClick={() => {}}>Закрыть все</Box>
-        <Box onClick={() => {}}>Закрыть сохраненные файлы</Box>
+        <Box onClick={() => ""}>Показать открытые папки</Box>
+        <Box onClick={() => ""}>Закрыть все</Box>
+        <Box onClick={() => ""}>Закрыть сохраненные файлы</Box>
       </menu>
       <Input
         type="radio"
@@ -44,9 +46,11 @@ export default {
           { id: "0", name: "Соглашаюсь с политикой конфиденциальности" },
         ]}
         value={{ id: "0", name: "Соглашаюсь с политикой конфиденциальности" }}
-        onChange={() => {}}
+        onChange={() => ""}
       />
     </Col>
   ),
   siteName: "ООО Эквикс",
 };
+
+export default config;

@@ -16,7 +16,9 @@ export const RadioOption: FC<Props> = (props) => {
   const getIconName = () => {
     if (value?.name === "true" || option.id === value?.id) {
       return "check-circle-fill";
-    } else return "circle";
+    }
+
+    return "circle";
   };
 
   return (
@@ -27,13 +29,13 @@ export const RadioOption: FC<Props> = (props) => {
       <input
         type="radio"
         checked={value?.id === option.id}
-        onChange={() => {}}
+        onChange={() => ""}
         className="w-full top-0 left-0 h-full absolute opacity-0"
       />
       <Icon name={getIconName()} className="text-accent" />
-      {option.name !== "true"
-        ? capitalize(option.name.toLowerCase()).replaceAll("_", " ")
-        : null}
+      {option.name === "true"
+        ? undefined
+        : capitalize(option.name.toLowerCase()).replaceAll("_", " ")}
     </label>
   );
 };

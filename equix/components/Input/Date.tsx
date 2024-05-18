@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEventHandler, FC } from "react";
 import { InputBase } from "./Base";
 import { TextProps } from "./Text";
@@ -18,7 +20,9 @@ export const DateInput: FC<DateProps> = (props) => {
   const parseValue = () => {
     if (value) {
       return new Date(value).toLocaleDateString("ru");
-    } else return "";
+    }
+
+    return "";
   };
 
   return (
@@ -27,8 +31,12 @@ export const DateInput: FC<DateProps> = (props) => {
       label={label}
     >
       <div className="border border-borderAccent rounded-lg flex">
-        <input type="text" className="p-2 h-10 rounded-lg w-full" value={parseValue()} />
-        <Box className="justify-center w-10" onClick={() => {}}>
+        <input
+          type="text"
+          className="p-2 h-10 rounded-lg w-full"
+          value={parseValue()}
+        />
+        <Box className="justify-center w-10" onClick={() => ""}>
           <Icon name="calendar" />
         </Box>
       </div>

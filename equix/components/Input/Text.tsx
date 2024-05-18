@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEventHandler, FC } from "react";
 import { Box } from "../Box";
 import { Icon } from "../Icon";
@@ -44,7 +46,7 @@ export const TextInput: FC<TextProps> = (props) => {
             <Icon name="search" />
             Поиск
           </Box>
-        ) : null}
+        ) : undefined}
       </div>
     </InputBase>
   );

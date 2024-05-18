@@ -29,6 +29,8 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const MAX_COLLAPSED_LENGTH = 10;
+
   const handleChange = (option: InputOption) => {
     if (maxOptions && value.length === maxOptions) return;
 
@@ -36,14 +38,15 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
 
     if (alreadySelectedOption) {
       if (minOptions === 1 && value.length === 1) return;
+
       onChange(value.filter(({ id }) => id !== option.id));
-    } else onChange([...new Set([...value, option])]);
+    } else onChange(Array.from(new Set([...value, option])));
   };
 
-  const renderOptions = (options: InputOption[]) => (
+  const renderOptions = (optionsToRender: InputOption[]) => (
     <div className="flex flex-col">
-      {options?.length > 0 ? (
-        options.map((option, index) => (
+      {optionsToRender?.length > 0 ? (
+        optionsToRender.map((option, index) => (
           <label key={index} className="flex gap-2 w-full">
             <input
               type="checkbox"
@@ -80,7 +83,9 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
         ) : (
           <div
             className={`flex flex-col ${
-              options?.length > 10 ? "border border-accent" : ""
+              options?.length > MAX_COLLAPSED_LENGTH
+                ? "border border-accent"
+                : ""
             } col-1`}
           >
             {renderOptions(options)}
@@ -92,7 +97,7 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
         isOpen={isDialogOpen}
         close={() => setIsDialogOpen(false)}
       >
-        {options?.length > 10 && (
+        {options?.length > MAX_COLLAPSED_LENGTH && (
           <Input
             type="search"
             value={searchQuery}

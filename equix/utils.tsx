@@ -14,7 +14,7 @@ const convertObjectEntriesToStrings = (object: Object) => {
   return newObject;
 };
 
-const initialOptions = {
+const initialOptions: RequestInit = {
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

@@ -17,60 +17,59 @@ interface Props {
   initialEntity: Object;
 }
 
-export const EntityEditorHeader: FC<Props> = ({
-  entitiesName,
-  entityId,
-  changedEntity,
-  initialEntity,
-}) => (
-  <div className="flex items-center">
-    <Box onClick={() => (window.location.href = `/${entitiesName}/`)}>
-      <Icon name="chevron-left" /> Go back
-    </Box>
-    <h1 className="font-semibold p-2">
-      {capitalize(entitiesName.slice(0, -1))}
-    </h1>
-    <div className="flex">
-      {entityId !== "new" && (
-        <Box
-          className="text-red-700 focus:bg-red-700/20"
-          onClick={() => {
-            const confirmed = confirm("Confirm deletion");
-            if (confirmed) {
-              deleteEntity(entitiesName as string, entityId as string);
-              router.push(`/${entitiesName}`);
+export const EntityEditorHeader: FC<Props> = (props) => {
+  const { entitiesName, entityId, changedEntity, initialEntity } = props;
+
+  return (
+    <div className="flex items-center">
+      <Box onClick={() => (window.location.href = `/${entitiesName}/`)}>
+        <Icon name="chevron-left" /> Go back
+      </Box>
+      <h1 className="font-semibold p-2">
+        {capitalize(entitiesName.slice(0, -1))}
+      </h1>
+      <div className="flex">
+        {entityId !== "new" && (
+          <Box
+            className="text-red-700 focus:bg-red-700/20"
+            onClick={() => {
+              const confirmed = confirm("Confirm deletion");
+              if (confirmed) {
+                deleteEntity(entitiesName as string, entityId as string);
+                router.push(`/${entitiesName}`);
+              }
+            }}
+          >
+            Delete
+          </Box>
+        )}
+        {changedEntity && !areEntitiesEqual(initialEntity, changedEntity) && (
+          <Box
+            className="text-accent"
+            onClick={() => {
+              submitEntity(
+                entitiesName as string,
+                changedEntity,
+                entityId as string
+              );
+            }}
+          >
+            Save
+          </Box>
+        )}
+        {(entitiesName === "drivers" ||
+          entitiesName === "withdrawalRequests") && (
+          <Box
+            onClick={() =>
+              fetchApi(`${entitiesName}/${entityId}/approve`, {
+                method: "PATCH",
+              }).then((res) => res.json())
             }
-          }}
-        >
-          Delete
-        </Box>
-      )}
-      {changedEntity && !areEntitiesEqual(initialEntity, changedEntity) && (
-        <Box
-          className="text-accent"
-          onClick={() => {
-            submitEntity(
-              entitiesName as string,
-              changedEntity,
-              entityId as string
-            );
-          }}
-        >
-          Save
-        </Box>
-      )}
-      {(entitiesName === "drivers" ||
-        entitiesName === "withdrawalRequests") && (
-        <Box
-          onClick={() =>
-            fetchApi(`${entitiesName}/${entityId}/approve`, {
-              method: "PATCH",
-            }).then((res) => res.json())
-          }
-        >
-          Approve
-        </Box>
-      )}
+          >
+            Approve
+          </Box>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};

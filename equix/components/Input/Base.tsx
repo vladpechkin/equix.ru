@@ -1,21 +1,6 @@
-import { ElementType, FC, ReactNode } from "react";
+"use client";
 
-export interface InputProps {
-  type?:
-    | "text"
-    | "checkbox"
-    | "radio"
-    | "date"
-    | "time"
-    | "tel"
-    | "email"
-    | "search"
-    | "image";
-  label?: string;
-  errorMessage?: string;
-  className?: string;
-  autoFocus?: boolean;
-}
+import { ElementType, FC, ReactNode } from "react";
 
 interface InputBaseProps {
   as?: ElementType;
@@ -35,9 +20,10 @@ export const InputBase: FC<InputBaseProps> = (props) => {
     label,
     isRequired,
   } = props;
-  const Element = as;
+  const As = as;
+
   return (
-    <Element className={`max-w-screen-sm ${className || ""}`}>
+    <As className={`max-w-screen-sm ${className || ""}`}>
       {label && (
         <span className="whitespace-nowrap">
           {label} {isRequired ? "*" : ""}
@@ -45,6 +31,23 @@ export const InputBase: FC<InputBaseProps> = (props) => {
       )}
       {children}
       {errorMessage && <span className="text-red-700">{errorMessage}</span>}
-    </Element>
+    </As>
   );
 };
+
+export interface InputProps {
+  type?:
+    | "text"
+    | "checkbox"
+    | "radio"
+    | "date"
+    | "time"
+    | "tel"
+    | "email"
+    | "search"
+    | "image";
+  label?: string;
+  errorMessage?: string;
+  className?: string;
+  autoFocus?: boolean;
+}

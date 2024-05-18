@@ -3,11 +3,12 @@ import { FC, useEffect, useState } from "react";
 import { EntityEditor } from "./EntityEditor";
 import { Dialog } from "@/equix/components/Dialog";
 import { Input } from "@/equix/components/Input";
+import { Entity } from "../types";
 
 interface Props {
   entityName: string | null;
   title: string;
-  setEntityName: (value: string | null) => void;
+  setEntityName: (value: string | undefined) => void;
 }
 
 export const EntitiesEditor: FC<Props> = ({
@@ -17,31 +18,40 @@ export const EntitiesEditor: FC<Props> = ({
 }) => {
   const router = useRouter();
 
-  const [entities, setEntities] = useState<Object[]>([]);
-  const [idToEdit, setIdToEdit] = useState<number | null>(null);
+  const [entities, setEntities] = useState<Entity[]>([]);
+  const [idToEdit, setIdToEdit] = useState<number | undefined>(undefined);
 
+  const entityKeys = entities[0] ? Object.keys(entities[0]) : [];
 
-  const entityKeys = entities[0]
-    ? Object.keys(entities[0])
-    : [];
+  const [entity, setEntity] = useState<Entity>();
 
-  const [entity, setEntity] = useState<Object>({});
-
-  const entityTemplate = Object.fromEntries(entityKeys.map((key) => [key, ""]));
+  const entityTemplate: Entity = {
+    id: "",
+    ...Object.fromEntries(entityKeys.map((key) => [key, ""])),
+  };
 
   const [changedEntity, setChangedEntity] = useState<any>({});
 
   useEffect(() => {
-    if (entityName)
-      fetch(`/${entityName}.json`)
-        .then((res) => res.json())
-        .then((res) => setEntities(res));
+    const fetchEntities = async () => {
+      if (entityName) {
+        const fetchedEntities = await fetch(`/${entityName}.json`).then((res) =>
+          res.json()
+        );
+
+        setEntities(fetchedEntities);
+      }
+    };
+
+    fetchEntities();
   }, [router, entityName]);
 
   useEffect(() => {
     if (typeof idToEdit === "number" && idToEdit < entities.length) {
-      // @ts-ignore
-      setEntity(entities.find((entity) => entity.id === idToEdit));
+      const targetEntity = entities.find(({ id }) => id === String(idToEdit));
+
+      if (targetEntity) setEntity(targetEntity);
+
       setChangedEntity(entities[idToEdit]);
     }
   }, [idToEdit, entities]);
@@ -49,17 +59,17 @@ export const EntitiesEditor: FC<Props> = ({
   const [searchQuery, setSearchQuery] = useState("");
 
   const getEntities = () =>
-    entities?.filter((entity) =>
-      Object.values(entity).find((value) =>
+    entities?.filter((object) =>
+      Object.values(object).find((value) =>
         value?.toString().includes(searchQuery)
       )
     );
 
   return (
     <Dialog
-      isOpen={!!entityName}
+      isOpen={Boolean(entityName)}
       close={() => {
-        setEntityName(null);
+        setEntityName(undefined);
       }}
       title={title}
     >
@@ -97,20 +107,19 @@ export const EntitiesEditor: FC<Props> = ({
             <tbody>
               {entityKeys && getEntities().length > 0 ? (
                 getEntities()
-                  // @ts-ignore
-                  .sort(({ id: idA }, { id: idB }) => idA - idB)
+                  .sort(
+                    ({ id: idA }, { id: idB }) => parseInt(idA) - parseInt(idB)
+                  )
                   .map((entity, entityIndex) => (
                     <tr key={entityIndex}>
                       {entityKeys.map((key, index) => (
-                        // @ts-ignore
                         <td key={index}>{entity[key]}</td>
                       ))}
                       <td>
                         <button
                           onClick={() => {
                             setChangedEntity(entityTemplate);
-                            // @ts-ignore
-                            setIdToEdit(entity.id - 3);
+                            // setIdToEdit(entity.id - 3);
                           }}
                         >
                           Изменить
@@ -125,7 +134,7 @@ export const EntitiesEditor: FC<Props> = ({
           </table>
         </>
       )}
-      {entityName && (
+      {entityName && entity && (
         <EntityEditor
           indexToEdit={idToEdit}
           setChangedEntity={setChangedEntity}
