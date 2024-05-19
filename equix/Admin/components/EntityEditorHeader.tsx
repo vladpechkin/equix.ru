@@ -20,9 +20,34 @@ interface Props {
 export const EntityEditorHeader: FC<Props> = (props) => {
   const { entitiesName, entityId, changedEntity, initialEntity } = props;
 
+  const handleGoBack = () => {
+    window.location.href = `/${entitiesName}/`;
+  };
+
+  const handleDelete = () => {
+    const confirmed = confirm("Confirm deletion");
+
+    if (confirmed) {
+      deleteEntity(entitiesName as string, entityId as string);
+      router.push(`/${entitiesName}`);
+    }
+  };
+
+  const handleSave = () => {
+    submitEntity(entitiesName as string, changedEntity, entityId as string);
+  };
+
+  const handleApprove = async () => {
+    const res = await fetchApi(`${entitiesName}/${entityId}/approve`, {
+      method: "PATCH",
+    });
+
+    return res.json();
+  };
+
   return (
     <div className="flex items-center">
-      <Box onClick={() => (window.location.href = `/${entitiesName}/`)}>
+      <Box onClick={handleGoBack}>
         <Icon name="chevron-left" /> Go back
       </Box>
       <h1 className="font-semibold p-2">
@@ -32,42 +57,19 @@ export const EntityEditorHeader: FC<Props> = (props) => {
         {entityId !== "new" && (
           <Box
             className="text-red-700 focus:bg-red-700/20"
-            onClick={() => {
-              const confirmed = confirm("Confirm deletion");
-              if (confirmed) {
-                deleteEntity(entitiesName as string, entityId as string);
-                router.push(`/${entitiesName}`);
-              }
-            }}
+            onClick={handleDelete}
           >
             Delete
           </Box>
         )}
         {changedEntity && !areEntitiesEqual(initialEntity, changedEntity) && (
-          <Box
-            className="text-accent"
-            onClick={() => {
-              submitEntity(
-                entitiesName as string,
-                changedEntity,
-                entityId as string
-              );
-            }}
-          >
+          <Box className="text-accent" onClick={handleSave}>
             Save
           </Box>
         )}
         {(entitiesName === "drivers" ||
           entitiesName === "withdrawalRequests") && (
-          <Box
-            onClick={() =>
-              fetchApi(`${entitiesName}/${entityId}/approve`, {
-                method: "PATCH",
-              }).then((res) => res.json())
-            }
-          >
-            Approve
-          </Box>
+          <Box onClick={handleApprove}>Approve</Box>
         )}
       </div>
     </div>

@@ -13,7 +13,7 @@ export const Data: FC<Props> = (props) => {
       <span className="font-medium">{label}</span>
       {value.toString()}
     </label>
-  ) : null;
+  ) : undefined;
 };
 
 // TODO
@@ -26,4 +26,4 @@ export const Data: FC<Props> = (props) => {
 //         <Data key={index} label={prop.label} value={prop.value} />
 //       ))}
 //     </div>
-//   ) : null;
+//   ) : undefined;

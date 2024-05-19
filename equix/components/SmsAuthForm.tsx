@@ -24,7 +24,7 @@ export const SmsAuthForm: FC<Props> = (props) => {
 
   const handleConfirmNumber = () => {
     postConfirmationCode(code)
-      .then((res) => (res.ok ? res.json() : null))
+      .then((res) => (res.ok ? res.json() : undefined))
       .then((res) => {
         if (res.data.accessToken && res.data.refreshToken) {
           localStorage.setItem("accessToken", res.data.accessToken);
@@ -46,7 +46,7 @@ export const SmsAuthForm: FC<Props> = (props) => {
             >
               Confirm phone number
             </Box>
-          ) : null}
+          ) : undefined}
         </>
       ) : (
         <>
@@ -63,7 +63,7 @@ export const SmsAuthForm: FC<Props> = (props) => {
             >
               Get code via SMS
             </Box>
-          ) : null}
+          ) : undefined}
         </>
       )}
     </div>

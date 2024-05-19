@@ -18,7 +18,7 @@ export const Pagination: FC<Props> = (props) => {
 
   return !limit || limit > 1 ? (
     <Row>
-      {isLimitValid ? <Box>Page:</Box> : null}
+      {isLimitValid ? <Box>Page:</Box> : undefined}
       {page > 0 && (
         <Box onClick={() => setPage(page - 1)}>
           <Icon name="chevron-left" />
@@ -34,12 +34,12 @@ export const Pagination: FC<Props> = (props) => {
               {index + 1}
             </Box>
           ))
-        : null}
+        : undefined}
       {isNextPagePresent ? (
         <Box onClick={() => setPage(page + 1)}>
           <Icon name="chevron-right" />
         </Box>
-      ) : null}
+      ) : undefined}
     </Row>
-  ) : null;
+  ) : undefined;
 };

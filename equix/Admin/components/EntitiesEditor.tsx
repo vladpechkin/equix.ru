@@ -4,6 +4,7 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { Pagination } from "../../components/Pagination";
 import { EntitiesEditorHeader } from "./EntitiesEditorHeader";
 import { EntitiesEditorTable } from "./EntitiesEditorTable";
+import { getSortedEntities } from "../utils";
 
 interface Props {
   entitiesName: string;
@@ -12,48 +13,46 @@ interface Props {
   entityEndpoint?: URL;
 }
 
-export const EntitiesEditor: FC<Props> = ({
-  title,
-  entitiesName,
-  entitiesEndpoint = entitiesName as string,
-  entityEndpoint,
-}) => {
-  if (entitiesName === "newDrivers") {
-    entitiesName = "drivers";
-    entitiesEndpoint = `drivers?state=NEW`;
-  }
+export const EntitiesEditor: FC<Props> = (props) => {
+  const {
+    title,
+    entitiesName: initialEntitiesName,
+    entitiesEndpoint: initialEntitiesEndpoint = initialEntitiesName as string,
+    entityEndpoint,
+  } = props;
+
   const [sortKey, setSortKey] = useState("");
   const [entities, setEntities] = useState<Entity[]>([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState<number>();
+  const ENTITIES_PER_PAGE = 20;
+  
+  let entitiesName = initialEntitiesName;
+  let entitiesEndpoint = initialEntitiesEndpoint;
 
-  const fetchEntities = () =>
-    fetchApi(
+  if (entitiesName === "newDrivers") {
+    entitiesName = "drivers";
+    entitiesEndpoint = `drivers?state=NEW`;
+  }
+
+  const fetchEntities = useCallback(async () => {
+    const res = await fetchApi(
       `${entitiesEndpoint}${
         entitiesEndpoint.toString().includes("?") ? "&" : "?"
       }page=${page.toString()}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setEntities(res.data.results);
-        res?.data?.total && setLimit(Math.round(res.data.total / 20));
-      });
+    );
+
+    const json = await res.json();
+
+    setEntities(json.data.results);
+
+    if (json?.data?.total)
+      setLimit(Math.round(json.data.total / ENTITIES_PER_PAGE));
+  }, [entitiesEndpoint, page]);
 
   useEffect(() => {
     fetchEntities();
-  }, [entitiesName, page]);
-
-  const getSortedEntities = useCallback(
-    () =>
-      sortKey
-        ? entities.sort((a, b) =>
-            (a as any)[sortKey]
-              ?.toString()
-              .localeCompare((b as any)[sortKey].toString())
-          )
-        : entities,
-    [entities, sortKey]
-  );
+  }, [entitiesName, page, fetchEntities]);
 
   return (
     <div>
@@ -63,12 +62,14 @@ export const EntitiesEditor: FC<Props> = ({
         entitiesEndpoint={entitiesEndpoint}
         fetchData={fetchEntities}
       />
-      {entities && entities[0] && getSortedEntities().length > 0 ? (
+      {entities &&
+      entities[0] &&
+      getSortedEntities(sortKey, entities).length > 0 ? (
         <EntitiesEditorTable
           entities={entities}
           entitiesName={entitiesName}
           entityEndpoint={entityEndpoint}
-          getSortedEntities={getSortedEntities}
+          getSortedEntities={() => getSortedEntities(sortKey, entities)}
           setSortKey={setSortKey}
           sortKey={sortKey}
         />

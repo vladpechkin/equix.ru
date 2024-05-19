@@ -109,11 +109,12 @@ export const Box: FC<Props> = (props) => {
     <Element
       onClick={onClick}
       id={id}
-      children={children}
       href={href as string}
       className={getClassName()}
       target={href?.includes(":") ? "_blank" : undefined}
-    />
+    >
+      {children}
+    </Element>
   );
 };
 

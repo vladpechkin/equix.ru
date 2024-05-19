@@ -1,5 +1,6 @@
-import { capitalize, getAdditionalEntitiesEndpoints } from "@/equix/utils";
+import { capitalize } from "@/equix/utils";
 import { FC } from "react";
+import { getAdditionalEntitiesEndpoints } from "../utils";
 
 interface Props {
   entitiesName: string;
@@ -9,6 +10,7 @@ interface Props {
 
 export const EntityEditorLinks: FC<Props> = (props) => {
   const { entitiesName, innerEntityIdEntries, entityId } = props;
+
   return (
     <div className="flex">
       {getAdditionalEntitiesEndpoints(entitiesName as string)?.map(
@@ -24,6 +26,7 @@ export const EntityEditorLinks: FC<Props> = (props) => {
       )}
       {innerEntityIdEntries?.map(([key, value], index) => {
         const entityName = key.replace("Id", "s").replace("ss", "s");
+
         return (
           <a
             className="p-2 text-blue-700"

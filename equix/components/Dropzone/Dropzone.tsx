@@ -39,9 +39,9 @@ export const DropzoneForm: FC<Props> = (props) => {
     <label className="flex flex-col gap-2 w-full max-w-md h-full max-h-[20rem]">
       {label ? (
         <strong className="font-medium">
-          {label} {isRequired ? "*" : null}
+          {label} {isRequired ? "*" : undefined}
         </strong>
-      ) : null}
+      ) : undefined}
       <div
         id="form-file-upload"
         onDragEnter={handleDrag}
@@ -85,9 +85,9 @@ export const DropzoneForm: FC<Props> = (props) => {
                   onDrop={handleDrop}
                   className="bg-red h-full w-full z-50 absolute top-0 left-0"
                 ></div>
-              ) : null}
+              ) : undefined}
             </>
-          ) : null}
+          ) : undefined}
         </div>
         {value ? (
           <div className="flex flex-col gap-4">
@@ -114,7 +114,7 @@ export const DropzoneForm: FC<Props> = (props) => {
               Change
             </button>
           </div>
-        ) : null}
+        ) : undefined}
       </div>
     </label>
   );

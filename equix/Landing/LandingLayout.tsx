@@ -47,12 +47,11 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
   const getRoutesFromSection = () =>
     sections?.map(
       ({ heading }) =>
-        heading &&
-        ({
+        heading && {
           href: `#${heading.replaceAll(" ", "_")}`,
           label: heading,
-        })
-    ) as Route[]
+        }
+    ) as Route[];
 
   return (
     <ErrorPageProvider>
@@ -63,7 +62,7 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
         >
           <Header logo={logo} routes={routes || getRoutesFromSection()} />
           <div className="flex grow max-w-[944px] w-full">
-            {sidebarRoutes ? <Sidebar routes={sidebarRoutes} /> : null}
+            {sidebarRoutes ? <Sidebar routes={sidebarRoutes} /> : undefined}
             <View as="main" className="items-center w-full">
               <Col className="w-full h-full p">
                 {children}

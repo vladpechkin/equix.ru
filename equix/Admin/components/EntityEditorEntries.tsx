@@ -2,18 +2,21 @@ import { Row } from "@/equix/components";
 import { Box } from "@/equix/components/Box";
 import { Input } from "@/equix/components/Input";
 import { Entity, InputOption } from "@/equix/types";
+import { capitalize, fetchApi } from "@/equix/utils";
+import router from "next/router";
+import config from "../config.json";
+import { Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
 import {
-  capitalize,
-  fetchApi,
+  EXCHANGE_UNITS_IN_CURRENCY,
+  UNITS_IN_RATING_STAR,
+} from "@/equix/consts";
+import {
   getInputType,
   getKeyType,
   getNonHiddenEntityEntries,
   getOptions,
   renderValue,
-} from "@/equix/utils";
-import router from "next/router";
-import config from "../config.json";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+} from "../utils";
 
 interface Props {
   initialEntity: Object;
@@ -41,7 +44,7 @@ export const EntityEditorEntries: FC<Props> = (props) => {
   const [newCashBalance, setNewCashBalance] = useState("");
   const [newCardBalance, setNewCardBalance] = useState("");
 
-  let changedObject: Partial<Entity> = {};
+  const changedObject: Partial<Entity> = {};
 
   const renderObject = (label: string, object: Object) => (
     <Box className="flex-col border mb-4 gap-0">
@@ -60,8 +63,8 @@ export const EntityEditorEntries: FC<Props> = (props) => {
             onChange={setNewCashBalance}
           />
           <Box
-            onClick={() => {
-              fetchApi("driverTransactions", {
+            onClick={async () => {
+              const res = await fetchApi("driverTransactions", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -70,13 +73,15 @@ export const EntityEditorEntries: FC<Props> = (props) => {
                   paymentMethod: "CASH",
                   type: "WRITE_OFF",
                   destination: "BALANCE",
-                  amount: parseInt(newCashBalance) * 100,
+                  amount: parseInt(newCashBalance) * EXCHANGE_UNITS_IN_CURRENCY,
                   driverId: entityId,
                 }),
-              }).then(() => {
+              });
+
+              if (res) {
                 setNewCashBalance("");
                 router.reload();
-              });
+              }
             }}
           >
             Save
@@ -92,8 +97,8 @@ export const EntityEditorEntries: FC<Props> = (props) => {
             onChange={setNewCardBalance}
           />
           <Box
-            onClick={() => {
-              fetchApi("driverTransactions", {
+            onClick={async () => {
+              const res = await fetchApi("driverTransactions", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -102,13 +107,15 @@ export const EntityEditorEntries: FC<Props> = (props) => {
                   paymentMethod: "CARD",
                   type: "DEBIT",
                   destination: "BALANCE",
-                  amount: parseInt(newCardBalance) * 100,
+                  amount: parseInt(newCardBalance) * EXCHANGE_UNITS_IN_CURRENCY,
                   driverId: entityId,
                 }),
-              }).then(() => {
+              });
+
+              if (res) {
                 setNewCardBalance("");
                 router.reload();
-              });
+              }
             }}
           >
             Save
@@ -125,59 +132,72 @@ export const EntityEditorEntries: FC<Props> = (props) => {
   ) => {
     if (changedOption?.name) {
       return changedOption?.name;
-    } else {
-      if (getKeyType(entitiesName, key) === "string[]") {
-        return value?.replaceAll(", ", ",").split(",");
-      } else return value;
     }
+
+    if (getKeyType(entitiesName, key) === "string[]") {
+      return value?.replaceAll(", ", ",").split(",");
+    }
+
+    return value;
   };
 
-  const renderEntry = (entry: [string, any]) => {
-    const [key, value] = entry;
-    if (key.includes("Id")) return;
-    if (value) {
-      if (Array.isArray(value) && key !== "carModels") {
-        if (typeof value[0] === "object") {
-          return value.map((object: any, index) =>
-            renderObject(`${key.slice(0, -1)} ${index + 1}`, object)
-          );
-        } else
-          return (
-            <Box className="border mb-4 gap-0">
-              {capitalize(key)}: {value.toString()}
-            </Box>
-          );
+  const getInputValue = (key: string, value: any) => {
+    if (getInputType(entitiesName, key, value) === "date")
+      return (changedEntity as any)[key];
+
+    if (key.toLowerCase().includes("fee"))
+      return `${value * EXCHANGE_UNITS_IN_CURRENCY}%`;
+
+    if (key === "cashLimit" || key === "price")
+      return value / EXCHANGE_UNITS_IN_CURRENCY;
+
+    if (getInputType(entitiesName, key, value) === "radio")
+      return getOptions(entitiesName, key).find(
+        (option) => option.name === (changedEntity as any)[key]
+      );
+
+    if (parseInt(value))
+      return String(
+        Math.round((changedEntity as any)[key] * UNITS_IN_RATING_STAR) /
+          UNITS_IN_RATING_STAR
+      );
+
+    if (value === null) return "";
+
+    return (changedEntity as any)[key];
+  };
+
+  const renderEntry = ([key, value]: [string, any]): ReactNode | undefined => {
+    if (key.includes("Id")) return undefined;
+
+    if (value && Array.isArray(value) && key !== "carModels") {
+      if (typeof value[0] === "object") {
+        return value.map((object: any, index) =>
+          renderObject(`${key.slice(0, -1)} ${index + 1}`, object)
+        );
       }
-      if (typeof value === "object" && key !== "carModels") {
-        return renderObject(key, value);
-      }
+
+      return (
+        <Box className="border mb-4 gap-0">
+          {capitalize(key)}: {value.toString()}
+        </Box>
+      );
     }
+
+    if (value && typeof value === "object" && key !== "carModels") {
+      return renderObject(key, value);
+    }
+
     return (
       <div className="mb-4">
         <Input
           key={key}
           label={
             config.renamed_fields[key as keyof typeof config.renamed_fields] ||
-            capitalize(key).replace(/([a-z])([A-Z])/g, "$1 $2")
+            capitalize(key).replaceAll(/([a-z])([A-Z])/u, "$1 $2")
           }
           type={getInputType(entitiesName, key, value)}
-          value={
-            getInputType(entitiesName, key, value) === "date"
-              ? (changedEntity as any)[key]
-              : key.toLowerCase().includes("fee")
-              ? `${value * 100}%`
-              : key === "cashLimit" || key === "price"
-              ? value / 100
-              : getInputType(entitiesName, key, value) === "radio"
-              ? getOptions(entitiesName, key).find(
-                  (option) => option.name === (changedEntity as any)[key]
-                )
-              : parseInt(value)
-              ? String(Math.round((changedEntity as any)[key] * 10) / 10)
-              : value === null
-              ? ""
-              : (changedEntity as any)[key]
-          }
+          value={getInputValue(key, value)}
           isCollapsed
           onChange={(value: any) => {
             const changedOption = getOptions(entitiesName, key).find(
@@ -189,8 +209,8 @@ export const EntityEditorEntries: FC<Props> = (props) => {
               key,
               value
             );
-            setChangedEntity((prevState) => ({
-              ...prevState,
+            setChangedEntity((previousState) => ({
+              ...previousState,
               ...changedObject,
             }));
           }}

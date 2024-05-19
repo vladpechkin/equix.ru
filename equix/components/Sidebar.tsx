@@ -22,7 +22,7 @@ export const Sidebar: FC<Props> = (props) => {
           <Box isStrictHref key={index} {...route}>
             {route.label || route.href}
           </Box>
-        ) : null
+        ) : undefined
       )}
       {groups.map((group, index) => (
         <li key={index} className="w-full">

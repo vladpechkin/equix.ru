@@ -1,10 +1,11 @@
-import { capitalize, fetchApi, getEntityTemplate } from "@/equix/utils";
-import { FC, useEffect, useState } from "react";
+import { capitalize, fetchApi } from "@/equix/utils";
+import { FC, useCallback, useEffect, useState } from "react";
 import config from "../config.json";
 import { EntityEditorEntries } from "./EntityEditorEntries";
 import { EntityEditorHeader } from "./EntityEditorHeader";
 import { EntityEditorLinks } from "./EntityEditorLinks";
 import { Entity } from "@/equix/types";
+import { getEntityTemplate } from "../utils";
 
 interface Props {
   entitiesName: string;
@@ -31,56 +32,60 @@ export const EntityEditor: FC<Props> = ({
     [string, unknown][]
   >([]);
 
-  useEffect(() => {
+  const init = useCallback(async () => {
     if (entityId !== "new") {
-      fetchApi(entityEndpoint)
-        .then((res) => res.json())
-        .then((res) => {
-          let entity = res.data;
-          type EntityName = keyof typeof config.additional_entity_endpoints;
-          const additionalEntityEndpoints =
-            config.additional_entity_endpoints[
-              capitalize(entitiesName) as EntityName
-            ];
+      const res = await fetchApi(entityEndpoint);
 
-          if (additionalEntityEndpoints) {
-            additionalEntityEndpoints.map((endpoint) =>
-              fetchApi(`${entityEndpoint}/${endpoint}`)
-                .then((res) => res.json())
-                .then((res) => {
-                  setAdditionalEntries(Object.entries(res.data));
-                })
-            );
-          }
+      const data = await res.json();
 
-          if (setInnerEntityIdEntries) {
-            type EntityName = keyof typeof config.entities;
-            const configKeys = Object.keys(
-              config.entities[
-                capitalize(entitiesName.slice(0, -1)) as EntityName
-              ]
-            );
-            const entries: [key: string, value: any][] = [];
-            configKeys.map(
-              (key) => key.includes("Id") && entries.push([key, entity[key]])
-            );
-            setInnerEntityIdEntries(entries);
-          }
+      const entity = data;
 
-          entitiesName === "drivers" &&
-            fetchApi(`fleets?driverId=${entityId}`)
-              .then((res) => res.json())
-              .then((res) =>
-                setFleetIds(
-                  res.data.results.map((fleet: any) => fleet.id).join(",")
-                )
-              );
+      type EntityName = keyof typeof config.additional_entity_endpoints;
 
-          setInitialEntity(entity);
-          setChangedEntity(entity);
+      const additionalEntityEndpoints =
+        config.additional_entity_endpoints[
+          capitalize(entitiesName) as EntityName
+        ];
+
+      if (additionalEntityEndpoints) {
+        additionalEntityEndpoints.map(async (endpoint) => {
+          const res = await fetchApi(`${entityEndpoint}/${endpoint}`);
+          const data = await res.json();
+
+          setAdditionalEntries(Object.entries(data));
         });
+      }
+
+      if (setInnerEntityIdEntries) {
+        type EntityName = keyof typeof config.entities;
+
+        const configKeys = Object.keys(
+          config.entities[capitalize(entitiesName.slice(0, -1)) as EntityName]
+        );
+        const entries: [key: string, value: any][] = [];
+
+        configKeys.map(
+          (key) => key.includes("Id") && entries.push([key, entity[key]])
+        );
+        setInnerEntityIdEntries(entries);
+      }
+
+      if (entitiesName === "drivers") {
+        const res = await fetchApi(`fleets?driverId=${entityId}`);
+
+        const data = await res.json();
+
+        setFleetIds(data.results.map((fleet: any) => fleet.id).join(","));
+      }
+
+      setInitialEntity(entity);
+      setChangedEntity(entity);
     }
-  }, []);
+  }, [entitiesName, entityEndpoint, entityId]);
+
+  useEffect(() => {
+    init();
+  }, [init]);
 
   return entitiesName ? (
     <div className="w-full max-w-[800px] mx-auto">
@@ -106,5 +111,5 @@ export const EntityEditor: FC<Props> = ({
         additionalEntries={additionalEntries}
       />
     </div>
-  ) : null;
+  ) : undefined;
 };

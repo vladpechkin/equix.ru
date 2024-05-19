@@ -197,7 +197,7 @@
     "no-magic-numbers": [
       "error",
       {
-        "ignore": [0, 1],
+        "ignore": [0, 1, -1],
         "enforceConst": true,
         "ignoreDefaultValues": true,
         "ignoreClassFieldInitialValues": true

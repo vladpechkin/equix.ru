@@ -5,7 +5,6 @@ import { Card } from "@/equix/components/Box";
 import { Row } from "@/equix/components";
 import { H2 } from "@/equix/components/Heading";
 import componentsData from "./componentsData";
-import { useEffect } from "react";
 
 const Page = () => (
   <LandingLayout>

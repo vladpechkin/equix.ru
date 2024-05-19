@@ -20,10 +20,10 @@ export const InputBase: FC<InputBaseProps> = (props) => {
     label,
     isRequired,
   } = props;
-  const As = as;
+  const Element = as;
 
   return (
-    <As className={`max-w-screen-sm ${className || ""}`}>
+    <Element className={`max-w-screen-sm ${className || ""}`}>
       {label && (
         <span className="whitespace-nowrap">
           {label} {isRequired ? "*" : ""}
@@ -31,7 +31,7 @@ export const InputBase: FC<InputBaseProps> = (props) => {
       )}
       {children}
       {errorMessage && <span className="text-red-700">{errorMessage}</span>}
-    </As>
+    </Element>
   );
 };
 

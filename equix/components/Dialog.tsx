@@ -49,5 +49,5 @@ export const Dialog: FC<Props> = ({
         {children}
       </dialog>
     </div>
-  ) : null;
+  ) : undefined;
 };

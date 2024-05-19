@@ -25,7 +25,7 @@ export const DarkThemeProvider: FC<Props> = (props) => {
     setIsLoading(false);
   }, []);
 
-  return !isLoading ? children : null;
+  return !isLoading ? children : undefined;
 };
 
 export const DarkThemeToggle = () => {

@@ -22,6 +22,7 @@ export const EntitiesEditorHeader: FC<Props> = (props) => {
   const handleClick = () => {
     if (entitiesEndpoint instanceof URL)
       entitiesEndpoint.searchParams.set("search", searchQuery.toLowerCase());
+    
     fetchData();
   };
 
