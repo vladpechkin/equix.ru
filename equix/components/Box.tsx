@@ -37,24 +37,36 @@ export const Box: FC<Props> = (props) => {
     if (href) {
       if (href === "/" || isStrictHref) {
         return pathname === href;
-      } else return pathname.includes(href);
-    } else return false;
+      }
+
+      return pathname.includes(href);
+    }
+
+    return false;
   };
 
   const getColor = () => {
     if (isDisabled || isDimmed) {
       return "text-gray-400";
-    } else if ((href && !getIsActiveLink) || onClick) {
+    }
+
+    if ((href && !getIsActiveLink()) || onClick) {
       return "text-accent";
-    } else return "";
+    }
+
+    return "";
   };
 
   const getCursor = () => {
-    if (props.isDisabled) {
+    if (isDisabled) {
       return "cursor-not-allowed";
-    } else if ((props.href && !getIsActiveLink) || props.onClick) {
+    }
+
+    if ((href && !getIsActiveLink) || onClick) {
       return "cursor-pointer";
-    } else return "";
+    }
+
+    return "";
   };
 
   const getClassName = () => `
@@ -72,16 +84,22 @@ export const Box: FC<Props> = (props) => {
 
   const getElement = () => {
     switch (true) {
-      case !!href:
+      case Boolean(href): {
         return Link;
-      case href && href?.includes(":"):
+      }
+      case href && href?.includes(":"): {
         return "a";
-      case !!onClick:
+      }
+      case Boolean(onClick): {
         return "button";
-      case typeof children === "string":
+      }
+      case typeof children === "string": {
         return "p";
-      default:
+      }
+
+      default: {
         return "div";
+      }
     }
   };
 

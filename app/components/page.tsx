@@ -1,7 +1,11 @@
+"use client";
+
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
 import { Card } from "@/equix/components/Box";
 import { Row } from "@/equix/components";
 import { H2 } from "@/equix/components/Heading";
+import componentsData from "./componentsData";
+import { useEffect } from "react";
 
 const Page = () => (
   <LandingLayout>
@@ -11,20 +15,9 @@ const Page = () => (
       создаются приложения.
     </p>
     <Row className="flex-wrap w-full">
-      {[
-        "Box",
-        "Input",
-        "Bar",
-        "Dialog",
-        "Icon",
-        "Img",
-        "Map",
-        "Textarea",
-        "Video",
-        "View",
-      ].map((component, index) => (
-        <Card key={index} href={`/components/${component}`}>
-          {component}
+      {Object.keys(componentsData).map((componentName, index) => (
+        <Card key={index} href={`/components/${componentName}`}>
+          {componentName}
         </Card>
       ))}
     </Row>

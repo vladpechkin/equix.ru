@@ -19,10 +19,10 @@ const config = {
   ),
   routes: [
     { href: "/", label: "Главная" },
-    { href: "/overview", label: "Обзор" },
+    { href: "/components", label: "Компоненты" },
     { href: "/tryOut", label: "Попробовать" },
     { href: "/docs", label: "Документация" },
-    { href: "/about", label: "О стартапе" },
+    { href: "/about", label: "О нас" },
   ],
   hero: (
     <Col className="bg-border rounded p">
@@ -42,10 +42,8 @@ const config = {
       </menu>
       <Input
         type="radio"
-        options={[
-          { id: "0", name: "Соглашаюсь с политикой конфиденциальности" },
-        ]}
-        value={{ id: "0", name: "Соглашаюсь с политикой конфиденциальности" }}
+        value={true}
+        label="Соглашаюсь с политикой конфиденциальности"
         onChange={() => ""}
       />
     </Col>

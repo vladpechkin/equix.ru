@@ -9,14 +9,14 @@ import { Icon } from "../Icon";
 import { InputBase, InputProps } from "./Base";
 import { RadioOption } from "./RadioOption";
 
-type OnChange = (value: InputOption) => void;
+type OnChange = (value: InputOption | boolean) => void;
 
-type NullableOnChange = (value: InputOption | undefined) => void;
+type NullableOnChange = (value: InputOption | boolean | undefined) => void;
 
 export interface RadioProps extends InputProps {
   minOptions?: number;
-  options: InputOption[];
-  value?: InputOption;
+  options?: InputOption[];
+  value: InputOption | boolean;
   onChange: OnChange | NullableOnChange;
   isCollapsed?: boolean;
 }
@@ -35,29 +35,38 @@ export const Radio: FC<RadioProps> = (props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const isSwitch = options.length === 1;
+  const isSwitch = typeof value === "boolean";
 
   const MAX_COLLAPSED_LENGTH = 10;
 
-  const handleChange = (option: InputOption) => {
-    if (minOptions === 1 && value?.id === option.id) return;
+  const handleChange = (option: InputOption | boolean) => {
+    if (!isSwitch && options && typeof option !== "boolean") {
+      if (
+        minOptions === 1 &&
+        typeof option !== "boolean" &&
+        value?.id === option.id
+      )
+        return;
 
-    const getOptionToChange = () => {
-      if (value?.id === option.id && options[0]) {
-        return options[0].name === "true"
-          ? ({
-              id: "1",
-              name: "false",
-            } as InputOption)
-          : undefined;
+      const getOptionToChange = () => {
+        if (value?.id === option.id && options[0]) {
+          return options[0].name === "true"
+            ? ({
+                id: "1",
+                name: "false",
+              } as InputOption)
+            : undefined;
+        }
+
+        return option;
+      };
+
+      if (options[0]) {
+        (onChange as NullableOnChange)(getOptionToChange());
       }
-
-      return option;
-    };
-
-    if (options[0]) {
-      (onChange as NullableOnChange)(getOptionToChange());
     }
+
+    onChange(!option);
 
     if (isDialogOpen) setIsDialogOpen(false);
   };
@@ -68,7 +77,6 @@ export const Radio: FC<RadioProps> = (props) => {
         optionsToRender.map((option, index) => (
           <RadioOption
             handleChange={handleChange}
-            isSwitch={isSwitch}
             key={index}
             option={option}
             value={value}
@@ -80,6 +88,23 @@ export const Radio: FC<RadioProps> = (props) => {
     </div>
   );
 
+  const renderContents = () => {
+    if (!isSwitch && isCollapsed)
+      return (
+        <Box
+          onClick={() => setIsDialogOpen(true)}
+          className="text-black justify-between"
+        >
+          <span>{value?.name}</span>
+          <Icon name="chevron-down" className="text-accent" />
+        </Box>
+      );
+
+    if (options) return renderOptions(options);
+
+    return <RadioOption handleChange={handleChange} value={value} />;
+  };
+
   return (
     <>
       <InputBase
@@ -90,17 +115,7 @@ export const Radio: FC<RadioProps> = (props) => {
         <div
           className={`flex flex-col ${isSwitch ? "order-[-1]" : "border border-borderAccent rounded-lg"} col-1`}
         >
-          {!isSwitch && isCollapsed ? (
-            <Box
-              onClick={() => setIsDialogOpen(true)}
-              className="text-black justify-between"
-            >
-              <span>{value?.name}</span>
-              <Icon name="chevron-down" className="text-accent" />
-            </Box>
-          ) : (
-            renderOptions(options)
-          )}
+          {renderContents()}
         </div>
       </InputBase>
       <Dialog
@@ -108,7 +123,7 @@ export const Radio: FC<RadioProps> = (props) => {
         isOpen={isDialogOpen}
         close={() => setIsDialogOpen(false)}
       >
-        {options.length > MAX_COLLAPSED_LENGTH && (
+        {options && options.length > MAX_COLLAPSED_LENGTH && (
           <Input
             type="search"
             value={searchQuery}
@@ -116,11 +131,12 @@ export const Radio: FC<RadioProps> = (props) => {
             autoFocus
           />
         )}
-        {renderOptions(
-          options?.filter((option) =>
-            option?.name?.toLowerCase().includes(searchQuery?.toLowerCase())
-          )
-        )}
+        {options &&
+          renderOptions(
+            options.filter((option) =>
+              option?.name?.toLowerCase().includes(searchQuery?.toLowerCase())
+            )
+          )}
       </Dialog>
     </>
   );

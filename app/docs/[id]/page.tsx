@@ -5,7 +5,7 @@ interface Props {
   params: { id: string };
 }
 
-const MarkdownPage: FC<Props> = async (props) => {
+const Page: FC<Props> = async (props) => {
   const {
     params: { id },
   } = props;
@@ -16,7 +16,7 @@ const MarkdownPage: FC<Props> = async (props) => {
   );
 };
 
-export default MarkdownPage;
+export default Page;
 
 export const generateStaticParams = async () => {
   const posts = await getAllMarkdownFiles();
