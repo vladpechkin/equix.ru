@@ -3,14 +3,16 @@
 import { FC, useState } from "react";
 import { Input } from ".";
 import { Dialog } from "../Dialog";
-import { InputBase } from "./Base";
-import { RadioProps } from "./Radio";
+import { InputBase, InputProps } from "./Base";
 import { InputOption } from "@/equix/types";
 import { capitalize } from "@/equix/utils";
 
-export interface CheckboxProps extends Omit<RadioProps, "value" | "onChange"> {
+export interface CheckboxProps extends InputProps {
+  minOptions?: number;
+  options: InputOption[];
+  isCollapsed?: boolean;
   maxOptions?: number;
-  value?: InputOption[];
+  value: InputOption[];
   onChange: (value: InputOption[]) => void;
 }
 
@@ -63,41 +65,43 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
     </div>
   );
 
+  const renderContents = () => {
+    if (isCollapsed)
+      return (
+        <>
+          <span className={value.length > 0 ? "" : "text-gray-400"}>
+            {value.length > 0
+              ? value.map((option) => option.name).join(", ")
+              : "Not selected"}
+          </span>
+          <button className="self-start" onClick={() => setIsDialogOpen(true)}>
+            {value.length > 0 ? "Change" : "Select"}
+          </button>
+        </>
+      );
+
+    return (
+      <div
+        className={`flex flex-col ${
+          options.length > MAX_COLLAPSED_LENGTH ? "border border-accent" : ""
+        } col-1`}
+      >
+        {renderOptions(options)}
+      </div>
+    );
+  };
+
   return (
     <>
       <InputBase as="fieldset" className={className} label={label}>
-        {isCollapsed ? (
-          <>
-            <span className={value.length > 0 ? "" : "text-gray-400"}>
-              {value.length > 0
-                ? value.map((option) => option.name).join(", ")
-                : "Not selected"}
-            </span>
-            <button
-              className="self-start"
-              onClick={() => setIsDialogOpen(true)}
-            >
-              {value.length > 0 ? "Change" : "Select"}
-            </button>
-          </>
-        ) : (
-          <div
-            className={`flex flex-col ${
-              options?.length > MAX_COLLAPSED_LENGTH
-                ? "border border-accent"
-                : ""
-            } col-1`}
-          >
-            {renderOptions(options)}
-          </div>
-        )}
+        {renderContents()}
       </InputBase>
       <Dialog
         title={label!}
         isOpen={isDialogOpen}
         close={() => setIsDialogOpen(false)}
       >
-        {options?.length > MAX_COLLAPSED_LENGTH && (
+        {options.length > MAX_COLLAPSED_LENGTH && (
           <Input
             type="search"
             value={searchQuery}
@@ -106,7 +110,7 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
           />
         )}
         {renderOptions(
-          options?.filter((option) =>
+          options.filter((option) =>
             option.name.toLowerCase().includes(searchQuery.toLowerCase())
           )
         )}

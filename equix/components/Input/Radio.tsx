@@ -6,14 +6,16 @@ import { Input } from ".";
 import { Box } from "../Box";
 import { Dialog } from "../Dialog";
 import { Icon } from "../Icon";
-import { InputBase, InputProps } from "./Base";
+import { InputBase } from "./Base";
 import { RadioOption } from "./RadioOption";
+import { CheckboxProps } from "./Checkbox";
 
 type OnChange = (value: InputOption | boolean) => void;
 
 type NullableOnChange = (value: InputOption | boolean | undefined) => void;
 
-export interface RadioProps extends InputProps {
+export interface RadioProps
+  extends Omit<CheckboxProps, "maxOptions" | "value" | "options" | "onChange"> {
   minOptions?: number;
   options?: InputOption[];
   value: InputOption | boolean;
