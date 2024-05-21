@@ -21,12 +21,3 @@ export const ConfirmDialog: FC<Props> = (props) => {
     </div>
   );
 };
-// Пример использования
-// const [isLeaveConfirmationOpen, setIsLeaveConfirmationOpen] = useState(false);
-// {isLeaveConfirmationOpen && (
-//   <ConfirmDialog
-//     description="Are you sure you want to close this template? All edits will be deleted"
-//     close={() => setIsLeaveConfirmationOpen(false)}
-//     confirmAction={() => router.push("/templates")}
-//   />
-// )}

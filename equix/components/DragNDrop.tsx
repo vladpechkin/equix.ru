@@ -17,6 +17,7 @@ export const DragNDropZone: FC<Props> = (props) => {
 
   const handleDragEnd: OnDragEndResponder = ({ destination, source }) => {
     if (!destination) return;
+
     if (
       destination.index === source.index &&
       destination.droppableId === source.droppableId
@@ -31,7 +32,8 @@ export const DragNDropZone: FC<Props> = (props) => {
       )
     );
 
-    let targetItem = items.find(({ id }) => id === source.index);
+    const targetItem = items.find(({ id }) => id === source.index);
+
     if (targetItem) {
       targetItem["state"] = destination.droppableId;
     }
@@ -39,8 +41,9 @@ export const DragNDropZone: FC<Props> = (props) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      // TODO
-      {/* <Droppable droppableId={state} key={index}>
+      TODO
+      {/*
+      <Droppable droppableId={state} key={index}>
         {(provided) => (
           <div
             ref={provided.innerRef}

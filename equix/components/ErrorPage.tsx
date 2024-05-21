@@ -11,20 +11,21 @@ export const ErrorPage = () => {
   return (
     <Col className="items-center justify-center h-screen">
       <p className="font-semibold p-2">
-        Something went wrong. The page may have been moved or deleted.
+        Что-то пошло не так. Возможно, данная страница была перемещена или
+        удала.
       </p>
       <Row className="flex-wrap">
         <Box onClick={() => router.refresh()}>
           <Icon name="arrow-clockwise" />
-          Reload page
+          Обновить страницу
         </Box>
         <Box onClick={() => router.back()}>
           <Icon name="chevron-left" />
-          Go back
+          Вернуться назад
         </Box>
         <Box onClick={() => router.push("/")}>
           <Icon name="house" />
-          Go to homepage
+          Вернуться на домашнюю страницу
         </Box>
       </Row>
     </Col>

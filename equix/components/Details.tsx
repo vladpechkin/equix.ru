@@ -13,7 +13,7 @@ export const Details: FC<Props> = (props) => {
   return (
     <details
       open={isOpen ? true : undefined}
-      onClick={(e) => e.preventDefault()}
+      onClick={(event) => event.preventDefault()}
       className="w-full"
     >
       <summary

@@ -12,6 +12,7 @@ export const DarkThemeProvider: FC<Props> = (props) => {
 
   useEffect(() => {
     const isDarkThemeSelected = localStorage.getItem("dark-theme");
+
     if (
       isDarkThemeSelected === "true" ||
       (isDarkThemeSelected === null &&
@@ -19,13 +20,15 @@ export const DarkThemeProvider: FC<Props> = (props) => {
     ) {
       document.body.classList.add("dark");
     }
+
     if (isDarkThemeSelected === "false") {
       document.body.classList.remove("dark");
     }
+
     setIsLoading(false);
   }, []);
 
-  return !isLoading ? children : undefined;
+  return isLoading ? undefined : children;
 };
 
 export const DarkThemeToggle = () => {
@@ -42,7 +45,9 @@ export const DarkThemeToggle = () => {
         } else {
           document.body.classList.add("dark");
         }
-        localStorage.setItem("dark-theme", `${!isDarkThemeSelected}`);
+
+        localStorage.setItem("dark-theme", String(!isDarkThemeSelected));
+
         setIsDarkThemeSelected(!isDarkThemeSelected);
       }}
     >

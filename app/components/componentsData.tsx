@@ -2,6 +2,12 @@
 
 import { Bar } from "@/equix/components/Bar";
 import { Box } from "@/equix/components/Box";
+import { ConfirmDialog } from "@/equix/components/ConfirmDialog";
+import {
+  DarkThemeProvider,
+  DarkThemeToggle,
+} from "@/equix/components/DarkThemeProvider";
+import { Details } from "@/equix/components/Details";
 import { Dialog } from "@/equix/components/Dialog";
 import { GeoMap } from "@/equix/components/GeoMap";
 import { Icon } from "@/equix/components/Icon";
@@ -10,6 +16,7 @@ import { Input } from "@/equix/components/Input";
 import { Textarea } from "@/equix/components/Textarea";
 import { Video } from "@/equix/components/Video";
 import { View } from "@/equix/components/View";
+import { useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
 
 interface ComponentsData {
@@ -68,6 +75,52 @@ const componentsData: ComponentsData = {
     ExampleComponent: () => <Box onClick={() => "test"}>Кнопка</Box>,
     usage: `<Box onClick={() => "test"}>Кнопка</Box>`,
   },
+  ConfirmDialog: {
+    description: `TODO`,
+    ExampleComponent: () => {
+      const [isDialogOpen, setIsDialogOpen] = useState(false);
+      const router = useRouter();
+
+      return (
+        <>
+          <Box onClick={() => setIsDialogOpen(true)}>
+            Нажми на меня чтобы открыть диалог
+          </Box>
+          {isDialogOpen && (
+            <ConfirmDialog
+              description="Уверены, что хотите покинуть страницу? Все данные будут утеряны"
+              close={() => setIsDialogOpen(false)}
+              confirmAction={() => router.push("/templates")}
+            />
+          )}
+        </>
+      );
+    },
+    usage: ``,
+  },
+  DarkThemeProvider: {
+    description: `Провайдер темной темы - компонент-обертка, в который должен быть завернут layout, если вы хотите, чтобы в нем была реализована поддержка светлой и тёмной тем. При использовании данной обертки по умолчанию темная тема включается тогда, когда в операционной системе или браузере пользователя выбран темный режим, и наоборот - при светлом режиме активна только светлая тема. Помимо самой обертки <code>DarkThemeProvider</code> файл экспортирует <code>DarkThemeToggle</code> - кнопку для ручного переключения тем, которая позволяет игнорировать настройки операционной системы или браузера.`,
+    ExampleComponent: () => (
+      <DarkThemeProvider>
+        <DarkThemeToggle />
+      </DarkThemeProvider>
+    ),
+    usage: `<DarkThemeProvider>
+    <DarkThemeToggle />
+  </DarkThemeProvider>`,
+  },
+  Data: {
+    description: `TODO`,
+    ExampleComponent: () => <></>,
+    usage: ``,
+  },
+  Details: {
+    description: `Details - т.н. "аккордеон", "деталка", - элемент интерфейса, раскрывающийся и скрывающийся назад по нажатию на заголовок. Заголовок является текстом, а содержание - чем угодно. По умолчанию аккордеон свернут, но это поведение можно изменить аттрибутом open.`,
+    ExampleComponent: () => (
+      <Details summary="Тестовый аккордеон">Текст внутри него</Details>
+    ),
+    usage: `<Details summary="Тестовый аккордеон">Текст внутри него</Details>`,
+  },
   Dialog: {
     description: `Dialog - всплывающее диалоговое окно, стандартный способ получения ответа от пользователя. Оно всегда имеет заголовок и может иметь любое
     наполнение. Также диалог может быть закрываемым (пользователь может в
@@ -76,17 +129,17 @@ const componentsData: ComponentsData = {
     клавиатуре), или не быть таковым, заставляя пользователя принять решение
     и выбрать одно из действий.`,
     ExampleComponent: () => {
-      const [isOpen, setIsOpen] = useState(false);
+      const [isDialogOpen, setIsDialogOpen] = useState(false);
 
       return (
         <>
-          <Box onClick={() => setIsOpen(true)}>
+          <Box onClick={() => setIsDialogOpen(true)}>
             Нажми на меня чтобы открыть диалог
           </Box>
           <Dialog
-            isOpen={isOpen}
+            isOpen={isDialogOpen}
             title="Тестовый диалог"
-            close={() => setIsOpen(false)}
+            close={() => setIsDialogOpen(false)}
           >
             Текст диалога
           </Dialog>
@@ -103,6 +156,20 @@ const componentsData: ComponentsData = {
   >
     Текст диалога
   </Dialog>`,
+  },
+  DragNDrop: {
+    description: `TODO`,
+    ExampleComponent: () => <></>,
+    usage: ``,
+  },
+  ErrorPage: {
+    description: `ErrorPage - страница, возникающая перед пользователем в случае ошибки в работе сайта или при переходе на несуществующий адрес. Может быть использована вручную сверх того, например, как заглушка для пока недоделанной страницы.`,
+    ExampleComponent: () => (
+      <Box href="/nonexistant">
+        Нажмите на меня чтобы перейти на несуществующую страницу
+      </Box>
+    ),
+    usage: `<ErrorPage />`,
   },
   Icon: {
     description: `Icon, иконка, - компонент-прослойка для получения иконок из взаимодействия

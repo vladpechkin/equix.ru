@@ -1,7 +1,5 @@
-import typography from "@tailwindcss/typography";
-
 /** @type {import('tailwindcss').Config} */
-const config = {
+module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,7 +7,7 @@ const config = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./equix/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  plugins: [typography],
+  plugins: [require("@tailwindcss/typography")],
   darkMode: "class",
   theme: {
     extend: {
@@ -31,5 +29,3 @@ const config = {
     },
   },
 };
-
-export default config;
