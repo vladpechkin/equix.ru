@@ -6,6 +6,7 @@ import { Col, Row } from "@/equix/components";
 import { Box, Card } from "@/equix/components/Box";
 import { Input } from "@/equix/components/Input";
 import { useState } from "react";
+import Image from "next/image";
 
 const Page = () => {
   const [previewTitle, setPreviewTitle] = useState(
@@ -20,7 +21,7 @@ const Page = () => {
     useState("Описание секции");
   const [previewBackgroundColor, setPreviewBackgroundColor] =
     useState("#ccddff");
-    
+
   return (
     <LandingLayout
       sections={[
@@ -95,7 +96,9 @@ const Page = () => {
                     heading: previewTitle,
                     description: previewDescription,
                     siteName: "ООО Эквикс",
-                    hero: <img src="/intro.png" alt="" />,
+                    hero: (
+                      <Image src="/intro.png" alt="" height={300} width={300} />
+                    ),
                     logo: (
                       <Box className="text-accent font-thin tracking-[8px] text-4xl">
                         EQUIX

@@ -1,10 +1,18 @@
 "use client";
 
-import { DetailedHTMLProps, FC, ImgHTMLAttributes, useState } from "react";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Image from "next/image";
+import { FC, useState } from "react";
 
-export const Img: FC<
-  DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
-> = (props) => {
+interface Props {
+  className?: string;
+  alt?: string;
+  height: number | `${number}`;
+  width: number | `${number}`;
+  src: string | StaticImport;
+}
+
+export const Img: FC<Props> = (props) => {
   const { className, alt } = props;
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -32,7 +40,7 @@ export const Img: FC<
       )}
       onClick={handleClick}
     >
-      <img
+      <Image
         {...props}
         className={`rounded-lg border border-accent ${getClassName()}`}
         alt={alt || ""}

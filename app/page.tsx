@@ -1,4 +1,4 @@
-import NextImage from "next/image";
+import Image from "next/image";
 
 import { Row } from "@/equix/components";
 import { Box, Card } from "@/equix/components/Box";
@@ -74,7 +74,7 @@ const Page = () => (
                 href={href}
                 key={index}
               >
-                <NextImage
+                <Image
                   alt=""
                   className="w-[60px] h-[60px]"
                   height={60}
@@ -123,25 +123,25 @@ const Page = () => (
         children: (
           <Row>
             <Card>
-              <img alt="" src="client-1.png" />
+              <Image alt="" src="client-1.png" height={100} width={100} />
               <span className="px-2 py-1 rounded-full bg-accent text-light h-auto">
                 EQUIX/Лендинг
               </span>
             </Card>
             <Card>
-              <img alt="" src="client-1.png" />
+              <Image alt="" src="client-1.png" height={100} width={100} />
               <span className="px-2 py-1 rounded-full bg-accent text-light h-auto">
                 EQUIX/Лендинг
               </span>
             </Card>
             <Card>
-              <img alt="" src="client-1.png" />
+              <Image alt="" src="client-1.png" height={100} width={100} />
               <span className="px-2 py-1 rounded-full bg-accent text-light h-auto">
                 EQUIX/Лендинг
               </span>
             </Card>
             <Card>
-              <img alt="" src="client-1.png" />
+              <Image alt="" src="client-1.png" height={100} width={100} />
               <span className="px-2 py-1 rounded-full bg-accent text-light h-auto">
                 EQUIX/Лендинг
               </span>
