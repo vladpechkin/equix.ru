@@ -10,9 +10,9 @@ export const ErrorPage = () => {
 
   return (
     <Col className="items-center justify-center h-screen">
-      <h2 className="font-semibold p-2">
+      <p className="font-semibold p-2">
         Something went wrong. The page may have been moved or deleted.
-      </h2>
+      </p>
       <Row className="flex-wrap">
         <Box onClick={() => router.refresh()}>
           <Icon name="arrow-clockwise" />

@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
 import { FC, ReactNode } from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,12 +15,7 @@ const RootLayout: FC<Props> = (props) => {
 
   return (
     <html lang="ru">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-        />
-      </head>
+      <head></head>
       <body className={String(inter.className)}>{children}</body>
     </html>
   );

@@ -1,5 +1,7 @@
+import typography from "@tailwindcss/typography";
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,7 +9,7 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./equix/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [typography],
   darkMode: "class",
   theme: {
     extend: {
@@ -23,9 +25,11 @@ module.exports = {
       colors: {
         light: "hsl(270, 100%, 99%)",
         border: "hsla(270, 100%, 85%, 15%)",
-        accent: "hsl(270, 100%, 70%)",
+        accent: "hsl(270, 100%, 62%)",
         dark: "hsl(270, 100%, 10%)",
       },
     },
   },
 };
+
+export default config;

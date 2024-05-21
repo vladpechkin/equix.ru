@@ -123,25 +123,25 @@ const Page = () => (
         children: (
           <Row>
             <Card>
-              <Image alt="" src="client-1.png" height={100} width={100} />
+              <Image alt="" src="/client-1.png" height={100} width={100} />
               <span className="px-2 py-1 rounded-full bg-accent text-light h-auto">
                 EQUIX/Лендинг
               </span>
             </Card>
             <Card>
-              <Image alt="" src="client-1.png" height={100} width={100} />
+              <Image alt="" src="/client-1.png" height={100} width={100} />
               <span className="px-2 py-1 rounded-full bg-accent text-light h-auto">
                 EQUIX/Лендинг
               </span>
             </Card>
             <Card>
-              <Image alt="" src="client-1.png" height={100} width={100} />
+              <Image alt="" src="/client-1.png" height={100} width={100} />
               <span className="px-2 py-1 rounded-full bg-accent text-light h-auto">
                 EQUIX/Лендинг
               </span>
             </Card>
             <Card>
-              <Image alt="" src="client-1.png" height={100} width={100} />
+              <Image alt="" src="/client-1.png" height={100} width={100} />
               <span className="px-2 py-1 rounded-full bg-accent text-light h-auto">
                 EQUIX/Лендинг
               </span>
