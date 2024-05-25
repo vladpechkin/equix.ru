@@ -86,6 +86,7 @@ export const getAdditionalEntitiesEndpoints = (entitiesName: string) => {
 
 export const renderValue = (key: string, value: any) => {
   switch (true) {
+    case Object.keys(value).length === 0:
     case value === null: {
       return "";
     }

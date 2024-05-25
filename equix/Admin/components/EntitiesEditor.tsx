@@ -26,7 +26,7 @@ export const EntitiesEditor: FC<Props> = (props) => {
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState<number>();
   const ENTITIES_PER_PAGE = 20;
-  
+
   let entitiesName = initialEntitiesName;
   let entitiesEndpoint = initialEntitiesEndpoint;
 
@@ -47,7 +47,7 @@ export const EntitiesEditor: FC<Props> = (props) => {
     setEntities(json.data.results);
 
     if (json?.data?.total)
-      setLimit(Math.round(json.data.total / ENTITIES_PER_PAGE));
+      setLimit(Math.ceil(json.data.total / ENTITIES_PER_PAGE));
   }, [entitiesEndpoint, page]);
 
   useEffect(() => {
@@ -74,11 +74,7 @@ export const EntitiesEditor: FC<Props> = (props) => {
           sortKey={sortKey}
         />
       ) : (
-        <tr className="h-full">
-          <td colSpan={100} className="text-gray-400 text-center h-full">
-            Nothing found
-          </td>
-        </tr>
+        <div className="text-gray-400 text-center h-full">Nothing found</div>
       )}
       <Pagination limit={limit} page={page} setPage={setPage} />
     </div>

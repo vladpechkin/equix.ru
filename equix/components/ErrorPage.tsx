@@ -11,8 +11,8 @@ export const ErrorPage = () => {
   return (
     <Col className="items-center justify-center h-screen">
       <p className="font-semibold p-2">
-        Что-то пошло не так. Возможно, данная страница была перемещена или
-        удала.
+        Произошла ошибка. Возможно, данная страница еще не создана, была
+        перемещена или удалена.
       </p>
       <Row className="flex-wrap">
         <Box onClick={() => router.refresh()}>

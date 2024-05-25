@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { Box } from "./Box";
 import { Input } from "./Input";
+import { VALID_PHONE_NUMBER_LENGTH } from "../consts";
 
 interface Props {
   codeLength: number;
@@ -16,22 +17,26 @@ export const SmsAuthForm: FC<Props> = (props) => {
   const [code, setCode] = useState("");
   const router = useRouter();
 
-  const handleGetCode = () => {
-    postPhoneNumber(phone).then((res) => res.ok && setIsSmsSent(true));
+  const handleGetCode = async () => {
+    const res = await postPhoneNumber(phone);
+
+    if (res.ok) setIsSmsSent(true);
   };
 
-  const handlePhoneChange = () => (value: string) => setPhone(value.slice(1));
+  const handlePhoneChange = (value: string) => setPhone(value.slice(1));
 
-  const handleConfirmNumber = () => {
-    postConfirmationCode(code)
-      .then((res) => (res.ok ? res.json() : undefined))
-      .then((res) => {
-        if (res.data.accessToken && res.data.refreshToken) {
-          localStorage.setItem("accessToken", res.data.accessToken);
-          localStorage.setItem("refreshToken", res.data.refreshToken);
-          router.push("/");
-        }
-      });
+  const handleConfirmNumber = async () => {
+    const res = await postConfirmationCode(code);
+
+    if (res.ok) {
+      const json = await res.json();
+
+      if (json.data.accessToken && json.data.refreshToken) {
+        localStorage.setItem("accessToken", json.data.accessToken);
+        localStorage.setItem("refreshToken", json.data.refreshToken);
+        router.push("/");
+      }
+    }
   };
 
   return (
@@ -56,7 +61,7 @@ export const SmsAuthForm: FC<Props> = (props) => {
             value={`+${phone}`}
             onChange={handlePhoneChange}
           />
-          {phone.length > 10 ? (
+          {phone.length > VALID_PHONE_NUMBER_LENGTH ? (
             <Box
               className="text-white bg-black flex justify-center"
               onClick={handleGetCode}

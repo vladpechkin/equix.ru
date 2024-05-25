@@ -90,7 +90,7 @@ export const convertInputDateToIso = (string: string) => {
 
   if (day) date.setDate(parseInt(day));
 
-  if (month) date.setMonth(parseInt(month));
+  if (month) date.setMonth(parseInt(month) - 1);
 
   if (year) date.setFullYear(parseInt(year));
 

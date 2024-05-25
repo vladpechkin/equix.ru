@@ -1,36 +1,36 @@
 import { FC, ReactNode, useCallback, useEffect } from "react";
-import { Box } from "./Box";
 
-interface Props {
-  title: string;
+export interface DialogBaseProps {
   children: ReactNode;
   isOpen: boolean;
+  isCloseable?: boolean;
   close?: () => void;
   className?: string;
 }
 
-export const Dialog: FC<Props> = ({
-  title,
+export const DialogBase: FC<DialogBaseProps> = ({
   children,
   close,
   isOpen,
   className,
+  isCloseable = true,
 }) => {
   const escFunction = useCallback(
     (event: KeyboardEvent) => {
-      if (close && event.key === "Escape") {
+      if (isCloseable && close && event.key === "Escape") {
         close();
       }
     },
-    [close]
+    [close, isCloseable]
   );
 
   useEffect(() => {
-    document.addEventListener("keydown", escFunction, false);
+    if (isCloseable) document.addEventListener("keydown", escFunction, false);
+
     return () => {
       document.removeEventListener("keydown", escFunction, false);
     };
-  }, [escFunction]);
+  }, [escFunction, close, isCloseable]);
 
   return isOpen ? (
     <div className="w-full h-full bg-black absolute top-0 left-0 bg-opacity-50 flex overflow-y-auto z-20 items-center justify-center">
@@ -38,14 +38,8 @@ export const Dialog: FC<Props> = ({
         className={`dark:bg-dark dark:text-light bg-light text-dark p-2 flex flex-col gap-4 min-w-[320px] w-full max-w-screen-sm overflow-y-auto rounded-lg ${
           className || ""
         }`}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
       >
-        <header className="flex gap-4 justify-between items-center">
-          <Box className="font-semibold">{title}</Box>
-          <Box onClick={() => close && close()}>
-            <i className="text-xl bi bi-x-lg"></i>
-          </Box>
-        </header>
         {children}
       </dialog>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import componentsData from "@/app/components/componentsData";
+import componentsData from "@/app/components/data/index";
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
 import { H2, H3 } from "@/equix/components/Heading";
 import { renderToString } from "react-dom/server";

@@ -2,30 +2,20 @@
 
 import { Bar } from "@/equix/components/Bar";
 import { Box } from "@/equix/components/Box";
-import { ConfirmDialog } from "@/equix/components/ConfirmDialog";
 import {
   DarkThemeProvider,
   DarkThemeToggle,
 } from "@/equix/components/DarkThemeProvider";
 import { Details } from "@/equix/components/Details";
 import { Dialog } from "@/equix/components/Dialog";
+import { ConfirmationDialog } from "@/equix/components/Dialog/ConfirmDialog";
 import { GeoMap } from "@/equix/components/GeoMap";
 import { Icon } from "@/equix/components/Icon";
 import { Img } from "@/equix/components/Img";
 import { Input } from "@/equix/components/Input";
-import { Textarea } from "@/equix/components/Textarea";
-import { Video } from "@/equix/components/Video";
-import { View } from "@/equix/components/View";
-import { useRouter } from "next/navigation";
-import { ReactNode, useState } from "react";
-
-interface ComponentsData {
-  [key: string]: {
-    description: string;
-    ExampleComponent: () => ReactNode;
-    usage: string;
-  };
-}
+import { useState } from "react";
+import part1 from "./part1";
+import { ComponentsData } from "@/equix/types";
 
 const componentsData: ComponentsData = {
   Bar: {
@@ -33,7 +23,7 @@ const componentsData: ComponentsData = {
     основного содержимого страницы контейнер для однотипного контента
     (например, кнопок или ссылок), который может быть либо горизонтальным,
     либо вертикальным. От View панель отличается тем, что, как правило,
-    отделен бордером или другой границей, занимает небольшую часть экрана,
+    отделена бордером или другой границей, занимает небольшую часть экрана,
     имеет фиксированную высоту (в случае горизонтальной) или ширину (в
     случае вертикальной) и не подразумевает возможность скроллинга
     (прокручивания страницы). Самые частые применения панели - хедер вверху
@@ -74,29 +64,6 @@ const componentsData: ComponentsData = {
     далее, сохраняя при этом отступы и прочие стили.`,
     ExampleComponent: () => <Box onClick={() => "test"}>Кнопка</Box>,
     usage: `<Box onClick={() => "test"}>Кнопка</Box>`,
-  },
-  ConfirmDialog: {
-    description: `TODO`,
-    ExampleComponent: () => {
-      const [isDialogOpen, setIsDialogOpen] = useState(false);
-      const router = useRouter();
-
-      return (
-        <>
-          <Box onClick={() => setIsDialogOpen(true)}>
-            Нажми на меня чтобы открыть диалог
-          </Box>
-          {isDialogOpen && (
-            <ConfirmDialog
-              description="Уверены, что хотите покинуть страницу? Все данные будут утеряны"
-              close={() => setIsDialogOpen(false)}
-              confirmAction={() => router.push("/templates")}
-            />
-          )}
-        </>
-      );
-    },
-    usage: ``,
   },
   DarkThemeProvider: {
     description: `Провайдер темной темы - компонент-обертка, в который должен быть завернут layout, если вы хотите, чтобы в нем была реализована поддержка светлой и тёмной тем. При использовании данной обертки по умолчанию темная тема включается тогда, когда в операционной системе или браузере пользователя выбран темный режим, и наоборот - при светлом режиме активна только светлая тема. Помимо самой обертки <code>DarkThemeProvider</code> файл экспортирует <code>DarkThemeToggle</code> - кнопку для ручного переключения тем, которая позволяет игнорировать настройки операционной системы или браузера.`,
@@ -146,10 +113,7 @@ const componentsData: ComponentsData = {
         </>
       );
     },
-    usage: `<Box onClick={() => setIsOpen(true)}>
-    Нажми на меня чтобы открыть диалог
-  </Box>
-  <Dialog
+    usage: `<Dialog
     isOpen={isOpen}
     title="Тестовый диалог"
     close={() => setIsOpen(false)}
@@ -157,13 +121,39 @@ const componentsData: ComponentsData = {
     Текст диалога
   </Dialog>`,
   },
+  ConfirmationDialog: {
+    description: `ConfirmationDialog - диалог подтверждения действия. Является разновидностью обычного компонента Dialog. Он предназначен для более простых действий, поэтому не имеет отдельного от основного текста заголовка, а также не принимает дочерние компоненты. Внутренний текст - просто строка. Диалог подтверждения можно закрыть только выбрав на одно из двух действий - одно подтверждающее, второе - закрывающее диалог и откатывающее пользователя на предыдущий этап.`,
+    ExampleComponent: () => {
+      const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+      return (
+        <>
+          <Box onClick={() => setIsDialogOpen(true)}>
+            Нажми на меня чтобы открыть диалог
+          </Box>
+          <ConfirmationDialog
+            isOpen={isDialogOpen}
+            description="Вы уверены, что хотите читать этот текст?"
+            close={() => setIsDialogOpen(false)}
+            confirmAction={() => setIsDialogOpen(false)}
+          />
+        </>
+      );
+    },
+    usage: `<ConfirmationDialog
+    isOpen={isDialogOpen}
+    description="Вы уверены, что хотите читать этот текст?"
+    close={() => setIsDialogOpen(false)}
+    confirmAction={() => setIsDialogOpen(false)}
+  />`,
+  },
   DragNDrop: {
     description: `TODO`,
     ExampleComponent: () => <></>,
     usage: ``,
   },
   ErrorPage: {
-    description: `ErrorPage - страница, возникающая перед пользователем в случае ошибки в работе сайта или при переходе на несуществующий адрес. Может быть использована вручную сверх того, например, как заглушка для пока недоделанной страницы.`,
+    description: `ErrorPage - страница, возникающая перед пользователем в случае ошибки в работе сайта или при переходе на несуществующий адрес. Может быть использована вручную, например, как заглушка для временно недоделанной страницы.`,
     ExampleComponent: () => (
       <Box href="/nonexistant">
         Нажмите на меня чтобы перейти на несуществующую страницу
@@ -235,50 +225,7 @@ const componentsData: ComponentsData = {
     zoom={10}
   />`,
   },
-  Textarea: {
-    description: `Textarea, текстовая зона, - поле для ввода текста, используемое в тех
-    случаях, когда вводимый текст длиннее 80 символов. В противном случае
-    используется строго компонент <Box href="/components/Input">Input</Box>.
-    Текстовая зона отличается от него только высотой в несколько строк, а не
-    в одну, и возможностью изменения размеров по вертикали, либо
-    автоматически, либо в ручную мышью.`,
-    ExampleComponent: () => {
-      const [value, setValue] = useState("");
-
-      return (
-        <Textarea label="Тестовое поле" value={value} onChange={setValue} />
-      );
-    },
-    usage: `<Textarea label="Тестовое поле" value={value} onChange={setValue} />`,
-  },
-  Video: {
-    description: `Video - компонент для вставки видео на страницу. Требует заданной высоты и
-    ширины контейнера, а также ссылку на файл-источник.`,
-    ExampleComponent: () => <Video height={600} width={400} src="/test.mp4" />,
-    usage: `<Video height={600} width={400} src="/test.mp4" />`,
-  },
-  View: {
-    description: `View - вид, представление - вертикальный контейнер для любого содержимого,
-    занимающий основную часть экрана. Любая страница имеет хотя бы 1 вью.
-    Например, если страница сайта представляет из себя разворот книги, то есть
-    просто текст, то <code>body</code> или <code>main</code> этого сайта
-    являются вью. Если же слева на странице есть боковое меню, а справа -
-    горизонтальный список карточек с похожими статьями, то на странице уже 3
-    вью - для каждой колонки разного контента. Вью всегда занимает все
-    свободное на экране место. Поскольку EQUIX ограничивает страницы шириной в
-    1280px (пикселей), а вью может быть несколько, для них предусмотрены
-    следующие размеры: 1x - с максимальной шириной в 320px, 2x - 640px, 3x -
-    960px, 4x - 1280px. Например, лендинг как правило состоит из одного вью
-    размера 3x и двух баров - хедера и футера - таких же размеров.`,
-    ExampleComponent: () => (
-      <>
-        <View className="w-[320px] border border-accent h-[320px]"></View>
-        <View className="w-[640px] border border-accent h-[320px]"></View>
-      </>
-    ),
-    usage: `<View className="w-[320px] border border-accent h-[320px]"></View>
-    <View className="w-[640px] border border-accent h-[320px]"></View>`,
-  },
+  ...part1,
 };
 
 export default componentsData;

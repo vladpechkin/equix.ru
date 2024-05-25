@@ -36,3 +36,11 @@ export interface Section {
   heading?: string;
   children: ReactNode;
 }
+
+export interface ComponentsData {
+  [key: string]: {
+    description: string;
+    ExampleComponent: () => ReactNode;
+    usage: string;
+  };
+}
