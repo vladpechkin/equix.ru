@@ -1,4 +1,4 @@
-import { Row } from "@/equix/components";
+import { Row } from "@/equix/components/Flex";
 import { Box } from "@/equix/components/Box";
 import { Input } from "@/equix/components/Input";
 import { Entity, InputOption } from "@/equix/types";

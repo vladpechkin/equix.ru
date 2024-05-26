@@ -1,5 +1,5 @@
 import { ElementType, FC, ReactNode } from "react";
-import { Row } from ".";
+import { Row } from "./Flex";
 
 interface Props {
   className?: string;

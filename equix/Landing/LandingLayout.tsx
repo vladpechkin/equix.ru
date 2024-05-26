@@ -10,7 +10,7 @@ import {
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { View } from "../components/View";
-import { Col } from "../components";
+import { Col } from "../components/Flex";
 import { Route } from "../types";
 import { LandingSection } from "./LandingSection";
 import defaultConfig from "./config";

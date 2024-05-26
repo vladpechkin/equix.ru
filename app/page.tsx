@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Row } from "@/equix/components";
+import { Row } from "@/equix/components/Flex";
 import { Box, Card } from "@/equix/components/Box";
 import { H3 } from "@/equix/components/Heading";
 import { LandingPage } from "@/equix/Landing/LandingPage";

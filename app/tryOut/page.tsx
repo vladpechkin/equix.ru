@@ -2,7 +2,7 @@
 
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
 import { LandingPage } from "@/equix/Landing/LandingPage";
-import { Col, Row } from "@/equix/components";
+import { Col, Row } from "@/equix/components/Flex";
 import { Box, Card } from "@/equix/components/Box";
 import { Input } from "@/equix/components/Input";
 import { useState } from "react";

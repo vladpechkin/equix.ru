@@ -1,6 +1,6 @@
 "use client";
 
-import { Row } from "@/equix/components";
+import { Row } from "@/equix/components/Flex";
 import { Box } from "@/equix/components/Box";
 import { Icon } from "@/equix/components/Icon";
 import { Input } from "@/equix/components/Input";
@@ -22,7 +22,7 @@ export const EntitiesEditorHeader: FC<Props> = (props) => {
   const handleClick = () => {
     if (entitiesEndpoint instanceof URL)
       entitiesEndpoint.searchParams.set("search", searchQuery.toLowerCase());
-    
+
     fetchData();
   };
 

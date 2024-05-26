@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEventHandler, FC } from "react";
-import { Row } from "..";
+import { Row } from "../Flex";
 import { Img } from "../Img";
 import { InputBase, InputProps } from "./Base";
 

@@ -40,7 +40,7 @@ export interface Section {
 export interface ComponentsData {
   [key: string]: {
     description: string;
-    ExampleComponent: () => ReactNode;
+    ExampleComponent?: () => ReactNode;
     usage: string;
   };
 }

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Box } from "./Box";
-import { Row, Col } from ".";
+import { Row, Col } from "./Flex";
 import { Icon } from "./Icon";
 
 export const ErrorPage = () => {

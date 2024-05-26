@@ -1,3 +1,5 @@
+import { Box } from "@/equix/components/Box";
+import { Pagination } from "@/equix/components/Pagination";
 import { SmsAuthForm } from "@/equix/components/SmsAuthForm";
 import { Textarea } from "@/equix/components/Textarea";
 import { Video } from "@/equix/components/Video";
@@ -6,6 +8,36 @@ import { ComponentsData } from "@/equix/types";
 import { useState } from "react";
 
 const data: ComponentsData = {
+  Pagination: {
+    description: `Pagination - компонент для реализации пагинации, то есть разбития списка, состоящего из большого количества элементов (например, товаров, документов или телефонных контактов), на подстраницы.`,
+    ExampleComponent: () => {
+      const [page, setPage] = useState(0);
+
+      return <Pagination page={page} setPage={setPage} limit={5} />;
+    },
+    usage: `const [page, setPage] = useState(0);
+
+      return <Pagination page={page} setPage={setPage} limit={5} />;`,
+  },
+  PasswordProvider: {
+    description: `Провайдер пароля - компонент-обертка, в который должен быть завернут layout, если вы хотите, чтобы сайт загружался только после ввода текстового пароля. Пароль статичный, задается самому провайдеру и больше не меняется. Браузер запоминает введенный код и не требует его повторно. Данный функционал подходит для сайтов и приложений, доступ к которым должен быть ограничен, но при этом в которых по каким-то причинам не может быть реализована нормальная система авторизации/регистрации и входа. Для обычных сайтов и приложений с авторизацией используйте строго SmsAuthForm и другие компоненты и провайдеры.`,
+    ExampleComponent: () => (
+      <Box href="/test/passwordProvider">
+        Перейти на страницу, использующую PasswordProvider
+      </Box>
+    ),
+    usage: `<PasswordProvider
+    password="12345678"
+    message="Введите пароль. Подсказка: 12345678."
+  >
+    <ErrorPage />
+  </PasswordProvider>`,
+  },
+  Sidebar: {
+    description: `TODO`,
+    ExampleComponent: () => <></>,
+    usage: ``,
+  },
   SmsAuthForm: {
     description: `SmsAuthForm - форма для авторизации (входа/регистрации) с помощью СМС-сообщения. Работает с Bearer-токенами accessToken и refreshToken, а данные хранит в localStorage. Состоит из двух этапов - ввода номера телефона и ввода кода, который на этот номер приходит, после чего компонент по умолчанию перенаправляет на главную страницу.`,
     ExampleComponent: () => (

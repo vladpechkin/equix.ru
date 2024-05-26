@@ -3,23 +3,30 @@ import { FC, ReactNode, useEffect, useState } from "react";
 
 interface Props {
   children: ReactNode;
+  password: string;
+  message?: string;
 }
 
 export const PasswordProvider: FC<Props> = (props) => {
-  const { children } = props;
+  const { children, password, message } = props;
   const router = useRouter();
-  const [pass, setPass] = useState("");
+  const [enteredPassword, setEnteredPassword] = useState("");
 
   useEffect(() => {
-    let storedPass = localStorage.getItem("pass");
-    setPass(storedPass as string);
-    if (storedPass !== "12345678") {
-      const newPass = prompt("Enter password");
-      newPass && localStorage.setItem("pass", newPass);
-    }
-  }, [router]);
+    const storedPassword = localStorage.getItem("pass");
 
-  if (pass === "12345678") {
+    setEnteredPassword(storedPassword as string);
+
+    if (storedPassword !== password) {
+      const newPass = prompt(message || "Введите пароль");
+
+      if (newPass) localStorage.setItem("pass", newPass);
+    }
+  }, [router, password, message]);
+
+  if (enteredPassword === password) {
     return children;
-  } else return null;
+  }
+
+  return undefined;
 };

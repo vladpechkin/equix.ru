@@ -1,6 +1,6 @@
 "use client";
 
-import { Col } from "../components";
+import { Col } from "../components/Flex";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
 

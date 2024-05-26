@@ -2,7 +2,7 @@
 
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
 import { Card } from "@/equix/components/Box";
-import { Row } from "@/equix/components";
+import { Row } from "@/equix/components/Flex";
 import { H2 } from "@/equix/components/Heading";
 import componentsData from "./data";
 

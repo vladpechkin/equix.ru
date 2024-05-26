@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { Col, Row } from "../components";
+import { Col, Row } from "../components/Flex";
 import { H1 } from "../components/Heading";
 import { LandingLayout, LandingLayoutProps } from "./LandingLayout";
 import defaultConfig from "./config";

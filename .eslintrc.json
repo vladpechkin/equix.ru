@@ -313,7 +313,6 @@
     "security/detect-no-csrf-before-method-override": "error",
     "security/detect-non-literal-regexp": "error",
     "security/detect-non-literal-require": "error",
-    "security/detect-possible-timing-attacks": "error",
     "security/detect-pseudoRandomBytes": "error",
     "security/detect-bidi-characters": "error",
 

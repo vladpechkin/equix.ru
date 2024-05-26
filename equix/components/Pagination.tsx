@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Row } from ".";
+import { Row } from "./Flex";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 
@@ -25,7 +25,7 @@ export const Pagination: FC<Props> = (props) => {
         </Box>
       )}
       {isLimitValid
-        ? [...Array(limit)].map((_, index) => (
+        ? Array.from(Array.from({ length: limit }), (_, index) => (
             <Box
               key={index}
               onClick={() => setPage(index)}

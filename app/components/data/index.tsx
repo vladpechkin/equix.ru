@@ -18,6 +18,84 @@ import part1 from "./part1";
 import { ComponentsData } from "@/equix/types";
 
 const componentsData: ComponentsData = {
+  Dialog: {
+    description: `Dialog - всплывающее диалоговое окно, стандартный способ получения ответа от пользователя. Оно всегда имеет заголовок и может иметь любое
+    наполнение. Также диалог может быть закрываемым (пользователь может в
+    любой момент отменить взаимодействие, выйти из диалога и вернуться назад
+    по нажатию в на кнопку выхода или клавишу <code>Escape</code> на
+    клавиатуре), или не быть таковым, заставляя пользователя принять решение
+    и выбрать одно из действий.`,
+    ExampleComponent: () => {
+      const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+      return (
+        <>
+          <Box onClick={() => setIsDialogOpen(true)}>
+            Нажми на меня чтобы открыть диалог
+          </Box>
+          <Dialog
+            isOpen={isDialogOpen}
+            title="Тестовый диалог"
+            close={() => setIsDialogOpen(false)}
+          >
+            Текст диалога
+          </Dialog>
+        </>
+      );
+    },
+    usage: `<Dialog
+    isOpen={isOpen}
+    title="Тестовый диалог"
+    close={() => setIsOpen(false)}
+  >
+    Текст диалога
+  </Dialog>`,
+  },
+  ConfirmationDialog: {
+    description: `ConfirmationDialog - диалог подтверждения действия. Является разновидностью обычного компонента Dialog. Он предназначен для более простых действий, поэтому не имеет отдельного от основного текста заголовка, а также не принимает дочерние компоненты. Внутренний текст - просто строка. Диалог подтверждения можно закрыть только выбрав на одно из двух действий - одно подтверждающее, второе - закрывающее диалог и откатывающее пользователя на предыдущий этап.`,
+    ExampleComponent: () => {
+      const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+      return (
+        <>
+          <Box onClick={() => setIsDialogOpen(true)}>
+            Нажми на меня чтобы открыть диалог
+          </Box>
+          <ConfirmationDialog
+            isOpen={isDialogOpen}
+            description="Вы уверены, что хотите читать этот текст?"
+            close={() => setIsDialogOpen(false)}
+            confirmAction={() => setIsDialogOpen(false)}
+          />
+        </>
+      );
+    },
+    usage: `<ConfirmationDialog
+    isOpen={isDialogOpen}
+    description="Вы уверены, что хотите читать этот текст?"
+    close={() => setIsDialogOpen(false)}
+    confirmAction={() => setIsDialogOpen(false)}
+  />`,
+  },
+  Dropzone: {
+    description: `TODO`,
+    ExampleComponent: () => <></>,
+    usage: ``,
+  },
+  Input: {
+    description: `&lt;input&gt; - инпут, поле ввода - основной интерактивный элемент в
+    HTML помимо &lt;a&gt; и &lt;button&gt;. В зависимости от аттрибута{" "}
+    <code>type</code> он используется для редактирования текста, даты,
+    выбора одного или нескольких значений из списка, переключения между
+    опциями и так далее. Реализация Input в EQUIX лишь стилизует его и
+    добавляет дополнительные аргументы для более простого взаимодействия.`,
+    ExampleComponent: () => {
+      const [value, setValue] = useState("");
+
+      return <Input label="Тестовое поле" value={value} onChange={setValue} />;
+    },
+    usage: `<Input label="Тестовое поле" value={value} onChange={setValue} />`,
+  },
   Bar: {
     description: `Bar - полоса, доска, панель - ограниченный размерами и отделенный от
     основного содержимого страницы контейнер для однотипного контента
@@ -88,65 +166,6 @@ const componentsData: ComponentsData = {
     ),
     usage: `<Details summary="Тестовый аккордеон">Текст внутри него</Details>`,
   },
-  Dialog: {
-    description: `Dialog - всплывающее диалоговое окно, стандартный способ получения ответа от пользователя. Оно всегда имеет заголовок и может иметь любое
-    наполнение. Также диалог может быть закрываемым (пользователь может в
-    любой момент отменить взаимодействие, выйти из диалога и вернуться назад
-    по нажатию в на кнопку выхода или клавишу <code>Escape</code> на
-    клавиатуре), или не быть таковым, заставляя пользователя принять решение
-    и выбрать одно из действий.`,
-    ExampleComponent: () => {
-      const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-      return (
-        <>
-          <Box onClick={() => setIsDialogOpen(true)}>
-            Нажми на меня чтобы открыть диалог
-          </Box>
-          <Dialog
-            isOpen={isDialogOpen}
-            title="Тестовый диалог"
-            close={() => setIsDialogOpen(false)}
-          >
-            Текст диалога
-          </Dialog>
-        </>
-      );
-    },
-    usage: `<Dialog
-    isOpen={isOpen}
-    title="Тестовый диалог"
-    close={() => setIsOpen(false)}
-  >
-    Текст диалога
-  </Dialog>`,
-  },
-  ConfirmationDialog: {
-    description: `ConfirmationDialog - диалог подтверждения действия. Является разновидностью обычного компонента Dialog. Он предназначен для более простых действий, поэтому не имеет отдельного от основного текста заголовка, а также не принимает дочерние компоненты. Внутренний текст - просто строка. Диалог подтверждения можно закрыть только выбрав на одно из двух действий - одно подтверждающее, второе - закрывающее диалог и откатывающее пользователя на предыдущий этап.`,
-    ExampleComponent: () => {
-      const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-      return (
-        <>
-          <Box onClick={() => setIsDialogOpen(true)}>
-            Нажми на меня чтобы открыть диалог
-          </Box>
-          <ConfirmationDialog
-            isOpen={isDialogOpen}
-            description="Вы уверены, что хотите читать этот текст?"
-            close={() => setIsDialogOpen(false)}
-            confirmAction={() => setIsDialogOpen(false)}
-          />
-        </>
-      );
-    },
-    usage: `<ConfirmationDialog
-    isOpen={isDialogOpen}
-    description="Вы уверены, что хотите читать этот текст?"
-    close={() => setIsDialogOpen(false)}
-    confirmAction={() => setIsDialogOpen(false)}
-  />`,
-  },
   DragNDrop: {
     description: `TODO`,
     ExampleComponent: () => <></>,
@@ -156,47 +175,22 @@ const componentsData: ComponentsData = {
     description: `ErrorPage - страница, возникающая перед пользователем в случае ошибки в работе сайта или при переходе на несуществующий адрес. Может быть использована вручную, например, как заглушка для временно недоделанной страницы.`,
     ExampleComponent: () => (
       <Box href="/nonexistant">
-        Нажмите на меня чтобы перейти на несуществующую страницу
+        Нажмите чтобы перейти на несуществующую страницу
       </Box>
     ),
     usage: `<ErrorPage />`,
   },
-  Icon: {
-    description: `Icon, иконка, - компонент-прослойка для получения иконок из взаимодействия
-    с библиотекой Bootstrap Icons, на которой по умолчанию завязан EQUIX.
-    Достаточно найти{" "}
-    <Box isInline href="https://icons.getbootstrap.com/">
-      на сайте библиотеки
-    </Box>{" "}
-    нужное изображение и прописать его название (например, search) в аттрибут{" "}
-    <code>name</code>.`,
-    ExampleComponent: () => <Icon name="search" />,
-    usage: `<Icon name="search" />`,
+  ErrorPageProvider: {
+    description: `ErrorPageProvider - компонент-обертка, в который должен быть завернут layout, чтобы качественнее ловить и обрабатывать ошибки. Является неотъемлемой частью любого приложения на EQUIX. Если страница ломается, то пользователя перенаправляют на страницу ошибки - ErrorPage, а не на белый экран или сообщение об ошибке от браузера.`,
+    ExampleComponent: () => (
+      <Box href="/nonexistant">Нажмите чтобы увидеть ошибку</Box>
+    ),
+    usage: `<ErrorPageProvider></ErrorPageProvider>`,
   },
-  Img: {
-    description: `Img, изображение - компонент для вставки на страницу интерактивных (не
-      декоративных) картинок во всех поддерживаемых браузером форматах. В
-      идеале, все изображения на странице должны иметь возможность быть
-      приближенными. Именно эту функцию и реализует компонент Img в EQUIX. Если
-      необходимо вставить иконку, мелкое неважное изображение, которое не
-      подразумевает приближения, то используйте встроенный в Next.js компонент
-      <code>&lt;Image&gt;</code>, импортируемый из библиотеки next/image.`,
-    ExampleComponent: () => <Img src="/intro.png" height={200} width={200} />,
-    usage: `<Img src="/intro.png" height={200} width={200} />`,
-  },
-  Input: {
-    description: `&lt;input&gt; - инпут, поле ввода - основной интерактивный элемент в
-    HTML помимо &lt;a&gt; и &lt;button&gt;. В зависимости от аттрибута{" "}
-    <code>type</code> он используется для редактирования текста, даты,
-    выбора одного или нескольких значений из списка, переключения между
-    опциями и так далее. Реализация Input в EQUIX лишь стилизует его и
-    добавляет дополнительные аргументы для более простого взаимодействия.`,
-    ExampleComponent: () => {
-      const [value, setValue] = useState("");
-
-      return <Input label="Тестовое поле" value={value} onChange={setValue} />;
-    },
-    usage: `<Input label="Тестовое поле" value={value} onChange={setValue} />`,
+  Flex: {
+    description: `TODO`,
+    ExampleComponent: () => <></>,
+    usage: ``,
   },
   GeoMap: {
     description: `GeoMap - компонент для вставки географической карты на страницу. На данный момент поддерживается только
@@ -224,6 +218,39 @@ const componentsData: ComponentsData = {
     center={{ lat: 50, lng: 50 }}
     zoom={10}
   />`,
+  },
+  Header: {
+    description: `TODO`,
+    ExampleComponent: () => <></>,
+    usage: ``,
+  },
+  Heading: {
+    description: `TODO`,
+    ExampleComponent: () => <></>,
+    usage: ``,
+  },
+  Icon: {
+    description: `Icon, иконка, - компонент-прослойка для получения иконок из взаимодействия
+    с библиотекой Bootstrap Icons, на которой по умолчанию завязан EQUIX.
+    Достаточно найти{" "}
+    <Box isInline href="https://icons.getbootstrap.com/">
+      на сайте библиотеки
+    </Box>{" "}
+    нужное изображение и прописать его название (например, search) в аттрибут{" "}
+    <code>name</code>.`,
+    ExampleComponent: () => <Icon name="search" />,
+    usage: `<Icon name="search" />`,
+  },
+  Img: {
+    description: `Img, изображение - компонент для вставки на страницу интерактивных (не
+      декоративных) картинок во всех поддерживаемых браузером форматах. В
+      идеале, все изображения на странице должны иметь возможность быть
+      приближенными. Именно эту функцию и реализует компонент Img в EQUIX. Если
+      необходимо вставить иконку, мелкое неважное изображение, которое не
+      подразумевает приближения, то используйте встроенный в Next.js компонент
+      <code>&lt;Image&gt;</code>, импортируемый из библиотеки next/image.`,
+    ExampleComponent: () => <Img src="/intro.png" height={200} width={200} />,
+    usage: `<Img src="/intro.png" height={200} width={200} />`,
   },
   ...part1,
 };

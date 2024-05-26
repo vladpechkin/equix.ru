@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Row } from ".";
+import { Row } from "./Flex";
 import { Bar } from "./Bar";
 import { Box } from "./Box";
 import { FC, ReactNode } from "react";
@@ -13,7 +13,7 @@ interface Props {
 
 export const Header: FC<Props> = (props) => {
   const { logo, routes, children } = props;
-  
+
   return (
     <Bar as="header" position="top" className="justify-between">
       <Link href="/">{logo}</Link>
