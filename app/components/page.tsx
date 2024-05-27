@@ -3,7 +3,7 @@
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
 import { Card } from "@/equix/components/Box";
 import { Row } from "@/equix/components/Flex";
-import { H2 } from "@/equix/components/Heading";
+import { H2, Heading, Region } from "@/equix/components/Heading";
 import componentsData from "./data";
 
 const Page = () => (
@@ -13,6 +13,10 @@ const Page = () => (
       Ниже вы можете видеть все компоненты EQUIX - составные части, из которых
       создаются приложения.
     </p>
+    <Region>
+      <Heading>Компоненты</Heading>
+      Арарарва
+    </Region>
     <Row className="flex-wrap w-full">
       {Object.keys(componentsData).map((componentName, index) => (
         <Card key={index} href={`/components/${componentName}`}>

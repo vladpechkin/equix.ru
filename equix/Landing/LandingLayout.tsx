@@ -16,6 +16,7 @@ import { LandingSection } from "./LandingSection";
 import defaultConfig from "./config";
 import { Section } from "../types";
 import ErrorPageProvider from "../components/ErrorPageProvider";
+import { Region } from "../components/Heading";
 
 export interface LandingLayoutProps {
   sections?: Section[];
@@ -56,11 +57,15 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
   return (
     <ErrorPageProvider>
       <DarkThemeProvider>
-        <div
+        <Region
           className={`dark:bg-dark dark:text-light bg-light text-dark min-h-screen flex flex-col items-center  
       ${className || ""}`}
         >
-          <Header logo={logo} routes={routes || getRoutesFromSection()} />
+          <Header
+            siteName={siteName}
+            logo={logo}
+            routes={routes || getRoutesFromSection()}
+          />
           <div className="flex grow max-w-[944px] w-full">
             {sidebarRoutes ? <Sidebar routes={sidebarRoutes} /> : undefined}
             <View as="main" className="items-center w-full">
@@ -84,7 +89,7 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
             </div>
             <DarkThemeToggle />
           </Bar>
-        </div>
+        </Region>
       </DarkThemeProvider>
     </ErrorPageProvider>
   );

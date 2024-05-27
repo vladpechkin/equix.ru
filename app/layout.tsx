@@ -10,7 +10,7 @@ interface Props {
   children: ReactNode;
 }
 
-const RootLayout: FC<Props> = (props) => {
+const Layout: FC<Props> = (props) => {
   const { children } = props;
 
   return (
@@ -27,4 +27,4 @@ export const metadata: Metadata = {
     "Дизайн-система для быстрого и легкого создания дизайна и превращения его в рабочий сайт, мобильное или десктопное приложение.",
 };
 
-export default RootLayout;
+export default Layout;

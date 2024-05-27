@@ -26,14 +26,14 @@ const Page: FC<Props> = (props) => {
       <LandingLayout>
         <H2>{componentName}</H2>
         <p>{description}</p>
+        <H3>Код</H3>
+        <code>{usage}</code>
         {ExampleComponent ? (
           <>
-            <H3>Пример</H3>
+            <H3>Результат</H3>
             <ExampleComponent />
           </>
         ) : undefined}
-        <H3>Код</H3>
-        <code>{usage}</code>
         {ExampleComponent ? (
           <>
             <H3>Как это устроено</H3>

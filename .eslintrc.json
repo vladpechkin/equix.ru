@@ -157,7 +157,6 @@
     "symbol-description": "error",
     "prefer-numeric-literals": "error",
     "no-useless-return": "error",
-    "require-await": "error",
     "no-await-in-loop": "error",
     "no-multi-assign": "error",
     "prefer-promise-reject-errors": "error",

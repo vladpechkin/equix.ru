@@ -14,3 +14,4 @@ export const FEBRUARY_LENGTH = 28;
 export const LEAP_YEAR_FEBRUARY_LENGTH = 29;
 export const HTTP_UNAUTHORIZED_CODE = 401;
 export const VALID_PHONE_NUMBER_LENGTH = 10;
+export const MAX_HTML_HEADING_LEVEL = 6;
