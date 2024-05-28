@@ -11,18 +11,18 @@ interface Props {
 export const Sidebar: FC<Props> = (props) => {
   const { routes } = props;
 
-  const groups = [...new Set(routes.map((route) => route.group))].filter(
-    (x) => !!x
+  const groups = Array.from(new Set(routes.map((route) => route.group))).filter(
+    Boolean
   );
 
   return (
     <Bar position="left" className="w-[320px]">
       {routes.map((route, index) =>
-        !route.group ? (
+        route.group ? undefined : (
           <Box isStrictHref key={index} {...route}>
             {route.label || route.href}
           </Box>
-        ) : undefined
+        )
       )}
       {groups.map((group, index) => (
         <li key={index} className="w-full">

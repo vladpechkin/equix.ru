@@ -95,7 +95,8 @@ const Page = () => {
                   config={{
                     heading: previewTitle,
                     description: previewDescription,
-                    siteName: "ООО Эквикс",
+                    appName: "EQUIX",
+                    appOwnerName: "ООО Эквикс",
                     hero: (
                       <Image src="/intro.png" alt="" height={300} width={300} />
                     ),

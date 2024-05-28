@@ -10,15 +10,15 @@ interface Props {
   logo: ReactNode;
   routes?: Route[];
   children?: ReactNode;
-  siteName?: string;
+  appName?: string;
 }
 
 export const Header: FC<Props> = (props) => {
-  const { logo, routes, children, siteName } = props;
+  const { logo, routes, children, appName } = props;
 
   return (
     <Bar as="header" position="top" className="justify-between">
-      <Heading className="sr-only">{siteName}</Heading>
+      <Heading className="sr-only">{appName}</Heading>
       <Link href="/" aria-label="Home">
         {logo}
       </Link>

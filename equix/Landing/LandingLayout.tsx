@@ -11,10 +11,9 @@ import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { View } from "../components/View";
 import { Col } from "../components/Flex";
-import { Route } from "../types";
+import { Route, Section } from "../types";
 import { LandingSection } from "./LandingSection";
 import defaultConfig from "./config";
-import { Section } from "../types";
 import ErrorPageProvider from "../components/ErrorPageProvider";
 import { Region } from "../components/Heading";
 
@@ -23,16 +22,17 @@ export interface LandingLayoutProps {
   className?: string;
   children?: ReactNode;
   sidebarRoutes?: Route[];
-  config?: Partial<{
-    title: string;
-    heading: string;
-    description: string;
-    logo: ReactNode;
-    action: string;
-    routes: Route[];
-    hero: ReactNode;
-    siteName: string;
-  }>;
+  config?: {
+    title?: string;
+    heading?: string;
+    description?: string;
+    logo?: ReactNode;
+    action?: string;
+    routes?: Route[];
+    hero?: ReactNode;
+    appName: string;
+    appOwnerName?: string;
+  };
 }
 
 export const LandingLayout: FC<LandingLayoutProps> = (props) => {
@@ -43,7 +43,7 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
     sidebarRoutes,
     config = defaultConfig,
   } = props;
-  const { logo, routes, siteName } = config;
+  const { logo, routes, appName, appOwnerName } = config;
 
   const getRoutesFromSection = () =>
     sections?.map(
@@ -58,11 +58,11 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
     <ErrorPageProvider>
       <DarkThemeProvider>
         <Region
-          className={`dark:bg-dark dark:text-light bg-light text-dark min-h-screen flex flex-col items-center  
+          className={`dark:bg-dark dark:text-light bg-light text-dark print:bg-white print:text-black min-h-screen flex flex-col items-center  
       ${className || ""}`}
         >
           <Header
-            siteName={siteName}
+            appName={appName}
             logo={logo}
             routes={routes || getRoutesFromSection()}
           />
@@ -79,7 +79,7 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
           </div>
           <Bar as="footer" className="justify-between" position="bottom">
             <div>
-              © {new Date().getFullYear()} {siteName}
+              © {new Date().getFullYear()} {appOwnerName}
             </div>
             <div>
               Создано с помощью{" "}

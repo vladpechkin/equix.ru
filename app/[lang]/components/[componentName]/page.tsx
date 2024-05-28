@@ -1,10 +1,11 @@
 "use client";
 
 import { FC } from "react";
-import componentsData from "@/app/components/data/index";
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
 import { H2, H3 } from "@/equix/components/Heading";
 import { renderToString } from "react-dom/server";
+import { Code } from "@/equix/components/Code";
+import componentsData from "../data";
 
 interface Props {
   params: { componentName: string };
@@ -27,7 +28,7 @@ const Page: FC<Props> = (props) => {
         <H2>{componentName}</H2>
         <p>{description}</p>
         <H3>Код</H3>
-        <code>{usage}</code>
+        <Code>{usage}</Code>
         {ExampleComponent ? (
           <>
             <H3>Результат</H3>
@@ -37,7 +38,7 @@ const Page: FC<Props> = (props) => {
         {ExampleComponent ? (
           <>
             <H3>Как это устроено</H3>
-            <code>{renderToString(<ExampleComponent />)}</code>
+            <Code>{renderToString(<ExampleComponent />)}</Code>
           </>
         ) : undefined}
       </LandingLayout>

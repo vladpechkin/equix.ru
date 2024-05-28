@@ -48,7 +48,8 @@ const config = {
       />
     </Col>
   ),
-  siteName: "ООО Эквикс",
+  appName: "EQUIX",
+  appOwnerName: "ООО Эквикс",
 };
 
 export default config;
