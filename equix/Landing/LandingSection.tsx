@@ -5,6 +5,7 @@ import { H2 } from "../components/Heading";
 
 export const LandingSection: FC<Section> = (props) => {
   const { heading, children } = props;
+
   return (
     <Col
       as="section"

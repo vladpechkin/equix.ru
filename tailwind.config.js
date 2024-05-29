@@ -22,9 +22,9 @@ module.exports = {
       },
       colors: {
         light: "hsl(270, 100%, 99%)",
-        border: "hsla(270, 100%, 85%, 15%)",
-        accent: "hsl(270, 100%, 62%)",
-        dark: "hsl(270, 100%, 10%)",
+        border: "hsla(270, 100%, 96%)",
+        accent: "hsl(270, 100%, 61%)",
+        dark: "hsl(270, 100%, 12%)",
       },
     },
   },

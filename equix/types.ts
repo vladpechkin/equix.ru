@@ -44,3 +44,6 @@ export interface ComponentsData {
     usage: string;
   };
 }
+
+export type RgbColor = [red: number, green: number, blue: number];
+export type HslColor = [hue: number, saturation: number, lightness: number];

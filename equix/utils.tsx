@@ -14,7 +14,7 @@ import {
   WEEK_LENGTH,
   YEARS_IN_CENTURY,
 } from "./consts";
-import { InputOption } from "./types";
+import { HslColor, InputOption, RgbColor } from "./types";
 
 const convertObjectEntriesToStrings = (object: Object) => {
   const newObject: Record<string, string> = {};
@@ -189,6 +189,44 @@ export const postOctetStream = async (url: string, filename: string) => {
 
   link.dispatchEvent(event);
   link.remove();
+};
+
+export const hslToRgb = ([h, s, l]: HslColor): RgbColor => {
+  s /= 100;
+  l /= 100;
+  const k = (n) => (n + h / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const f = (n) =>
+    l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  return [255 * f(0), 255 * f(8), 255 * f(4)];
+};
+
+export const getContrastBetweenTwoRgbColors = (
+  color1: RgbColor,
+  color2: RgbColor
+) => {
+  const RED = 0.2126;
+  const GREEN = 0.7152;
+  const BLUE = 0.0722;
+
+  const GAMMA = 2.4;
+
+  const getLuminance = (color: RgbColor) => {
+    const rgb = color.map((channel) => {
+      const value = channel / 255;
+
+      return value <= 0.03928
+        ? value / 12.92
+        : ((value + 0.055) / 1.055) ** GAMMA;
+    });
+
+    return Number((RED * rgb[0] + GREEN * rgb[1] + BLUE * rgb[2]).toFixed(3));
+  };
+
+  const lumA = getLuminance(color1);
+  const lumB = getLuminance(color2);
+
+  return (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
 };
 
 // REORDER LIST UP/DOWN
