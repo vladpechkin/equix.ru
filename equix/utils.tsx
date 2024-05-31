@@ -191,14 +191,29 @@ export const postOctetStream = async (url: string, filename: string) => {
   link.remove();
 };
 
-export const hslToRgb = ([h, s, l]: HslColor): RgbColor => {
-  s /= 100;
-  l /= 100;
-  const k = (n) => (n + h / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const f = (n) =>
-    l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-  return [255 * f(0), 255 * f(8), 255 * f(4)];
+export const hslToRgb = ([hue, saturation, lightness]: HslColor): RgbColor => {
+  const PERCENTS_IN_UNIT = 100;
+
+  const newSaturation = saturation / PERCENTS_IN_UNIT;
+  const newLightness = lightness / PERCENTS_IN_UNIT;
+
+  const hueToRgb = (value: number) => (value + hue / 30) % 12;
+
+  const a = newSaturation * Math.min(newLightness, 1 - newLightness);
+
+  const getColorValue = (value: number) =>
+    newLightness -
+    a *
+      Math.max(
+        -1,
+        Math.min(hueToRgb(value) - 3, Math.min(9 - hueToRgb(value), 1))
+      );
+
+  return [
+    255 * getColorValue(0),
+    255 * getColorValue(8),
+    255 * getColorValue(4),
+  ];
 };
 
 export const getContrastBetweenTwoRgbColors = (
@@ -220,7 +235,13 @@ export const getContrastBetweenTwoRgbColors = (
         : ((value + 0.055) / 1.055) ** GAMMA;
     });
 
-    return Number((RED * rgb[0] + GREEN * rgb[1] + BLUE * rgb[2]).toFixed(3));
+    return Number(
+      (
+        RED * (rgb[0] || 0) +
+        GREEN * (rgb[1] || 0) +
+        BLUE * (rgb[2] || 0)
+      ).toFixed(3)
+    );
   };
 
   const lumA = getLuminance(color1);

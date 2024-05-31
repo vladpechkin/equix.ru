@@ -5,5 +5,9 @@ export const Code: FC<
 > = (props) => {
   const { children } = props;
 
-  return <code className="p bg-black text-white rounded">{children}</code>;
+  return (
+    <code className="w-full whitespace-pre p bg-black text-white rounded">
+      {children}
+    </code>
+  );
 };

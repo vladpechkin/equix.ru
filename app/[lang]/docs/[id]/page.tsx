@@ -25,14 +25,3 @@ export const generateStaticParams = async () => {
     id: post.id,
   }));
 };
-
-// export async function generateMetadata({
-//   params: { id },
-// }: {
-//   params: { id: string };
-// }) {
-//    const { title } = await getPostById(id);
-//   return {
-//     title,
-//   };
-// }

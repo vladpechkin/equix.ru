@@ -59,6 +59,7 @@
   ],
 
   "rules": {
+    "react/no-unescaped-entities": 0,
     "no-array-constructor": "error",
     "no-bitwise": "error",
     "no-caller": "error",
@@ -191,16 +192,6 @@
     "no-unused-private-class-members": "error",
     "no-constant-binary-expression": "error",
     "no-empty-static-block": "error",
-
-    "no-magic-numbers": [
-      "error",
-      {
-        "ignore": [0, 1, -1],
-        "enforceConst": true,
-        "ignoreDefaultValues": true,
-        "ignoreClassFieldInitialValues": true
-      }
-    ],
     "func-names": ["error", "as-needed"],
     "one-var": ["error", "never"],
     "no-else-return": ["error", { "allowElseIf": false }],

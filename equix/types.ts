@@ -39,7 +39,7 @@ export interface Section {
 
 export interface ComponentsData {
   [key: string]: {
-    description: string;
+    description: ReactNode;
     ExampleComponent?: () => ReactNode;
     usage: string;
   };
