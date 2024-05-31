@@ -23,30 +23,35 @@ export const Dropzone: FC<Props> = (props) => {
   } = props;
 
   const [isDragActive, setIsDragActive] = useState(false);
-  const inputRef = useRef<any>(null);
+  const inputReference = useRef<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleFile = (file: File) => {
+  const handleFile = async (file: File) => {
     setIsLoading(true);
-    let data = new FormData();
+
+    const data = new FormData();
+
     data.append("file", file);
-    fetch(url, {
+
+    const res = await fetch(url, {
       method: "POST",
       body: data,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        onChange(res.url);
-        setIsLoading(false);
-      });
+    });
+    const json = await res.json();
+
+    onChange(json.url);
+    setIsLoading(false);
   };
 
   const handleDrag: DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
     event.stopPropagation();
+
     if (event.type === "dragenter" || event.type === "dragover") {
       setIsDragActive(true);
-    } else if (event.type === "dragleave") {
+    }
+
+    if (event.type === "dragleave") {
       setIsDragActive(false);
     }
   };
@@ -55,6 +60,7 @@ export const Dropzone: FC<Props> = (props) => {
     event.preventDefault();
     event.stopPropagation();
     setIsDragActive(false);
+
     if (event.dataTransfer?.files && event.dataTransfer.files[0]) {
       handleFile(event.dataTransfer.files[0]);
     }
@@ -62,13 +68,14 @@ export const Dropzone: FC<Props> = (props) => {
 
   const handleFileChangeWithClick = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
+
     if (event.target.files && event.target.files[0]) {
       handleFile(event.target.files[0]);
     }
   };
 
   const onButtonClick = () => {
-    if (inputRef.current) inputRef.current.click();
+    if (inputReference.current) inputReference.current.click();
   };
 
   return (
@@ -78,7 +85,7 @@ export const Dropzone: FC<Props> = (props) => {
       handleDrag={handleDrag}
       value={value}
       className={className}
-      inputRef={inputRef}
+      inputRef={inputReference}
       isLoading={isLoading}
       handleFileChangeWithClick={handleFileChangeWithClick}
       onButtonClick={onButtonClick}
@@ -89,16 +96,3 @@ export const Dropzone: FC<Props> = (props) => {
     />
   );
 };
-// Пример использования
-// <Dropzone
-//   label="Clip"
-//   isRequired
-//   filetype="video"
-//   value={clip.video.video}
-//   onChange={(value) =>
-//       setClip((prevState) => ({
-//       ...prevState,
-//       video: { ...prevState.video, video: value },
-//     }))
-//   }
-// />

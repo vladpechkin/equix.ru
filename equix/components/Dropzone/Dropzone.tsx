@@ -35,6 +35,32 @@ export const DropzoneForm: FC<Props> = (props) => {
     filetype,
     onChange,
   } = props;
+
+  const renderDropzone = () => {
+    if (isLoading) return <p className="text-indigo-600">Uploading file...</p>;
+
+    if (!value)
+      return (
+        <>
+          <p className="text-stone-400 z-10">Drag and drop your file here or</p>
+          <Box className="z-10" onClick={onButtonClick}>
+            Upload a file
+          </Box>
+          {isDragActive ? (
+            <div
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+              className="bg-red h-full w-full z-50 absolute top-0 left-0"
+            ></div>
+          ) : undefined}
+        </>
+      );
+
+    return undefined;
+  };
+
   return (
     <label className="flex flex-col gap-2 w-full max-w-md h-full max-h-[20rem]">
       {label ? (
@@ -45,9 +71,9 @@ export const DropzoneForm: FC<Props> = (props) => {
       <div
         id="form-file-upload"
         onDragEnter={handleDrag}
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={(event) => event.preventDefault()}
         className={`w-full flex flex-col items-center gap-4 h-full ${
-          !value ? "relative" : ""
+          value ? "" : "relative"
         }`}
       >
         <div
@@ -64,30 +90,10 @@ export const DropzoneForm: FC<Props> = (props) => {
             type="file"
             id="input-file-upload"
             onChange={handleFileChangeWithClick}
-            disabled={!!value}
+            disabled={Boolean(value)}
             className={"absolute top-0 left-0 w-full h-full invisible"}
           />
-          {isLoading ? (
-            <p className="text-indigo-600">Uploading file...</p>
-          ) : !value ? (
-            <>
-              <p className="text-stone-400 z-10">
-                Drag and drop your file here or
-              </p>
-              <Box className="z-10" onClick={onButtonClick}>
-                Upload a file
-              </Box>
-              {isDragActive ? (
-                <div
-                  onDragEnter={handleDrag}
-                  onDragLeave={handleDrag}
-                  onDragOver={handleDrag}
-                  onDrop={handleDrop}
-                  className="bg-red h-full w-full z-50 absolute top-0 left-0"
-                ></div>
-              ) : undefined}
-            </>
-          ) : undefined}
+          {renderDropzone()}
         </div>
         {value ? (
           <div className="flex flex-col gap-4">

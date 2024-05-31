@@ -1,5 +1,7 @@
 import { Box } from "@/equix/components/Box";
+import { Img } from "@/equix/components/Img";
 import { Pagination } from "@/equix/components/Pagination";
+import { Sidebar } from "@/equix/components/Sidebar";
 import { SmsAuthForm } from "@/equix/components/SmsAuthForm";
 import { Textarea } from "@/equix/components/Textarea";
 import { Video } from "@/equix/components/Video";
@@ -8,6 +10,17 @@ import { ComponentsData } from "@/equix/types";
 import { useState } from "react";
 
 const data: ComponentsData = {
+  Img: {
+    description: `Img, изображение - компонент для вставки на страницу интерактивных (не
+      декоративных) картинок во всех поддерживаемых браузером форматах. В
+      идеале, все изображения на странице должны иметь возможность быть
+      приближенными. Именно эту функцию и реализует компонент Img в EQUIX. Если
+      необходимо вставить иконку, мелкое неважное изображение, которое не
+      подразумевает приближения, то используйте встроенный в Next.js компонент
+      <code>&lt;Image&gt;</code>, импортируемый из библиотеки next/image.`,
+    ExampleComponent: () => <Img src="/intro.png" height={200} width={200} />,
+    usage: `<Img src="/intro.png" height={200} width={200} />`,
+  },
   Pagination: {
     description: `Pagination - компонент для реализации пагинации, то есть разбития списка, состоящего из большого количества элементов (например, товаров, документов или телефонных контактов), на подстраницы.`,
     ExampleComponent: () => {
@@ -34,9 +47,11 @@ const data: ComponentsData = {
   </PasswordProvider>`,
   },
   Sidebar: {
-    description: `TODO`,
-    ExampleComponent: () => <></>,
-    usage: ``,
+    description: `Sidebar - боковая навигационная панель, содержащая в себе список ссылок. Обязательно используется в случае наличия большого количества страниц на сайте, чтобы не нагружать ссылками Header и другие панели.`,
+    ExampleComponent: () => (
+      <Sidebar routes={[{ href: "/", label: "Главная сайта" }]} />
+    ),
+    usage: `<Sidebar routes={[{ href: "/", label: "Главная сайта" }]} />`,
   },
   SmsAuthForm: {
     description: `SmsAuthForm - форма для авторизации (входа/регистрации) с помощью СМС-сообщения. Работает с Bearer-токенами accessToken и refreshToken, а данные хранит в localStorage. Состоит из двух этапов - ввода номера телефона и ввода кода, который на этот номер приходит, после чего компонент по умолчанию перенаправляет на главную страницу.`,

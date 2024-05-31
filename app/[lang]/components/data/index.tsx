@@ -6,16 +6,20 @@ import {
   DarkThemeProvider,
   DarkThemeToggle,
 } from "@/equix/components/DarkThemeProvider";
+import { Data } from "@/equix/components/Data";
 import { Details } from "@/equix/components/Details";
 import { Dialog } from "@/equix/components/Dialog";
 import { ConfirmationDialog } from "@/equix/components/Dialog/ConfirmDialog";
+import { Dropzone } from "@/equix/components/Dropzone";
+import { Col, Row } from "@/equix/components/Flex";
 import { GeoMap } from "@/equix/components/GeoMap";
+import { Header } from "@/equix/components/Header";
+import { Heading, Region } from "@/equix/components/Heading";
 import { Icon } from "@/equix/components/Icon";
-import { Img } from "@/equix/components/Img";
 import { Input } from "@/equix/components/Input";
+import { ComponentsData } from "@/equix/types";
 import { useState } from "react";
 import part1 from "./part1";
-import { ComponentsData } from "@/equix/types";
 
 const componentsData: ComponentsData = {
   Dialog: {
@@ -78,9 +82,29 @@ const componentsData: ComponentsData = {
   />`,
   },
   Dropzone: {
-    description: `TODO`,
-    ExampleComponent: () => <></>,
-    usage: ``,
+    description: `Dropzone - поле ввода для загрузки файлов. Осуществляется оно перетаскиванием файла/файлов на поле или выбором файла/файлов с помощью файлового менеджера устройства.`,
+    ExampleComponent: () => {
+      const [, setVideo] = useState("");
+
+      return (
+        <Dropzone
+          url="google.com"
+          label="Clip"
+          isRequired
+          filetype="video"
+          value="test.mp4"
+          onChange={(value) => setVideo(value)}
+        />
+      );
+    },
+    usage: `<Dropzone
+          url="google.com"
+          label="Clip"
+          isRequired
+          filetype="video"
+          value="test.mp4"
+          onChange={(value) => setVideo(value)}
+        />`,
   },
   Input: {
     description: `&lt;input&gt; - инпут, поле ввода - основной интерактивный элемент в
@@ -155,9 +179,11 @@ const componentsData: ComponentsData = {
   </DarkThemeProvider>`,
   },
   Data: {
-    description: `TODO`,
-    ExampleComponent: () => <></>,
-    usage: ``,
+    description: `Data - компонент для отображения единицы данных. Например, на экране статистики, где есть десяток разных величин, каждая из них, в случае, если не должна быть интерактивно и/или редактируемой, должна быть отображена с помощью этого компонента.`,
+    ExampleComponent: () => (
+      <Data label="Количество сделанных заказов" value={10} />
+    ),
+    usage: `<Data label="Количество сделанных заказов" value={10} />`,
   },
   Details: {
     description: `Details - т.н. "аккордеон", "деталка", - элемент интерфейса, раскрывающийся и скрывающийся назад по нажатию на заголовок. Заголовок является текстом, а содержание - чем угодно. По умолчанию аккордеон свернут, но это поведение можно изменить аттрибутом open.`,
@@ -166,11 +192,11 @@ const componentsData: ComponentsData = {
     ),
     usage: `<Details summary="Тестовый аккордеон">Текст внутри него</Details>`,
   },
-  DragNDrop: {
-    description: `TODO`,
-    ExampleComponent: () => <></>,
-    usage: ``,
-  },
+  // DragNDrop: {
+  //   description: `TODO`,
+  //   ExampleComponent: () => <></>,
+  //   usage: ``,
+  // },
   ErrorPage: {
     description: `ErrorPage - страница, возникающая перед пользователем в случае ошибки в работе сайта или при переходе на несуществующий адрес. Может быть использована вручную, например, как заглушка для временно недоделанной страницы.`,
     ExampleComponent: () => (
@@ -188,9 +214,17 @@ const componentsData: ComponentsData = {
     usage: `<ErrorPageProvider></ErrorPageProvider>`,
   },
   Flex: {
-    description: `TODO`,
-    ExampleComponent: () => <></>,
-    usage: ``,
+    description: `Flex - общее название для двух компонентов со схожими функциями и использующими в своей основе свойство CSS flexbox. Row - горизонтальный контейнер для любого содержимого, Col - вертикальный. Эти компоненты должны использоваться повсемество, т.к. интерфейсы в EQUIX основаны на четких Flex-контейнерах.`,
+    ExampleComponent: () => (
+      <Row>
+        <Col>Колонка 1</Col>
+        <Col>Колонка 2</Col>
+      </Row>
+    ),
+    usage: `<Row>
+    <Col>Колонка 1</Col>
+    <Col>Колонка 2</Col>
+  </Row>`,
   },
   GeoMap: {
     description: `GeoMap - компонент для вставки географической карты на страницу. На данный момент поддерживается только
@@ -220,14 +254,30 @@ const componentsData: ComponentsData = {
   />`,
   },
   Header: {
-    description: `TODO`,
-    ExampleComponent: () => <></>,
-    usage: ``,
+    description: `Header - верхняя навигационная панель, присутствующая практически на любой странице и содержащая в себе список ссылок, кнопок, полей ввода и других элементов. Используется для брендинга и основной навигации пользователя между большими разделами приложения или секциями одной страницы. В случае, если страниц и/или кнопок требуется больше, чем умещается, нужно использовать компонент <code>Sidebar</code>.`,
+    ExampleComponent: () => (
+      <Header
+        appName={"Github"}
+        logo={<img src="/github.svg" alt="" />}
+        routes={[{ href: "/", label: "Главная" }]}
+      />
+    ),
+    usage: `<Header
+        appName={"Github"}
+        logo={<img src="/github.svg" alt=""/>}
+        routes={[{ href: "/", label: "Главная" }]}
+      />`,
   },
   Heading: {
-    description: `TODO`,
-    ExampleComponent: () => <></>,
-    usage: ``,
+    description: `Heading - заголовок. На данный момент файл компонента включает в себя компоненты <code>Heading<code> и <code>Region</code>. Первый из них - т.н. "умный компонент" - заголовок, сам понимающий, какого уровня вложенности он должен быть (h1, h2, ..., h5 и т.д.). Правильная иерархия вложенных заголовков необходима для понятно пользователю навигации по страницам, а также для людей с ограниченными возможностями. Второй компонент, регион, - контейнер, в котором заголовок и работает. Для исправной работы все секции страницы с любым уровнем вложенности должны использовать компонент региона. Также, для обратной совместимости, компонент экспортирует обычные заголовки - H1, H2, H3. Более трех уровней не рекомендуется, поэтому их нет. Если ваша страница требует больше, то дробите ее на несколько.`,
+    ExampleComponent: () => (
+      <Region>
+        <Heading>Заголовок</Heading>
+      </Region>
+    ),
+    usage: `<Region>
+    <Heading>Заголовок</Heading>
+  </Region>`,
   },
   Icon: {
     description: `Icon, иконка, - компонент-прослойка для получения иконок из взаимодействия
@@ -240,17 +290,6 @@ const componentsData: ComponentsData = {
     <code>name</code>.`,
     ExampleComponent: () => <Icon name="search" />,
     usage: `<Icon name="search" />`,
-  },
-  Img: {
-    description: `Img, изображение - компонент для вставки на страницу интерактивных (не
-      декоративных) картинок во всех поддерживаемых браузером форматах. В
-      идеале, все изображения на странице должны иметь возможность быть
-      приближенными. Именно эту функцию и реализует компонент Img в EQUIX. Если
-      необходимо вставить иконку, мелкое неважное изображение, которое не
-      подразумевает приближения, то используйте встроенный в Next.js компонент
-      <code>&lt;Image&gt;</code>, импортируемый из библиотеки next/image.`,
-    ExampleComponent: () => <Img src="/intro.png" height={200} width={200} />,
-    usage: `<Img src="/intro.png" height={200} width={200} />`,
   },
   ...part1,
 };
