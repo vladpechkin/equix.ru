@@ -13,7 +13,7 @@ const config = {
     <Box className="text-accent font-thin tracking-[8px] text-4xl">EQUIX</Box>
   ),
   action: (
-    <Box href="/overview" className="bg-accent text-light h-auto">
+    <Box href="/components" className="bg-accent text-light h-auto">
       Узнать больше
     </Box>
   ),
