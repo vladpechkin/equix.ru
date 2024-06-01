@@ -9,11 +9,11 @@ interface Props {
 const Layout: FC<Props> = async (props) => {
   const { children } = props;
   const posts = await getAllMarkdownFiles();
-  
+
   return (
     <LandingLayout
       sidebarRoutes={posts.map((post) => ({
-        href: post.realId,
+        href: `/docs/${post.realId}`,
         label: post.title,
       }))}
     >
