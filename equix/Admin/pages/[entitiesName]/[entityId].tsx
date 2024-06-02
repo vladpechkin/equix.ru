@@ -4,6 +4,7 @@ import { EntityEditor } from "../../components/EntityEditor";
 const Page = () => {
   const router = useRouter();
   const { entitiesName, entityId } = router.query;
+
   return (
     entitiesName &&
     entityId && (
