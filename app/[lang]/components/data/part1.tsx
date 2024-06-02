@@ -13,6 +13,7 @@ import { Video } from "@/equix/components/Video";
 import { View } from "@/equix/components/View";
 import { ComponentsData } from "@/equix/types";
 import { useState } from "react";
+import Image from "next/image";
 
 const data: ComponentsData = {
   Flex: {
@@ -82,13 +83,13 @@ const data: ComponentsData = {
     ExampleComponent: () => (
       <Header
         appName={"Github"}
-        logo={<img src="/github.svg" alt="" />}
+        logo={<Image src="/github.svg" alt="" width={40} height={40} />}
         routes={[{ href: "/", label: "Главная" }]}
       />
     ),
     usage: `<Header
         appName={"Github"}
-        logo={<img src="/github.svg" alt=""/>}
+        logo={<Image src="/github.svg" alt="" width={40} height={40} />}
         routes={[{ href: "/", label: "Главная" }]}
       />`,
   },

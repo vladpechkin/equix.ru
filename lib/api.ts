@@ -11,7 +11,7 @@ import rehypeStringify from "rehype-stringify";
 import remarkHtml from "remark-html";
 import { remark } from "remark";
 
-const markdownDirectory = path.join(process.cwd(), "markdown");
+const markdownDirectory = path.join(process.cwd(), "app/markdown");
 
 function getMarkdownFiles() {
   return fs.readdirSync(markdownDirectory);
