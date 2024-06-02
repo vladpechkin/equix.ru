@@ -1,21 +1,27 @@
-import { useRouter } from "next/navigation";
+"use client";
+
 import { FC, useState } from "react";
+import { VALID_PHONE_NUMBER_LENGTH } from "../consts";
 import { Box } from "./Box";
 import { Input } from "./Input";
-import { VALID_PHONE_NUMBER_LENGTH } from "../consts";
 
 interface Props {
   codeLength: number;
   postPhoneNumber: (phoneNumber: string) => Promise<Response>;
   postConfirmationCode: (code: string) => Promise<Response>;
+  handleSuccessfulConfirmation: () => void;
 }
 
 export const SmsAuthForm: FC<Props> = (props) => {
-  const { codeLength, postPhoneNumber, postConfirmationCode } = props;
+  const {
+    codeLength,
+    postPhoneNumber,
+    postConfirmationCode,
+    handleSuccessfulConfirmation,
+  } = props;
   const [phone, setPhone] = useState("");
   const [isSmsSent, setIsSmsSent] = useState(false);
   const [code, setCode] = useState("");
-  const router = useRouter();
 
   const handleGetCode = async () => {
     const res = await postPhoneNumber(phone);
@@ -34,13 +40,13 @@ export const SmsAuthForm: FC<Props> = (props) => {
       if (json.data.accessToken && json.data.refreshToken) {
         localStorage.setItem("accessToken", json.data.accessToken);
         localStorage.setItem("refreshToken", json.data.refreshToken);
-        router.push("/");
+        handleSuccessfulConfirmation();
       }
     }
   };
 
   return (
-    <div className="flex flex-col absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 gap-2">
+    <div className="flex flex-col gap-2">
       {isSmsSent ? (
         <>
           <Input type="text" label="SMS code" value={code} onChange={setCode} />

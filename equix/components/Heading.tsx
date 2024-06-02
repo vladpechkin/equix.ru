@@ -53,13 +53,16 @@ export const Region = (props: React.HTMLAttributes<HTMLDivElement>) => {
 };
 
 export const H1: FC<HeadingProps> = (props) => (
-  <h1 {...props} className="font-semibold text-[32px] leading-tight" />
+  <h1
+    {...props}
+    className={`font-semibold text-[32px] leading-tight ${props.className}`}
+  />
 );
 
 export const H2: FC<HeadingProps> = (props) => (
-  <h2 {...props} className="font-semibold text-[24px]" />
+  <h2 {...props} className={`font-semibold text-[24px] ${props.className}`} />
 );
 
 export const H3: FC<HeadingProps> = (props) => (
-  <h3 {...props} className="font-semibold text-[16px]" />
+  <h3 {...props} className={`font-semibold text-[16px] ${props.className}`} />
 );

@@ -39,7 +39,7 @@ export const Box: FC<Props> = (props) => {
         return pathname === href;
       }
 
-      return pathname.includes(href);
+      if (pathname) return pathname.includes(href);
     }
 
     return false;

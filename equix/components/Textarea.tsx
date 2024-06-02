@@ -8,7 +8,6 @@ export const Textarea: FC<TextProps> = ({
   label,
   className,
 }) => {
-  
   const handleChange = ({
     target,
   }: {
@@ -18,7 +17,7 @@ export const Textarea: FC<TextProps> = ({
   return (
     <InputBase as="label" label={label}>
       <textarea
-        className={`flex items-center border border-accent px-2 py-1 min-h-[2.5rem] ${
+        className={`flex items-center border border-accent px-2 py-1 min-h-[2.5rem] rounded ${
           className || ""
         }`}
         value={value}

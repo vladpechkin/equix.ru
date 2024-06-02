@@ -4,7 +4,7 @@ import { Bar } from "./Bar";
 import { Box } from "./Box";
 import { FC, ReactNode } from "react";
 import { Route } from "../types";
-import { Heading } from "./Heading";
+import { H1 } from "./Heading";
 
 interface Props {
   logo: ReactNode;
@@ -18,7 +18,7 @@ export const Header: FC<Props> = (props) => {
 
   return (
     <Bar as="header" position="top" className="justify-between">
-      <Heading className="sr-only">{appName}</Heading>
+      <H1 className="sr-only">{appName}</H1>
       <Link href="/" aria-label="Home">
         {logo}
       </Link>

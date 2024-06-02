@@ -83,7 +83,7 @@ const data: ComponentsData = {
     ExampleComponent: () => (
       <Header
         appName={"Github"}
-        logo={<Image src="/github.svg" alt="" width={40} height={40} />}
+        logo={<Image src="/github.svg" alt="" width={50} height={50} />}
         routes={[{ href: "/", label: "Главная" }]}
       />
     ),
@@ -221,6 +221,7 @@ const data: ComponentsData = {
         codeLength={4}
         postPhoneNumber={() => fetch("")}
         postConfirmationCode={() => fetch("")}
+        handleSuccessfulConfirmation={() => ""}
       />
     ),
     usage: `<SmsAuthForm
