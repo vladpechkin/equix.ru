@@ -25,9 +25,9 @@ export const InputBase: FC<InputBaseProps> = (props) => {
   return (
     <Element className={`max-w-screen-sm ${className || ""}`}>
       {label && (
-        <span className="whitespace-nowrap">
+        <div className="w-full">
           {label} {isRequired ? "*" : ""}
-        </span>
+        </div>
       )}
       {children}
       {errorMessage && <span className="text-red-700">{errorMessage}</span>}

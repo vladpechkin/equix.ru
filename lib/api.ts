@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import matter from "gray-matter";
-import path from "node:path";
+import path, { resolve } from "node:path";
 import { unified } from "unified";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
@@ -13,9 +13,9 @@ import { remark } from "remark";
 
 const markdownDirectory = path.join(process.cwd(), "markdown");
 
-function getMarkdownFiles() {
-  return fs.readdirSync(markdownDirectory);
-}
+const getMarkdownFiles = async () => {
+  return resolve(markdownDirectory);
+};
 
 function getParser() {
   return unified()

@@ -77,16 +77,20 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
               </Col>
             </View>
           </div>
-          <Bar as="footer" className="justify-between" position="bottom">
-            <div>
+          <Bar
+            as="footer"
+            className="justify-between flex-col-reverse sm:flex-row"
+            position="bottom"
+          >
+            <Box>
               © {new Date().getFullYear()} {appOwnerName}
-            </div>
-            <div>
+            </Box>
+            <Box isInline>
               Создано с помощью{" "}
               <Box as="a" isInline href="https://equix.ru">
                 EQUIX/Лендинг
               </Box>
-            </div>
+            </Box>
             <DarkThemeToggle />
           </Bar>
         </Region>

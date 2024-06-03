@@ -10,7 +10,9 @@ const config = {
   description:
     "Дизайн-система для быстрого и легкого создания дизайна и превращения его в рабочий сайт, мобильное или десктопное приложение.",
   logo: (
-    <Box className="text-accent font-thin tracking-[8px] text-4xl">EQUIX</Box>
+    <Box className="text-accent font-thin leading-none tracking-[8px] text-4xl h-10 items-center">
+      EQUIX
+    </Box>
   ),
   action: (
     <Box href="/components" className="bg-accent text-light h-auto">

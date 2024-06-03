@@ -67,7 +67,7 @@ const Page = () => (
       },
       {
         children: (
-          <Row className="w-full">
+          <Row className="w-full flex-wrap">
             {[
               {
                 href: "https://www.figma.com/file/npn6mOk53B6pBNRnTUgB7P/EQUIX?type=design&mode=design&t=JwiI541x0rVd0W9P-1",
