@@ -31,15 +31,17 @@ export const TextInput: FC<TextProps> = (props) => {
 
   return (
     <InputBase as="label" className="w-full" label={label}>
-      <div className="border border-borderAccent rounded-lg flex">
+      <div className="border border-accent rounded flex">
         <input
           value={value}
           type={type}
-          className={`p-2 h-10 rounded-lg w-full ${className || ""}`}
+          className={`p-2 bg-transparent h-10 rounded w-full ${
+            className || ""
+          }`}
           size={size}
           onChange={handleChange}
           autoFocus={autoFocus}
-          placeholder={placeholder || `Enter ${label}`}
+          placeholder={label ? undefined : placeholder || `Enter ${label}`}
         />
         {type === "search" ? (
           <Box onClick={onClick}>

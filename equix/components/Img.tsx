@@ -42,7 +42,7 @@ export const Img: FC<Props> = (props) => {
     >
       <Image
         {...props}
-        className={`rounded-lg border border-accent ${getClassName()}`}
+        className={`rounded border border-accent ${getClassName()}`}
         alt={alt || ""}
       />
     </div>

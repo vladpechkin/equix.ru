@@ -62,7 +62,7 @@ export const DropzoneForm: FC<Props> = (props) => {
   };
 
   return (
-    <label className="flex flex-col gap-2 w-full max-w-md h-full max-h-[20rem]">
+    <label className="flex flex-col gap w-full max-w-md h-full max-h-[20rem]">
       {label ? (
         <strong className="font-medium">
           {label} {isRequired ? "*" : undefined}
@@ -80,7 +80,7 @@ export const DropzoneForm: FC<Props> = (props) => {
           className={
             value
               ? "h-0 mt-[-1rem]"
-              : `bg-stone-50 border border-dashed border-stone-400 rounded-md relative w-full flex flex-col items-center justify-center gap-4 p-4 ${
+              : `bg-stone-50 border border-dashed border-stone-400 rounded relative w-full flex flex-col items-center justify-center gap-4 p-4 ${
                   className || ""
                 }`
           }

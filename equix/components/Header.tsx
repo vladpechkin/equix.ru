@@ -23,7 +23,7 @@ export const Header: FC<Props> = (props) => {
     <Bar
       as="header"
       position="top"
-      className="justify-between top-0 left-0 flex-wrap sm:flex-nowrap"
+      className="justify-between top-0 left-0 flex-wrap sm:flex-nowrap w-full"
     >
       <H1 className="sr-only">{appName}</H1>
       <Link href="/" aria-label="Home">
@@ -37,7 +37,7 @@ export const Header: FC<Props> = (props) => {
       </Box>
       <Row
         as="menu"
-        className={`${isMenuOpen ? "" : "hidden"} sm:flex  bg-light w-full h-full flex-col sm:static sm:flex-row`}
+        className={`${isMenuOpen ? "" : "hidden"} sm:flex  bg-light w-full sm:w-auto h-full flex-col sm:static sm:flex-row`}
       >
         {routes?.map((route, index) => (
           <Box key={index} {...route}>

@@ -48,7 +48,7 @@ export const DragNDropZone: FC<Props> = (props) => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className="flex flex-col gap-2 p-2 w-full min-h-full border border-border rounded-lg"
+            className="flex flex-col gap p-2 w-full min-h-full border border-border rounded"
           >
             <h2 className="font-semibold p-2">
               {capitalize(state.toLowerCase()).replaceAll("_", " ")}
@@ -66,7 +66,7 @@ export const DragNDropZone: FC<Props> = (props) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className="flex flex-col gap-2 text-accent rounded-lg border border-border p-2"
+                        className="flex flex-col gap text-accent rounded border border-border p-2"
                         href={`/orders/${item.id}`}
                       >
                         <span>Order {item.number}</span>

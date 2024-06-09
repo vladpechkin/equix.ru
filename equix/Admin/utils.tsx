@@ -116,7 +116,7 @@ export const renderValue = (key: string, value: any) => {
           src={value}
           height={40}
           width={40}
-          className="rounded-lg"
+          className="rounded"
           alt=""
         />
       );

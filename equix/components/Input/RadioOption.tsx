@@ -6,7 +6,7 @@ import { Icon } from "../Icon";
 interface Props {
   option?: InputOption;
   handleChange: (option: InputOption | boolean) => void;
-  value: InputOption | boolean;
+  value: InputOption | boolean | undefined;
 }
 
 export const RadioOption: FC<Props> = (props) => {
@@ -36,7 +36,9 @@ export const RadioOption: FC<Props> = (props) => {
         className="w-full top-0 left-0 h-full absolute opacity-0"
       />
       <Icon name={getIconName()} className="text-accent" />
-      {option && capitalize(option.name.toLowerCase()).replaceAll("_", " ")}
+      {option
+        ? capitalize(option.name.toLowerCase()).replaceAll("_", " ")
+        : undefined}
     </label>
   );
 };

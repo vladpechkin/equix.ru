@@ -21,7 +21,7 @@ module.exports = {
         DEFAULT: "8px",
       },
       colors: {
-        light: "hsl(270, 100%, 99%)",
+        light: "hsl(270, 100%, 98%)",
         border: "hsla(270, 100%, 96%)",
         accent: "hsl(270, 100%, 61%)",
         dark: "hsl(270, 100%, 12%)",

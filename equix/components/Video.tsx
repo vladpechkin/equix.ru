@@ -10,7 +10,7 @@ interface Props {
 export const Video: FC<Props> = (props) => {
   const { className, src } = props;
   return (
-    <video {...props} className={`rounded-md ${className || ""}`} controls>
+    <video {...props} className={`rounded ${className || ""}`} controls>
       <source src={src} type="video/mp4" />
     </video>
   );

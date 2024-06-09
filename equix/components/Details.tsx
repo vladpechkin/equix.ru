@@ -17,7 +17,7 @@ export const Details: FC<Props> = (props) => {
       className="w-full"
     >
       <summary
-        className="whitespace-nowrap list-none flex items-center gap-2 justify-between mb-2 w-full"
+        className="whitespace-nowrap list-none flex items-center gap justify-between mb-2 w-full"
         onClick={() => setOpen(!isOpen)}
       >
         {summary} <i className={`bi bi-chevron-${isOpen ? "up" : "down"}`}></i>

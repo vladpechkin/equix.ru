@@ -51,7 +51,7 @@ export const Box: FC<Props> = (props) => {
     }
 
     if ((href && !getIsActiveLink()) || onClick) {
-      return "text-accent";
+      return "text-accent border-accent";
     }
 
     return "";
@@ -70,12 +70,14 @@ export const Box: FC<Props> = (props) => {
   };
 
   const getClassName = () => `
-    gap-2 rounded-lg focused:outline
+    gap rounded focused:outline
     ${
       isInline
         ? `inline-flex ${href ? "hover:underline" : ""} rounded-sm`
         : "flex p-2 min-h-[2.5rem]"
-    } ${getIsActiveLink() ? "font-semibold" : ""} ${getColor()} ${getCursor()} ${className || ""}`;
+    } ${
+    getIsActiveLink() ? "font-semibold" : ""
+  } ${getColor()} ${getCursor()} ${className || ""}`;
 
   const getElement = () => {
     switch (true) {
@@ -116,6 +118,6 @@ export const Box: FC<Props> = (props) => {
 export const Card: FC<Props> = (props) => (
   <Box
     {...props}
-    className={`flex-col p-4 border border-border max-w-[460px] ${props.className}`}
+    className={`p-4 border border-border max-w-[460px] ${props.className} flex-col`}
   ></Box>
 );

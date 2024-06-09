@@ -14,6 +14,7 @@ import { View } from "@/equix/components/View";
 import { ComponentsData } from "@/equix/types";
 import { useState } from "react";
 import Image from "next/image";
+import { Switch } from "@/equix/components/Switch";
 
 const data: ComponentsData = {
   Flex: {
@@ -229,6 +230,30 @@ const data: ComponentsData = {
     postPhoneNumber={() => fetch("")}
     postConfirmationCode={() => fetch("")}
   />`,
+  },
+  Switch: {
+    description: (
+      <p>
+        Switch - переключатель, компонент для выбора между двумя вариантами - да
+        (истина) или нет (ложь).
+      </p>
+    ),
+    ExampleComponent: () => {
+      const [isAgree, setIsAgree] = useState(false);
+
+      return (
+        <Switch
+          label="Я согласен с политикой конфиденциальности"
+          value={isAgree}
+          onChange={setIsAgree}
+        />
+      );
+    },
+    usage: `<Switch
+          label="Я согласен с политикой конфиденциальности"
+          value={isAgree}
+          onChange={setIsAgree}
+        />`,
   },
   Textarea: {
     description: (

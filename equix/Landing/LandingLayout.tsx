@@ -14,8 +14,8 @@ import { Col } from "../components/Flex";
 import { Route, Section } from "../types";
 import { LandingSection } from "./LandingSection";
 import defaultConfig from "./config";
-import ErrorPageProvider from "../components/ErrorPageProvider";
 import { Region } from "../components/Heading";
+import { ConditionalWrapper } from "../utils";
 
 export interface LandingLayoutProps {
   sections?: Section[];
@@ -32,6 +32,7 @@ export interface LandingLayoutProps {
     hero?: ReactNode;
     appName: string;
     appOwnerName?: string;
+    supportsDarkTheme?: boolean;
   };
 }
 
@@ -43,7 +44,13 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
     sidebarRoutes,
     config = defaultConfig,
   } = props;
-  const { logo, routes, appName, appOwnerName } = config;
+  const {
+    logo,
+    routes,
+    appName,
+    appOwnerName,
+    supportsDarkTheme = false,
+  } = config;
 
   const getRoutesFromSection = () =>
     sections?.map(
@@ -55,46 +62,47 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
     ) as Route[];
 
   return (
-    <ErrorPageProvider>
-      <DarkThemeProvider>
-        <Region
-          className={`dark:bg-dark dark:text-light bg-light text-dark print:bg-white print:text-black min-h-screen flex flex-col items-center  
+    <ConditionalWrapper
+      condition={supportsDarkTheme}
+      wrap={(children) => <DarkThemeProvider>{children}</DarkThemeProvider>}
+    >
+      <Region
+        className={`dark:bg-dark dark:text-light bg-light text-dark print:bg-white print:text-black min-h-screen flex flex-col items-center  
       ${className || ""}`}
+      >
+        <Header
+          appName={appName}
+          logo={logo}
+          routes={routes || getRoutesFromSection()}
+        />
+        <div className="flex grow max-w-[944px] w-full">
+          {sidebarRoutes ? <Sidebar routes={sidebarRoutes} /> : undefined}
+          <View as="main" className="items-center w-full">
+            <Col className="w-full h-full p">
+              {children}
+              {sections?.map((section, index) => (
+                <LandingSection {...section} key={index} />
+              ))}
+            </Col>
+          </View>
+        </div>
+        <Bar
+          as="footer"
+          className="justify-between flex-wrap flex-col-reverse sm:flex-row"
+          position="bottom"
         >
-          <Header
-            appName={appName}
-            logo={logo}
-            routes={routes || getRoutesFromSection()}
-          />
-          <div className="flex grow max-w-[944px] w-full">
-            {sidebarRoutes ? <Sidebar routes={sidebarRoutes} /> : undefined}
-            <View as="main" className="items-center w-full">
-              <Col className="w-full h-full p">
-                {children}
-                {sections?.map((section, index) => (
-                  <LandingSection {...section} key={index} />
-                ))}
-              </Col>
-            </View>
-          </div>
-          <Bar
-            as="footer"
-            className="justify-between flex-col-reverse sm:flex-row"
-            position="bottom"
-          >
-            <Box>
-              © {new Date().getFullYear()} {appOwnerName}
+          <Box>
+            © {new Date().getFullYear()} {appOwnerName}
+          </Box>
+          <Box isInline>
+            Создано с помощью{" "}
+            <Box as="a" isInline href="https://equix.ru">
+              EQUIX/Лендинг
             </Box>
-            <Box isInline>
-              Создано с помощью{" "}
-              <Box as="a" isInline href="https://equix.ru">
-                EQUIX/Лендинг
-              </Box>
-            </Box>
-            <DarkThemeToggle />
-          </Bar>
-        </Region>
-      </DarkThemeProvider>
-    </ErrorPageProvider>
+          </Box>
+          {supportsDarkTheme ? <DarkThemeToggle /> : undefined}
+        </Bar>
+      </Region>
+    </ConditionalWrapper>
   );
 };

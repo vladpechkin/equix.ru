@@ -11,7 +11,7 @@ export const Row: FC<Props> = (props) => {
   const { className, as } = props;
   const Element = as || "div";
 
-  return <Element {...props} className={`flex gap-2 ${className}`} />;
+  return <Element {...props} className={`flex gap ${className}`} />;
 };
 
 export const Col: FC<Props> = (props) => (

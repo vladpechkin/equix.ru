@@ -50,7 +50,7 @@ export const EntitiesEditorTable: FC<Props> = (props) => {
                 className="p-2 font-semibold"
                 onClick={() => setSortKey(key)}
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap">
                   {capitalize(key).replaceAll(/([a-z])([A-Z])/u, "$1 $2")}
                   {sortKey === key && <i className="bi bi-sort-down-alt"></i>}
                 </span>

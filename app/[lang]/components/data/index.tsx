@@ -15,6 +15,7 @@ import { Input } from "@/equix/components/Input";
 import { ComponentsData } from "@/equix/types";
 import { useState } from "react";
 import part1 from "./part1";
+import { Code } from "@/equix/components/Code";
 
 const componentsData: ComponentsData = {
   Dialog: {
@@ -194,6 +195,16 @@ const componentsData: ComponentsData = {
     ),
     ExampleComponent: () => <Box onClick={() => "test"}>Кнопка</Box>,
     usage: `<Box onClick={() => "test"}>Кнопка</Box>`,
+  },
+  Code: {
+    description: (
+      <p>
+        Code - компонент для вставки кода на страницу. Отличается от встроенного
+        в HTML тэга только стилями. Планируется введение подсветки синтаксиса.
+      </p>
+    ),
+    ExampleComponent: () => <Code>const a = 1;</Code>,
+    usage: `<Code>const a = 1;</Code>`,
   },
   DarkThemeProvider: {
     description: (

@@ -27,7 +27,7 @@ export const Sidebar: FC<Props> = (props) => {
       {groups.map((group, index) => (
         <li key={index} className="w-full">
           <Details summary={group as string} open>
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap">
               {routes.map(
                 (route, index) =>
                   route.group &&

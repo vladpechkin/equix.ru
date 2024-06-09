@@ -49,7 +49,7 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
     <div className="flex flex-col">
       {optionsToRender?.length > 0 ? (
         optionsToRender.map((option, index) => (
-          <label key={index} className="flex gap-2 w-full">
+          <label key={index} className="flex gap w-full">
             <input
               type="checkbox"
               checked={value?.map(({ id }) => id).includes(option.id)}

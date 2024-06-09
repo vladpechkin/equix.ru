@@ -6,20 +6,17 @@ import { Input } from ".";
 import { Box } from "../Box";
 import { Dialog } from "../Dialog";
 import { Icon } from "../Icon";
-import { InputBase } from "./Base";
+import { InputBase, InputProps } from "./Base";
 import { RadioOption } from "./RadioOption";
 import { CheckboxProps } from "./Checkbox";
 
-type OnChange = (value: InputOption | boolean) => void;
+type OnChange = (value: InputOption | undefined) => void;
 
-type NullableOnChange = (value: InputOption | boolean | undefined) => void;
-
-export interface RadioProps
-  extends Omit<CheckboxProps, "maxOptions" | "value" | "options" | "onChange"> {
+export interface RadioProps extends InputProps {
   minOptions?: number;
   options?: InputOption[];
-  value: InputOption | boolean;
-  onChange: OnChange | NullableOnChange;
+  value?: InputOption;
+  onChange: OnChange;
   isCollapsed?: boolean;
 }
 
@@ -37,18 +34,11 @@ export const Radio: FC<RadioProps> = (props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const isSwitch = typeof value === "boolean";
-
   const MAX_COLLAPSED_LENGTH = 10;
 
-  const handleChange = (option: InputOption | boolean) => {
-    if (!isSwitch && options && typeof option !== "boolean") {
-      if (
-        minOptions === 1 &&
-        typeof option !== "boolean" &&
-        value?.id === option.id
-      )
-        return;
+  const handleChange = (option: InputOption) => {
+    if (options) {
+      if (minOptions === 1 && value?.id === option.id) return;
 
       const getOptionToChange = () => {
         if (value?.id === option.id && options[0]) {
@@ -64,17 +54,15 @@ export const Radio: FC<RadioProps> = (props) => {
       };
 
       if (options[0]) {
-        (onChange as NullableOnChange)(getOptionToChange());
+        onChange(getOptionToChange());
       }
     }
-
-    onChange(!option);
 
     if (isDialogOpen) setIsDialogOpen(false);
   };
 
   const renderOptions = (optionsToRender: InputOption[]) => (
-    <div className="flex flex-col">
+    <div className="flex flex-col border border-accent">
       {optionsToRender?.length > 0 ? (
         optionsToRender.map((option, index) => (
           <RadioOption
@@ -91,7 +79,7 @@ export const Radio: FC<RadioProps> = (props) => {
   );
 
   const renderContents = () => {
-    if (!isSwitch && isCollapsed)
+    if (isCollapsed)
       return (
         <Box
           onClick={() => setIsDialogOpen(true)}
@@ -103,22 +91,12 @@ export const Radio: FC<RadioProps> = (props) => {
       );
 
     if (options) return renderOptions(options);
-
-    return <RadioOption handleChange={handleChange} value={value} />;
   };
 
   return (
     <>
-      <InputBase
-        as="div"
-        className={`${isSwitch ? "relative flex gap-2 h-full items-center" : ""} ${className || ""}`}
-        label={label}
-      >
-        <div
-          className={`flex flex-col ${isSwitch ? "order-[-1]" : "border border-borderAccent rounded-lg"} col-1`}
-        >
-          {renderContents()}
-        </div>
+      <InputBase as="div" className={`w-full ${className || ""}`} label={label}>
+        <div className={`flex w-full flex-col col-1`}>{renderContents()}</div>
       </InputBase>
       <Dialog
         title={label!}

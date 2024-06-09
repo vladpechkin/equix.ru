@@ -52,6 +52,7 @@ const config = {
   ),
   appName: "EQUIX",
   appOwnerName: "ООО Эквикс",
+  supportsDarkTheme: true,
 };
 
 export default config;

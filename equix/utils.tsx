@@ -1,4 +1,5 @@
 /* global RequestInit */
+import { ReactNode } from "react";
 import {
   APRIL_INDEX,
   FEBRUARY_INDEX,
@@ -73,7 +74,7 @@ export const getMonthLength = (month: number, year: number) => {
 };
 
 export const capitalize = (word: string) =>
-  word.charAt && Boolean(word.charAt(0)?.toUpperCase()) + word.slice(1);
+  word.charAt(0)?.toUpperCase() + word.slice(1);
 
 export const toOptions = (array: readonly string[]): InputOption[] =>
   array.map((name, index) => ({
@@ -249,6 +250,16 @@ export const getContrastBetweenTwoRgbColors = (
 
   return (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
 };
+
+export const ConditionalWrapper = ({
+  condition,
+  children,
+  wrap,
+}: {
+  condition: boolean;
+  children: ReactNode;
+  wrap: (children: ReactNode) => ReactNode;
+}) => (condition ? wrap(children) : children);
 
 // REORDER LIST UP/DOWN
 // const [sortedClips, setSortedClips] = useState<Clip[]>([]);
