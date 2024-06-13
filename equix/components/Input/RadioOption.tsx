@@ -5,17 +5,15 @@ import { Icon } from "../Icon";
 
 interface Props {
   option?: InputOption;
-  handleChange: (option: InputOption | boolean) => void;
-  value: InputOption | boolean | undefined;
+  handleChange: (option: InputOption) => void;
+  value: InputOption | undefined;
 }
 
 export const RadioOption: FC<Props> = (props) => {
   const { option, handleChange, value } = props;
 
-  const isSwitch = typeof value === "boolean";
-
   const getIconName = () => {
-    if (value === true || (!isSwitch && option && option.id === value?.id)) {
+    if (option && option.id === value?.id) {
       return "check-circle-fill";
     }
 
@@ -24,14 +22,12 @@ export const RadioOption: FC<Props> = (props) => {
 
   return (
     <label
-      className={`flex gap-2 w-full ${isSwitch ? "" : "relative p-2"}`}
-      onClick={() => handleChange(option || !value)}
+      className={`flex gap-2 w-full p relative`}
+      onClick={() => option && handleChange(option)}
     >
       <input
         type="radio"
-        checked={
-          value === true || (!isSwitch && option && value?.id === option.id)
-        }
+        checked={option && value?.id === option.id}
         onChange={() => ""}
         className="w-full top-0 left-0 h-full absolute opacity-0"
       />

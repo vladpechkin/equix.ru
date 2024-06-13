@@ -3,40 +3,33 @@ import { ElementType, FC, ReactNode } from "react";
 interface Props {
   className?: string;
   size?: number;
-  direction?: "horizontal" | "vertical";
+  direction?: "h" | "v";
   as?: ElementType;
   children?: ReactNode;
 }
 
 export const View: FC<Props> = (props) => {
-  const { className, size, direction = "vertical", as } = props;
+  const { className, size, direction = "v", as } = props;
 
   const Element = as || "div";
 
   const getWidth = () => {
     switch (size) {
-      case 3: {
+      case 3:
         return "max-w-[60rem]";
-      }
-      case 2: {
+      case 2:
         return "max-w-screen-sm";
-      }
-      case 1: {
+      case 1:
         return "max-w-xs";
-      }
-
-      default: {
+      default:
         return "max-w-screen-xl";
-      }
     }
   };
 
   const getDirection = () => {
-    if (direction === "horizontal") {
+    if (direction === "h") {
       return "flex-row";
-    }
-
-    return "flex-col";
+    } else return "flex-col";
   };
 
   return (

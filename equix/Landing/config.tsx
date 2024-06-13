@@ -1,8 +1,9 @@
 "use client";
 
-import { Col } from "../components/Flex";
 import { Box } from "../components/Box";
+import { Col } from "../components/Flex";
 import { Input } from "../components/Input";
+import { Switch } from "../components/Switch";
 
 const config = {
   title: "EQUIX — Не утруждайтесь созданием интерфейсов приложений.",
@@ -42,8 +43,7 @@ const config = {
         <Box onClick={() => ""}>Закрыть все</Box>
         <Box onClick={() => ""}>Закрыть сохраненные файлы</Box>
       </menu>
-      <Input
-        type="radio"
+      <Switch
         value={true}
         label="Соглашаюсь с политикой конфиденциальности"
         onChange={() => ""}

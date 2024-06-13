@@ -9,7 +9,7 @@ export const Data: FC<Props> = (props) => {
   const { label, value } = props;
 
   return value ? (
-    <label className="flex flex-col p">
+    <label className="flex flex-col">
       <span className="font-medium">{label}</span>
       {value.toString()}
     </label>
