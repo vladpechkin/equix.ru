@@ -3,7 +3,8 @@ import "./globals.css";
 import { Metadata } from "next";
 import { FC, ReactNode } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import config from "@/equix/Landing/config";
+
+// import config from "@/equix/Landing/config";
 
 const inter = Inter({ subsets: ["latin"] });
 

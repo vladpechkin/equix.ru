@@ -15,6 +15,7 @@ import { Input } from "@/equix/components/Input";
 import { ComponentsData } from "@/equix/types";
 import { useState } from "react";
 import part1 from "./part1";
+import part2 from "./part2";
 import { Code } from "@/equix/components/Code";
 
 const componentsData: ComponentsData = {
@@ -279,22 +280,8 @@ const componentsData: ComponentsData = {
     ),
     usage: `<ErrorPage />`,
   },
-  ErrorPageProvider: {
-    description: (
-      <p>
-        ErrorPageProvider - компонент-обертка, в который должен быть завернут
-        layout, чтобы качественнее ловить и обрабатывать ошибки. Является
-        неотъемлемой частью любого приложения на EQUIX. Если страница ломается,
-        то пользователя перенаправляют на страницу ошибки - ErrorPage, а не на
-        белый экран или сообщение об ошибке от браузера.
-      </p>
-    ),
-    ExampleComponent: () => (
-      <Box href="/nonexistant">Нажмите чтобы увидеть ошибку</Box>
-    ),
-    usage: `<ErrorPageProvider></ErrorPageProvider>`,
-  },
   ...part1,
+  ...part2
 };
 
 export default componentsData;

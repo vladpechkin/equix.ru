@@ -8,7 +8,6 @@ import { Dialog } from "../Dialog";
 import { Icon } from "../Icon";
 import { InputBase, InputProps } from "./Base";
 import { RadioOption } from "./RadioOption";
-import { CheckboxProps } from "./Checkbox";
 
 type OnChange = (value: InputOption | undefined) => void;
 
@@ -91,6 +90,8 @@ export const Radio: FC<RadioProps> = (props) => {
       );
 
     if (options) return renderOptions(options);
+
+    return undefined;
   };
 
   return (
