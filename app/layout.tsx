@@ -23,8 +23,8 @@ const Layout: FC<Props> = (props) => {
 };
 
 export const metadata: Metadata = {
-  title: config.title,
-  description: config.description,
+  title: 'aaa',
+  description: 'bbb',
 };
 
 export default Layout;
