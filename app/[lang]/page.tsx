@@ -86,7 +86,7 @@ const Page = () => (
               },
             ].map(({ href, label, src: source }, index) => (
               <Box
-                className="p-4 border-border border items-center font-semibold gap-4 w-full"
+                className="p-4 border items-center font-semibold gap-4 w-full"
                 href={href}
                 key={index}
               >

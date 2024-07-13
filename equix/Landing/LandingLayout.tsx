@@ -67,7 +67,7 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
       wrap={(children) => <DarkThemeProvider>{children}</DarkThemeProvider>}
     >
       <Region
-        className={`dark:bg-dark dark:text-light bg-light text-dark print:bg-white print:text-black min-h-screen flex flex-col items-center  
+        className={`dark:bg-dark dark:text-light dark:border-border-dark bg-light text-dark border-border print:bg-white print:text-black min-h-screen flex flex-col items-center  
       ${className || ""}`}
       >
         <Header

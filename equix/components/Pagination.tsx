@@ -25,7 +25,7 @@ export const Pagination: FC<Props> = (props) => {
         </Box>
       )}
       {isLimitValid
-        ? Array.from(Array.from({ length: limit }), (_, index) => (
+        ? Array.from(Array.from({ length: limit }), (__, index) => (
             <Box
               key={index}
               onClick={() => setPage(index)}

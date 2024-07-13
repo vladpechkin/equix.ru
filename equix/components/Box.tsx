@@ -118,6 +118,6 @@ export const Box: FC<Props> = (props) => {
 export const Card: FC<Props> = (props) => (
   <Box
     {...props}
-    className={`p-4 border border-border max-w-[460px] ${props.className} flex-col`}
+    className={`p-4 border max-w-[460px] ${props.className} flex-col`}
   ></Box>
 );

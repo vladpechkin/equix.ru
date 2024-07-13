@@ -19,11 +19,11 @@ export const Switch: FC<Props> = (props) => {
   };
 
   return (
-    <label className="bg-red p rounded gap-2 flex cursor-pointer">
+    <label className="p rounded gap-2 flex cursor-pointer">
       <div>
         <input
           type="checkbox"
-          className="w-0 bg-red"
+          className="w-0"
           onChange={() => onChange(!value)}
           checked={value}
         />

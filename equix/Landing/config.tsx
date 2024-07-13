@@ -28,7 +28,7 @@ const config = {
     { href: "/about", label: "О нас" },
   ],
   hero: (
-    <Col className="bg-border rounded p">
+    <Col className=" border rounded p">
       <Input
         type="search"
         value=""
@@ -38,7 +38,7 @@ const config = {
       <Box className="bg-accent text-light" onClick={() => ""}>
         Скрыть опции
       </Box>
-      <menu className="border border-border rounded overflow-hidden">
+      <menu className="border rounded overflow-hidden">
         <Box onClick={() => ""}>Показать открытые папки</Box>
         <Box onClick={() => ""}>Закрыть все</Box>
         <Box onClick={() => ""}>Закрыть сохраненные файлы</Box>

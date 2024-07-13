@@ -2,7 +2,7 @@ import Image from "next/image";
 import { EXCHANGE_UNITS_IN_CURRENCY, UNITS_IN_RATING_STAR } from "../consts";
 import { Entity } from "../types";
 import { capitalize, toOptions } from "../utils";
-import config from "./config.json";
+import config from "./config";
 
 export const getKeyType = (entitiesName: string, key: string) => {
   type EntityName = keyof typeof config.entities;

@@ -4,7 +4,7 @@ import { Input } from "@/equix/components/Input";
 import { Entity, InputOption } from "@/equix/types";
 import { capitalize, fetchApi } from "@/equix/utils";
 import router from "next/router";
-import config from "../config.json";
+import config from "../config";
 import { Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
 import {
   EXCHANGE_UNITS_IN_CURRENCY,

@@ -37,7 +37,7 @@ export const Header: FC<Props> = (props) => {
       </Box>
       <Row
         as="menu"
-        className={`${isMenuOpen ? "" : "hidden"} sm:flex  bg-light w-full sm:w-auto h-full flex-col sm:static sm:flex-row`}
+        className={`${isMenuOpen ? "" : "hidden"} sm:flex  bg-inherit w-full sm:w-auto h-full flex-col sm:static sm:flex-row`}
       >
         {routes?.map((route, index) => (
           <Box key={index} {...route}>

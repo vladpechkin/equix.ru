@@ -15,33 +15,37 @@ export const Bar: FC<Props> = (props) => {
 
   const getBorder = () => {
     switch (position) {
-      case "top":
-        return "border-b";
       case "bottom":
         return "border-t";
       case "left":
         return "border-r";
       case "right":
         return "border-l";
+      default:
+        return "border-b";
     }
   };
 
   const getRowDirection = () => {
     if (position === "top" || position === "bottom") {
       return "flex-row items-center";
-    } else return "flex-col";
+    }
+
+    return "flex-col";
   };
 
   const getBarWidth = () => {
     if (position === "top" || position === "bottom") {
       return "w-full";
-    } else return "";
+    }
+
+    return "";
   };
 
   return (
     <Element
       {...props}
-      className={`border-border flex items-center justify-center shrink-0 ${getBarWidth()} ${getBorder()}`}
+      className={`flex items-center justify-center shrink-0 ${getBarWidth()} ${getBorder()}`}
     >
       <Row
         className={`p-2 min-h-[56px] min-w-[56px] max-w-[944px] h-full w-full ${getRowDirection()} ${

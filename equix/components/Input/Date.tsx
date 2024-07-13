@@ -30,7 +30,7 @@ export const DateInput: FC<DateProps> = (props) => {
       className={`relative ${inline ? "flex items-center gap-1" : ""}`}
       label={label}
     >
-      <div className="border border-borderAccent rounded flex">
+      <div className="border border-accent rounded flex">
         <input
           type="text"
           className="p-2 h-10 rounded w-full"

@@ -1,6 +1,6 @@
 import { capitalize, fetchApi } from "@/equix/utils";
 import { FC, useCallback, useEffect, useState } from "react";
-import config from "../config.json";
+import config from "../config";
 import { EntityEditorEntries } from "./EntityEditorEntries";
 import { EntityEditorHeader } from "./EntityEditorHeader";
 import { EntityEditorLinks } from "./EntityEditorLinks";
