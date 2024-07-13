@@ -1,5 +1,3 @@
-"use client";
-
 import { Row } from "@/equix/components/Flex";
 import { Box } from "@/equix/components/Box";
 import { Icon } from "@/equix/components/Icon";

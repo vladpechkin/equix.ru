@@ -1,3 +1,5 @@
+"use client"
+
 import { Entity } from "@/equix/types";
 import { fetchApi } from "@/equix/utils";
 import { FC, useCallback, useEffect, useState } from "react";

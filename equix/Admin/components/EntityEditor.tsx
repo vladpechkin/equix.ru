@@ -1,3 +1,5 @@
+"use client"
+
 import { capitalize, fetchApi } from "@/equix/utils";
 import { FC, useCallback, useEffect, useState } from "react";
 import config from "../config";
