@@ -90,7 +90,7 @@ export const EntityEditor: FC<Props> = ({
   }, [init]);
 
   return entitiesName ? (
-    <div className="w-full max-w-[800px] mx-auto">
+    <div className="w-full max-w-[800px] mx-auto p-2">
       <EntityEditorHeader
         entitiesName={entitiesName}
         entityId={entityId}

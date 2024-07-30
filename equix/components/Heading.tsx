@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC, createContext, createElement, useContext } from "react";
 import { MAX_HTML_HEADING_LEVEL } from "../consts";
 

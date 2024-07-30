@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 import { LandingPage } from "@/equix/Landing/LandingPage";
-import { Box, Card } from "@/equix/components/Box";
+import { Card } from "@/equix/components/Box";
 import { Row } from "@/equix/components/Flex";
 import { H3 } from "@/equix/components/Heading";
 import { Icon } from "@/equix/components/Icon";
@@ -52,6 +52,32 @@ const Page = () => (
       {
         children: (
           <Row className="flex-wrap">
+            <Card href="/tryOut/Landing" heading="EQUIX/Лендинг">
+              <p>Создайте информационное и интерактивное сайт или приложение</p>
+            </Card>
+            <Card href="/tryOut/Data" heading="EQUIX/Данные">
+              <p>
+                Создайте файловый менеджер, админ-панель или систему управления
+                базами данных
+              </p>
+            </Card>
+            <Card href="/tryOut/Shop" heading="EQUIX/Магазин">
+              <p>
+                Создайте интернет-магазин или приложение для оформления и оплаты
+                услуг
+              </p>
+            </Card>
+            <Card href="/tryOut/Blog" heading="EQUIX/Блог">
+              <p>Создайте новостной портал, блог или форум</p>
+            </Card>
+          </Row>
+        ),
+
+        heading: "Наши продукты",
+      },
+      {
+        children: (
+          <Row className="flex-wrap">
             {Object.entries(features).map(
               ([key, { description, iconName }], index) => (
                 <Card key={index}>
@@ -67,7 +93,7 @@ const Page = () => (
       },
       {
         children: (
-          <Row className="w-full flex-wrap">
+          <Row className="w-full sm:flex-row">
             {[
               {
                 href: "https://www.figma.com/file/npn6mOk53B6pBNRnTUgB7P/EQUIX?type=design&mode=design&t=JwiI541x0rVd0W9P-1",
@@ -85,11 +111,7 @@ const Page = () => (
                 src: "/github.png",
               },
             ].map(({ href, label, src: source }, index) => (
-              <Box
-                className="p-4 border items-center font-semibold gap-4 w-full"
-                href={href}
-                key={index}
-              >
+              <Card href={href} key={index}>
                 <Image
                   alt=""
                   className="w-[60px] h-[60px]"
@@ -98,42 +120,12 @@ const Page = () => (
                   width={60}
                 />
                 {label}
-              </Box>
+              </Card>
             ))}
           </Row>
         ),
 
         heading: "Наши ресурсы",
-      },
-      {
-        children: (
-          <Row className="flex-wrap">
-            <Card>
-              <H3>EQUIX/Лендинг</H3>
-              <p>Создайте информационное и интерактивное сайт или приложение</p>
-            </Card>
-            <Card>
-              <H3>EQUIX/Данные</H3>
-              <p>
-                Создайте файловый менеджер, админ-панель или систему управления
-                базами данных
-              </p>
-            </Card>
-            <Card>
-              <H3>EQUIX/Магазин</H3>
-              <p>
-                Создайте интернет-магазин или приложение для оформления и оплаты
-                услуг
-              </p>
-            </Card>
-            <Card>
-              <H3>EQUIX/Блог</H3>
-              <p>Создайте новостной портал, блог или форум</p>
-            </Card>
-          </Row>
-        ),
-
-        heading: "Наши продукты",
       },
       {
         children: (

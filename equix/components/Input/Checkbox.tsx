@@ -60,7 +60,7 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
           </label>
         ))
       ) : (
-        <span className="text-gray-400">Nothing found</span>
+        <span className="text-gray-400">Ничего не найдено</span>
       )}
     </div>
   );

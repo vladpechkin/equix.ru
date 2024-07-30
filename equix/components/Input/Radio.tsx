@@ -72,7 +72,7 @@ export const Radio: FC<RadioProps> = (props) => {
           />
         ))
       ) : (
-        <span className="text-gray-400">Nothing found</span>
+        <span className="text-gray-400">Ничего не найдено</span>
       )}
     </div>
   );

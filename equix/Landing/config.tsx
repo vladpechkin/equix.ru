@@ -1,11 +1,28 @@
 "use client";
 
+import { ReactNode } from "react";
 import { Box } from "../components/Box";
 import { Col } from "../components/Flex";
 import { Input } from "../components/Input";
 import { Switch } from "../components/Switch";
 
-const config = {
+interface LandingConfig {
+  title: string;
+  heading: string;
+  description: string;
+  action?: ReactNode;
+  logo: ReactNode;
+  routes: {
+    href: string;
+    label: string;
+  }[];
+  hero: ReactNode;
+  appName: string;
+  appOwnerName: string;
+  supportsDarkTheme: boolean;
+}
+
+const config: LandingConfig = {
   title: "EQUIX — Не утруждайтесь созданием интерфейсов приложений.",
   heading: "Не утруждайтесь созданием интерфейсов приложений.",
   description:
@@ -15,20 +32,19 @@ const config = {
       EQUIX
     </Box>
   ),
-  action: (
-    <Box href="/components" className="bg-accent text-light h-auto">
-      Узнать больше
-    </Box>
-  ),
+  // action: (
+  //   <Box href="/components" className="bg-accent text-light h-auto">
+  //     Попробовать
+  //   </Box>
+  // ),
   routes: [
     { href: "/", label: "Главная" },
     { href: "/components", label: "Компоненты" },
-    { href: "/tryOut", label: "Попробовать" },
-    { href: "/docs", label: "Документация" },
+    { href: "/docs/", label: "Документация" },
     { href: "/about", label: "О нас" },
   ],
   hero: (
-    <Col className=" border rounded p">
+    <Col className="border rounded p">
       <Input
         type="search"
         value=""

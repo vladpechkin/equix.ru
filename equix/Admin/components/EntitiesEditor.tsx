@@ -7,6 +7,7 @@ import { Pagination } from "../../components/Pagination";
 import { EntitiesEditorHeader } from "./EntitiesEditorHeader";
 import { EntitiesEditorTable } from "./EntitiesEditorTable";
 import { getSortedEntities } from "../utils";
+import { Box } from "@/equix/components/Box";
 
 interface Props {
   entitiesName: string;
@@ -57,7 +58,7 @@ export const EntitiesEditor: FC<Props> = (props) => {
   }, [entitiesName, page, fetchEntities]);
 
   return (
-    <div>
+    <div className="p flex flex-col items-center w-full">
       <EntitiesEditorHeader
         title={title}
         entitiesName={entitiesName}
@@ -76,7 +77,7 @@ export const EntitiesEditor: FC<Props> = (props) => {
           sortKey={sortKey}
         />
       ) : (
-        <div className="text-gray-400 text-center h-full">Nothing found</div>
+        <Box className="text-gray-400">Ничего не найдено</Box>
       )}
       <Pagination limit={limit} page={page} setPage={setPage} />
     </div>

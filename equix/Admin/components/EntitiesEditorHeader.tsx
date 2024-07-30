@@ -25,7 +25,7 @@ export const EntitiesEditorHeader: FC<Props> = (props) => {
   };
 
   return (
-    <Row className="items-center flex-wrap">
+    <Row className="items-center flex-wrap w-full sm:justify-center">
       <h1 className="font-semibold p-2">
         {title || capitalize(entitiesName).replaceAll("_", " ")}
       </h1>
@@ -33,13 +33,13 @@ export const EntitiesEditorHeader: FC<Props> = (props) => {
         value={searchQuery}
         onChange={setSearchQuery}
         type="search"
-        placeholder="Enter search query"
+        placeholder="Введите поисковой запрос"
         autoFocus
         onClick={handleClick}
       />
       <Box href={`/${entitiesName.toLowerCase()}/new`}>
         <Icon name="plus-lg" />
-        Create new
+        Создать
       </Box>
     </Row>
   );

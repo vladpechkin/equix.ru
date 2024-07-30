@@ -1,0 +1,35 @@
+"use client";
+
+import { Box } from "@/equix/components/Box";
+import { Col, Row } from "@/equix/components/Flex";
+import { H3 } from "@/equix/components/Heading";
+import { LandingSection } from "@/equix/Landing/LandingSection";
+
+const Page = () =>
+  [
+    {
+      heading: "Попробовать",
+      children: (
+        <Col className="w-full">
+          <p>Интернет-магазин</p>
+          <p>
+            Ниже находятся интерактивные редактор кода и маленькая копия этого
+            сайта, созданная этим кодом, который вы можете редактировать и в
+            режиме реального времени видеть, как в EQUIX/Магазин вносятся
+            изменения.
+          </p>
+          <H3>
+            EQUIX/Магазин все еще находится в разработке, поэтому сейчас, к
+            сожалению, его попробовать пока нельзя. Однако, другие шаблоны уже
+            готовы:
+          </H3>
+          <Row>
+            <Box href="/tryOut/Landing">EQUIX/Лендинг</Box>
+            <Box href="/tryOut/Data">EQUIX/Данные</Box>
+          </Row>
+        </Col>
+      ),
+    },
+  ].map((section, index) => <LandingSection key={index} {...section} />);
+
+export default Page;

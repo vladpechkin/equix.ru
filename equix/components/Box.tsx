@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ElementType, FC, ReactNode } from "react";
+import { H3 } from "./Heading";
 
 interface Props {
   href?: string;
@@ -15,6 +16,10 @@ interface Props {
   className?: string;
   as?: ElementType;
   children: ReactNode;
+}
+
+interface CardProps extends Props {
+  heading?: string;
 }
 
 export const Box: FC<Props> = (props) => {
@@ -76,8 +81,8 @@ export const Box: FC<Props> = (props) => {
         ? `inline-flex ${href ? "hover:underline" : ""} rounded-sm`
         : "flex p-2 min-h-[2.5rem]"
     } ${
-    getIsActiveLink() ? "font-semibold" : ""
-  } ${getColor()} ${getCursor()} ${className || ""}`;
+      getIsActiveLink() ? "font-semibold" : ""
+    } ${getColor()} ${getCursor()} ${className || ""}`;
 
   const getElement = () => {
     switch (true) {
@@ -115,9 +120,12 @@ export const Box: FC<Props> = (props) => {
   );
 };
 
-export const Card: FC<Props> = (props) => (
+export const Card: FC<CardProps> = (props) => (
   <Box
     {...props}
-    className={`p-4 border max-w-[460px] ${props.className} flex-col`}
-  ></Box>
+    className={`p-4 border border-inherit max-w-[460px] w-full flex-col ${props.heading ? `text-light` : ''} ${props.className}`}
+  >
+    {props.heading ? <H3 className="text-accent">{props.heading}</H3> : null}
+    {props.children}
+  </Box>
 );
