@@ -9,12 +9,12 @@ import { Icon } from "../Icon";
 import { InputBase, InputProps } from "./Base";
 import { RadioOption } from "./RadioOption";
 
-type OnChange = (value: InputOption | undefined) => void;
+type OnChange = (value: InputOption) => void;
 
 export interface RadioProps extends InputProps {
   minOptions?: number;
   options?: InputOption[];
-  value?: InputOption;
+  value: InputOption | undefined;
   onChange: OnChange;
   isCollapsed?: boolean;
 }
@@ -39,21 +39,8 @@ export const Radio: FC<RadioProps> = (props) => {
     if (options) {
       if (minOptions === 1 && value?.id === option.id) return;
 
-      const getOptionToChange = () => {
-        if (value?.id === option.id && options[0]) {
-          return options[0].name === "true"
-            ? ({
-                id: "1",
-                name: "false",
-              } as InputOption)
-            : undefined;
-        }
-
-        return option;
-      };
-
       if (options[0]) {
-        onChange(getOptionToChange());
+        onChange(option);
       }
     }
 
@@ -61,7 +48,7 @@ export const Radio: FC<RadioProps> = (props) => {
   };
 
   const renderOptions = (optionsToRender: InputOption[]) => (
-    <div className="flex flex-col border border-accent">
+    <div className="flex flex-col border border-accent rounded">
       {optionsToRender?.length > 0 ? (
         optionsToRender.map((option, index) => (
           <RadioOption

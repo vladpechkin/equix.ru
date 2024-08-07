@@ -14,7 +14,7 @@ const Layout: FC<Props> = async (props) => {
     <LandingLayout
       sidebarRoutes={posts.map((post) => ({
         href: `/docs/${post.realId}`,
-        label: post.title,
+        label: `${post.title} `,
       }))}
     >
       {children}

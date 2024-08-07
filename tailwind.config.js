@@ -22,10 +22,10 @@ module.exports = {
       },
       colors: {
         light: "hsl(270, 100%, 98%)",
-        border: "hsl(270, 100%, 96%)",
+        border: "hsl(270, 100%, 94%)",
         accent: "hsl(270, 100%, 61%)",
-        dark: "hsl(270, 100%, 12%)",
-        'border-dark': "hsl(270, 100%, 24%)",
+        dark: "hsl(270, 100%, 8%)",
+        'border-dark': "hsl(270, 100%, 16%)",
       },
     },
   },

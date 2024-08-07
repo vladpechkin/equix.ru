@@ -1,10 +1,8 @@
 "use client";
 
+import { Hero } from "@/app/components/Hero";
 import { ReactNode } from "react";
 import { Box } from "../components/Box";
-import { Col } from "../components/Flex";
-import { Input } from "../components/Input";
-import { Switch } from "../components/Switch";
 
 interface LandingConfig {
   title: string;
@@ -42,30 +40,9 @@ const config: LandingConfig = {
     { href: "/components", label: "Компоненты" },
     { href: "/docs/", label: "Документация" },
     { href: "/about", label: "О нас" },
+    { href: "/profile", label: "Личный кабинет" },
   ],
-  hero: (
-    <Col className="border rounded p">
-      <Input
-        type="search"
-        value=""
-        onChange={() => ""}
-        placeholder="Что ищем?"
-      />
-      <Box className="bg-accent text-light" onClick={() => ""}>
-        Скрыть опции
-      </Box>
-      <menu className="border rounded overflow-hidden">
-        <Box onClick={() => ""}>Показать открытые папки</Box>
-        <Box onClick={() => ""}>Закрыть все</Box>
-        <Box onClick={() => ""}>Закрыть сохраненные файлы</Box>
-      </menu>
-      <Switch
-        value={true}
-        label="Соглашаюсь с политикой конфиденциальности"
-        onChange={() => ""}
-      />
-    </Col>
-  ),
+  hero: <Hero />,
   appName: "EQUIX",
   appOwnerName: "ООО Эквикс",
   supportsDarkTheme: true,

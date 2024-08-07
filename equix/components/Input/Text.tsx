@@ -30,7 +30,7 @@ export const TextInput: FC<TextProps> = (props) => {
     onChange(target.value);
 
   return (
-    <InputBase as="label" className="w-full" label={label}>
+    <InputBase as="label" label={label}>
       <div className="border border-accent rounded flex">
         <input
           value={value}

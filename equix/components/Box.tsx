@@ -123,7 +123,7 @@ export const Box: FC<Props> = (props) => {
 export const Card: FC<CardProps> = (props) => (
   <Box
     {...props}
-    className={`p-4 border border-inherit max-w-[460px] w-full flex-col ${props.heading ? `text-light` : ''} ${props.className}`}
+    className={`p-4 border border-inherit max-w-[460px] w-full flex-col ${props.heading ? `text-inherit` : ''} ${props.className}`}
   >
     {props.heading ? <H3 className="text-accent">{props.heading}</H3> : null}
     {props.children}

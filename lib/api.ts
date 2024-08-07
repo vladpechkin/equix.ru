@@ -50,10 +50,12 @@ export const getMarkdownFileById = async (id: string) => {
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
+  const text = matterResult.content;
+
   return {
     id,
     realId,
-    title: matterResult.content.slice(1, matterResult.content.indexOf("\n")),
+    title: text.split("\n").shift()?.replaceAll("#", ""),
     contentHtml,
     ...matterResult.data,
   };

@@ -12,7 +12,7 @@ const Page: FC<Props> = async (props) => {
   const { contentHtml } = await getMarkdownFileById(id);
 
   return (
-    <div className="prose" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+    <div className="" dangerouslySetInnerHTML={{ __html: contentHtml }} />
   );
 };
 

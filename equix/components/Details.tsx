@@ -1,4 +1,5 @@
 import { FC, ReactNode, useState } from "react";
+import { Icon } from "./Icon";
 
 interface Props {
   summary: string;
@@ -14,13 +15,13 @@ export const Details: FC<Props> = (props) => {
     <details
       open={isOpen ? true : undefined}
       onClick={(event) => event.preventDefault()}
-      className="w-full"
+      className="w-full border rounded"
     >
       <summary
-        className="whitespace-nowrap list-none flex items-center gap justify-between mb-2 w-full"
+        className="whitespace-nowrap list-none flex items-center gap justify-between w-full p"
         onClick={() => setOpen(!isOpen)}
       >
-        {summary} <i className={`bi bi-chevron-${isOpen ? "up" : "down"}`}></i>
+        {summary} <Icon name={`chevron-${isOpen ? "up" : "down"}`} className="text-accent w-6 h-6 text-xl" />
       </summary>
       {children}
     </details>
