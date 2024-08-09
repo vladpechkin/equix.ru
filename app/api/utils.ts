@@ -18,7 +18,7 @@ export const addEntityToFile = async (entitiesName: string, entity: any) => {
     (ent: any) => ent.email === entity.email
   );
 
-  if (existingEntity) return;
+  if (existingEntity) throw Error;
 
   entities.push({ id: String(entities.length + 1), ...entity });
 

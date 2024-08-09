@@ -84,43 +84,52 @@ const Page = () => {
 
   return (
     <LandingLayout className="justify-center">
-      <Row className="items-center w-full justify-between">
-        <H2>Личный кабинет</H2>
-        <Row>
-          <Box>Вы вошли как {email}</Box>
-          <Box onClick={handleLogout}>Выйти</Box>
-        </Row>
-      </Row>
-      <Card>
-        <p>Заполните личные данные</p>
-        <Input label="ФИО" value={name} onChange={setName} />
-        <Input
-          type="email"
-          value={email}
-          onChange={setEmail}
-          label="Электронная почта"
-        />
-        <Input type="tel" value={phone} onChange={setPhone} label="Телефон" />
-        <Col>
-          <Input
-            label="Ваша роль в компании"
-            type="radio"
-            options={roleOptions}
-            value={selectedRole}
-            onChange={setSelectedRole}
-          />
-          {name !== user.name ||
-          email !== user.email ||
-          phone !== user.phone ||
-          selectedRole?.id !== user.role ? (
-            <Box onClick={handleSave}>Сохранить изменения</Box>
-          ) : (
-            <Box href={getHref()} className="border">
-              Ознакомиться с документацией
-            </Box>
-          )}
-        </Col>
-      </Card>
+      {user ? (
+        <>
+          <Row className="items-center w-full justify-between">
+            <H2>Личный кабинет</H2>
+            <Row>
+              <Box>Вы вошли как {email}</Box>
+              <Box onClick={handleLogout}>Выйти</Box>
+            </Row>
+          </Row>
+          <Card>
+            <p>Заполните личные данные</p>
+            <Input label="ФИО" value={name} onChange={setName} />
+            <Input
+              type="email"
+              value={email}
+              onChange={setEmail}
+              label="Электронная почта"
+            />
+            <Input
+              type="tel"
+              value={phone}
+              onChange={setPhone}
+              label="Телефон"
+            />
+            <Col>
+              <Input
+                label="Ваша роль в компании"
+                type="radio"
+                options={roleOptions}
+                value={selectedRole}
+                onChange={setSelectedRole}
+              />
+              {name !== user.name ||
+              email !== user.email ||
+              phone !== user.phone ||
+              selectedRole?.id !== user.role ? (
+                <Box onClick={handleSave}>Сохранить изменения</Box>
+              ) : (
+                <Box href={getHref()} className="border">
+                  Ознакомиться с документацией
+                </Box>
+              )}
+            </Col>
+          </Card>
+        </>
+      ) : "Загрузка..."}
     </LandingLayout>
   );
 };

@@ -626,7 +626,7 @@
     "no-unsanitized/method": "error",
     "no-unsanitized/property": "error",
 
-    "unused-imports/no-unused-imports": "warning",
+    "unused-imports/no-unused-imports": "warn",
 
     "sonar/anchor-precedence": "error",
     "sonar/argument-type": "error",
