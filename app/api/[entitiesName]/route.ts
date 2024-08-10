@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { addEntityToFile, getEntitiesFromFile } from "../utils";
+import { writeEntityToFile, readEntitiesFromFile } from "../utils";
 
 export const GET = async (
   _request: NextRequest,
@@ -7,7 +7,7 @@ export const GET = async (
 ) => {
   const entitiesName = parameters.entitiesName;
 
-  const entities = await getEntitiesFromFile(entitiesName);
+  const entities = await readEntitiesFromFile(entitiesName);
 
   return Response.json(entities);
 };
@@ -20,7 +20,7 @@ export const POST = async (
 
   const entity = await request.json();
 
-  const updatedEntities = await addEntityToFile(entitiesName, entity);
+  const updatedEntities = await writeEntityToFile(entitiesName, entity);
 
   return Response.json(updatedEntities);
 };

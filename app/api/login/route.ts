@@ -1,10 +1,15 @@
 // import jwt from "jsonwebtoken";
 // import { headers } from "next/headers";
 // import { NextRequest } from "next/server";
+import { NextRequest } from "next/server";
 import nodemailer from "nodemailer";
+import { readEntitiesFromFile, writeEntityToFile } from "../utils";
+import { User } from "../types";
 
-export const POST = async () => {
-  // const { email } = request.body;
+// import { readEntitiesFromFile } from "../utils";
+
+export const POST = async (request: NextRequest) => {
+  const { email } = await request.json();
 
   // // Create a magic link token
   // const token = jwt.sign({ email }, process.env["JWT_SECRET"] || "", {
@@ -16,8 +21,8 @@ export const POST = async () => {
     port: 465,
     secure: true,
     auth: {
-      user: "bot@equix.ru",
-      pass: "XsnQyceBKfiANF6UyRq9",
+      user: process.env?.["NODEMAILER_USER"],
+      pass: process.env?.["NODEMAILER_PASS"],
     },
   });
 
@@ -26,16 +31,22 @@ export const POST = async () => {
 
   // const magicLink = `${origin}/api/verify?token=${token}`;
 
-  // const code = Math.round(Math.random() * 600000)
+  const code = Math.round(Math.random() * 600_000);
+
+  const users = await readEntitiesFromFile("users");
+
+  const targetUser = users.find((user: User) => user.email === email);
+
+  await writeEntityToFile("users", { ...targetUser, code });
 
   await transporter.sendMail({
     from: "Бот ЭКВИКС bot@equix.ru",
-    to: "pchknvld@gmail.com",
-    // subject: "Ваша ссылка", 
+    to: email,
+    // subject: "Ваша ссылка",
     subject: "Одноразовый код для входа в EQUIX",
     // text: `Нажмите на эту ссылку, чтобы войти в личный кабинет EQUIX: ${magicLink}`,
-    // text: `Ваш код ${code}` 
-    });
+    text: `Ваш код ${code}`,
+  });
 
   return Response.json("Mail sent");
 };

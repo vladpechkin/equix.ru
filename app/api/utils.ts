@@ -1,30 +1,57 @@
 import path from "node:path";
 import fsPromises from "node:fs/promises";
+import { Entity } from "./types";
 
-export const getEntitiesFromFile = async (entitiesName: string) => {
-  const dataFilePath = path.join(process.cwd(), `/${entitiesName}.json`);
+export const getEntitiesFilePath = (entitiesName: string) =>
+  path.join(process.cwd(), `/database/${entitiesName}.json`);
 
-  const file = await fsPromises.readFile(dataFilePath);
+export const readEntitiesFromFile = async (entitiesName: string) => {
+  const entitiesFilePath = getEntitiesFilePath(entitiesName);
+
+  const file = await fsPromises.readFile(entitiesFilePath);
 
   return JSON.parse(file.toString());
 };
 
-export const addEntityToFile = async (entitiesName: string, entity: any) => {
-  const dataFilePath = path.join(process.cwd(), `/${entitiesName}.json`);
+export const getEntity = async (entitiesName: string, id: string) => {
+  const entities = await readEntitiesFromFile(entitiesName);
 
-  const entities = await getEntitiesFromFile(entitiesName);
+  return entities.find((entity: Entity) => entity.id === id);
+};
 
-  const existingEntity = entities.find(
-    (ent: any) => ent.email === entity.email
-  );
+export const writeEntitiesToFile = async (
+  entitiesName: string,
+  entities: Entity[]
+) => {
+  const entitiesFilePath = getEntitiesFilePath(entitiesName);
 
-  if (existingEntity) throw Error;
+  return fsPromises.writeFile(entitiesFilePath, JSON.stringify(entities));
+};
 
-  entities.push({ id: String(entities.length + 1), ...entity });
+export const writeEntityToFile = async (
+  entitiesName: string,
+  updatedEntity: Partial<Entity>
+) => {
+  const entitiesFilePath = getEntitiesFilePath(entitiesName);
 
-  const updatedEntities = JSON.stringify(entities);
+  const entities = await readEntitiesFromFile(entitiesName);
 
-  await fsPromises.writeFile(dataFilePath, updatedEntities);
+  let updatedEntities = [];
+
+  if (updatedEntity.id)
+    updatedEntities = entities.map((entity: Entity) =>
+      entity.id === updatedEntity.id ? { ...entity, ...updatedEntity } : entity
+    );
+  else
+    updatedEntities = [
+      ...entities,
+      {
+        id: String(entities.length),
+        ...updatedEntity,
+      },
+    ];
+
+  await fsPromises.writeFile(entitiesFilePath, JSON.stringify(updatedEntities));
 
   return updatedEntities;
 };

@@ -1,7 +1,11 @@
 import { NextRequest } from "next/server";
-import fsPromises from "node:fs/promises";
-import { getEntitiesFromFile } from "../../utils";
-import path from "node:path";
+import { Entity } from "../../types";
+import {
+  getEntity,
+  readEntitiesFromFile,
+  writeEntitiesToFile,
+  writeEntityToFile,
+} from "../../utils";
 
 export const GET = async (
   _request: NextRequest,
@@ -10,11 +14,9 @@ export const GET = async (
   const entitiesName = parameters.entitiesName;
   const id = parameters.id;
 
-  const entities = await getEntitiesFromFile(entitiesName);
+  const entity = await getEntity(entitiesName, id);
 
-  const targetEntity = entities.find((entity: any) => entity.id === id);
-
-  return Response.json(targetEntity);
+  return Response.json(entity);
 };
 
 export const PATCH = async (
@@ -24,19 +26,29 @@ export const PATCH = async (
   const entitiesName = parameters.entitiesName;
   const id = parameters.id;
 
-  const dataFilePath = path.join(process.cwd(), `/${entitiesName}.json`);
+  const updatedEntityEntries = await request.json();
 
-  const entities = await getEntitiesFromFile(entitiesName);
+  const updatedEntity = { id, ...updatedEntityEntries };
 
-  const updatedEntity = await request.json();
-
-  const updatedEntities = JSON.stringify(
-    entities.map((entity: any) =>
-      entity.id === id ? { ...entity, ...updatedEntity } : entity
-    )
-  );
-
-  await fsPromises.writeFile(dataFilePath, updatedEntities);
+  await writeEntityToFile(entitiesName, updatedEntity);
 
   return Response.json(updatedEntity);
+};
+
+// export const PUT = PATCH;
+
+export const DELETE = async (
+  _request: NextRequest,
+  { params: parameters }: { params: { entitiesName: string; id: string } }
+) => {
+  const entitiesName = parameters.entitiesName;
+  const id = parameters.id;
+
+  const entities = await readEntitiesFromFile(entitiesName);
+
+  const updatedEntities = entities.filter((entity: Entity) => entity.id !== id);
+
+  await writeEntitiesToFile(entitiesName, updatedEntities);
+
+  return Response.json("Deleted");
 };
