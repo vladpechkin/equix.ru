@@ -45,10 +45,19 @@ const Page = () => {
 
     if (!userId) {
       router.push("/auth");
+
+      return;
     }
 
     if (userId) {
       const res = await fetch(`/api/users/${userId}`);
+
+      if (!res.ok) {
+        router.push("/auth");
+
+        return;
+      }
+
       const user = await res.json();
 
       setUser(user);
@@ -129,7 +138,9 @@ const Page = () => {
             </Col>
           </Card>
         </>
-      ) : "Загрузка..."}
+      ) : (
+        "Загрузка..."
+      )}
     </LandingLayout>
   );
 };

@@ -31,7 +31,7 @@ export const POST = async (request: NextRequest) => {
 
   // const magicLink = `${origin}/api/verify?token=${token}`;
 
-  const code = Math.round(Math.random() * 600_000);
+  const code = String(Math.round(Math.random() * 600_000));
 
   const users = await readEntitiesFromFile("users");
 
