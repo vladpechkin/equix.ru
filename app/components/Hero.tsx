@@ -11,24 +11,29 @@ export const Hero = () => {
   const [isAgreed, setIsAgreed] = useState(true);
 
   return (
-    <Col className="border rounded p">
-      <Input
-        type="search"
-        value={searchQuery}
-        onChange={setSearchQuery}
-        placeholder="Что ищем?"
-      />
-      <Details summary="Опции">
-        <Box onClick={() => ""}>Показать открытые папки</Box>
-        <Box onClick={() => ""}>Закрыть все</Box>
-        <Box onClick={() => ""}>Закрыть сохраненные файлы</Box>
-      </Details>
-      <CoolerDarkThemeToggle />
-      <Switch
-        value={isAgreed}
-        label="Соглашаюсь с политикой конфиденциальности"
-        onChange={setIsAgreed}
-      />
+    <Col className="items-center">
+      <div className="relative mx-auto">
+        <img src="/iphone.jpg" alt="" className="w-[240px]" />
+        <Col className="absolute top-12 left-5 w-[200px] h-[437px]">
+          <Input
+            type="search"
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Что ищем?"
+            onClick={() => ""}
+          />
+          <Details summary="Опции">
+            <Box onClick={() => ""}>Сохранить как</Box>
+            <Box onClick={() => ""}>Закрыть сохраненные файлы</Box>
+          </Details>
+          <CoolerDarkThemeToggle />
+          <Switch
+            value={isAgreed}
+            label="Соглашаюсь с политикой конфиденциальности"
+            onChange={setIsAgreed}
+          />
+        </Col>
+      </div>
     </Col>
   );
 };

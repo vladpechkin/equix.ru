@@ -12,13 +12,13 @@ export const LandingPage: FC<LandingLayoutProps> = (props) => {
 
   return (
     <LandingLayout {...props}>
-      <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(304px,456px))] gap-4 py-12">
+      <div className="flex w-full justify-evenly gap-4 py-12">
         <Col className="w-full max-w-[460px] justify-center">
           <H1>{heading}</H1>
           <p>{description}</p>
           {action || null}
         </Col>
-        <div className="rounded max-w-[460px] w-full min-w-0 h-auto overflow-hidden">
+        <div className="rounded min-w-0 h-auto overflow-hidden">
           {hero}
         </div>
       </div>

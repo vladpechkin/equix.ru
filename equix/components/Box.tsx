@@ -75,7 +75,7 @@ export const Box: FC<Props> = (props) => {
   };
 
   const getClassName = () => `
-    gap rounded focused:outline
+    gap rounded focused:outline text-left
     ${
       isInline
         ? `inline-flex ${href ? "hover:underline" : ""} rounded-sm`

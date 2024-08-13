@@ -7,6 +7,7 @@ import { Card } from "@/equix/components/Box";
 import { Row } from "@/equix/components/Flex";
 import { H3 } from "@/equix/components/Heading";
 import { Icon } from "@/equix/components/Icon";
+import { Img } from "@/equix/components/Img";
 
 const features = {
   Кроссплатформенность: {
@@ -53,27 +54,51 @@ const Page = () => (
         children: (
           <Row className="flex-wrap">
             <Card href="/tryOut/Landing" heading="EQUIX/Лендинг">
+              <Img
+                src="/landing.jpg"
+                width="320"
+                height="100"
+                className="border-inherit"
+              />
               <p>Создайте информационное и интерактивное сайт или приложение</p>
             </Card>
+            <Card href="/tryOut/Blog" heading="EQUIX/Блог">
+              <Img
+                src="/blog.jpg"
+                width="320"
+                height="100"
+                className="border-inherit"
+              />
+              <p>Создайте новостной портал, блог или форум</p>
+            </Card>
             <Card href="/tryOut/Data" heading="EQUIX/Данные">
+              <Img
+                src="/data.jpg"
+                width="320"
+                height="100"
+                className="border-inherit"
+              />
               <p>
                 Создайте файловый менеджер, админ-панель или систему управления
                 базами данных
               </p>
             </Card>
             <Card href="/tryOut/Shop" heading="EQUIX/Магазин">
+              <Img
+                src="/shop.jpg"
+                width="320"
+                height="100"
+                className="border-inherit"
+              />
               <p>
                 Создайте интернет-магазин или приложение для оформления и оплаты
                 услуг
               </p>
             </Card>
-            <Card href="/tryOut/Blog" heading="EQUIX/Блог">
-              <p>Создайте новостной портал, блог или форум</p>
-            </Card>
           </Row>
         ),
 
-        heading: "Наши продукты",
+        heading: "Наши решения",
       },
       {
         children: (
