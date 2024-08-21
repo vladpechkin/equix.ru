@@ -19,7 +19,7 @@ export const Switch: FC<Props> = (props) => {
   };
 
   return (
-    <label className="p rounded gap-2 flex cursor-pointer">
+    <label className="p rounded gap flex cursor-pointer">
       <div>
         <input
           type="checkbox"

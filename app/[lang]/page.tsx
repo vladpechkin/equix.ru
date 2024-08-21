@@ -12,40 +12,72 @@ import { Img } from "@/equix/components/Img";
 const features = {
   Кроссплатформенность: {
     description:
-      "EQUIX работает на языке JavaScript, который позволяет создавать веб-приложения и ПО для любых платформ (Android, IOS, Windows, Linux, MacOS, IpadOS).",
+      "EQUIX позволяет создавать веб-приложения и ПО для любых платформ (Android, IOS, Windows, Linux, MacOS, IpadOS).",
     iconName: "windows",
+    href: "/docs/platforms"
   },
   Универсальность: {
     description:
       "EQUIX включает в себя решения для создания всех основных типов приложений - лендинг, интернет-магазин, новостной портал, система управления базами данных.",
     iconName: "window-stack",
+    href: "/templates"
   },
   Производительность: {
     description:
       "EQUIX использует самые современные технологии, обеспечивающие высокую скорость работы, функциональности и отказоустойчивости приложений.",
     iconName: "speedometer",
+    href: "/docs/base"
   },
   "Комфорт использования": {
     description:
-      "EQUIX заботится о пользовательском опыте (UX) и опыте разработчиков (DX), поэтому предоставляет наиболее оптимальные решения типовых задач и документацию по ним, что увеличивает комфорт эксплуатации сервисов и скорость разработки.",
+      "EQUIX заботится о пользовательском опыте (UX) и опыте разработчиков (DX), поэтому увеличивает комфорт эксплуатации и скорость разработки сервисов.",
     iconName: "emoji-smile",
+    href: "/components"
   },
   Локализация: {
     description:
-      "EQUIX предлагает заранее настроенные алгоритмы локализации, позволяющие легко и быстро разработчикам переводить приложения на множество разных языков, а пользователям - переключаться между ними.",
+      "EQUIX позволяет легко и быстро разработчикам переводить приложения на множество разных языков, а пользователям - переключаться между ними.",
     iconName: "translate",
+    href: "/docs/localization"
   },
   Доступность: {
     description:
-      "EQUIX автоматически добавляет к приложению режим повышенной контрастности для людей с плохим зрением на случай необходимости, а все компоненты дизайн-системы продуманы с точки зрения использования приложений людьми с ограниченными возможностями - в том числе слепыми, использующие голосовое управление.",
+      "EQUIX продуман с точки зрения использования приложений людьми, плохо видящими и слепыми, использующие голосовое управление.",
     iconName: "universal-access-circle",
+    href: "/docs/accessibility"
   },
   "Поддержка печати": {
     description:
-      "Даже такая нечасто используемая в приложениях функция, как печать, предусмотрена в EQUIX. Все страницы при печати оптимизированы в цветах, чтобы экономить ресурсы принтера и избегать искажений цветов на бумаге. Функция применяется в сайтах-визитках, сайтах газет, блогов, форумов, хранилищ документации и так далее.",
+      "Функция печати страниц предусмотрена в EQUIX. Все страницы при печати оптимизированы в цветах, чтобы экономить ресурсы принтера и избегать искажений цветов на бумаге.",
     iconName: "printer",
+    href: "/docs/printing"
   },
 };
+
+const templates = [
+  {
+    id: "landing",
+    name: "Лендинг",
+    description: "Создайте информационное и интерактивное сайт или приложение",
+  },
+  {
+    id: "blog",
+    name: "Блог",
+    description: "Создайте новостной портал, блог или форум",
+  },
+  {
+    id: "data",
+    name: "Данные",
+    description:
+      "Создайте файловый менеджер, админ-панель или систему управления базами данных",
+  },
+  {
+    id: "shop",
+    name: "Магазин",
+    description:
+      "Создайте интернет-магазин или приложение для оформления и оплаты услуг",
+  },
+];
 
 const Page = () => (
   <LandingPage
@@ -53,48 +85,21 @@ const Page = () => (
       {
         children: (
           <Row className="flex-wrap">
-            <Card href="/tryOut/Landing" heading="EQUIX/Лендинг">
-              <Img
-                src="/landing.jpg"
-                width="320"
-                height="100"
-                className="border-inherit"
-              />
-              <p>Создайте информационное и интерактивное сайт или приложение</p>
-            </Card>
-            <Card href="/tryOut/Blog" heading="EQUIX/Блог">
-              <Img
-                src="/blog.jpg"
-                width="320"
-                height="100"
-                className="border-inherit"
-              />
-              <p>Создайте новостной портал, блог или форум</p>
-            </Card>
-            <Card href="/tryOut/Data" heading="EQUIX/Данные">
-              <Img
-                src="/data.jpg"
-                width="320"
-                height="100"
-                className="border-inherit"
-              />
-              <p>
-                Создайте файловый менеджер, админ-панель или систему управления
-                базами данных
-              </p>
-            </Card>
-            <Card href="/tryOut/Shop" heading="EQUIX/Магазин">
-              <Img
-                src="/shop.jpg"
-                width="320"
-                height="100"
-                className="border-inherit"
-              />
-              <p>
-                Создайте интернет-магазин или приложение для оформления и оплаты
-                услуг
-              </p>
-            </Card>
+            {templates.map((template, index) => (
+              <Card
+                href={`/templates/${template.id}`}
+                heading={`EQUIX/${template.name}`}
+                key={index}
+              >
+                <Img
+                  src={`/templates/${template.id}.jpg`}
+                  width="320"
+                  height="100"
+                  className="border-inherit"
+                />
+                <p>{template.description}</p>
+              </Card>
+            ))}
           </Row>
         ),
 
@@ -104,8 +109,8 @@ const Page = () => (
         children: (
           <Row className="flex-wrap">
             {Object.entries(features).map(
-              ([key, { description, iconName }], index) => (
-                <Card key={index}>
+              ([key, { description, iconName, href }], index) => (
+                <Card key={index} href={href}>
                   <Icon name={iconName} className="text-2xl" />
                   <H3>{key}</H3>
                   <p>{description}</p>

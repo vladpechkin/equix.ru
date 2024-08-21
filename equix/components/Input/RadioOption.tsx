@@ -22,7 +22,7 @@ export const RadioOption: FC<Props> = (props) => {
 
   return (
     <label
-      className={`flex gap-2 w-full p relative`}
+      className={`flex gap w-full p relative`}
       onClick={() => option && handleChange(option)}
     >
       <input

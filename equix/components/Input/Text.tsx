@@ -35,7 +35,7 @@ export const TextInput: FC<TextProps> = (props) => {
         <input
           value={value}
           type={type}
-          className={`p-2 bg-transparent h-10 rounded w-full ${
+          className={`p bg-transparent h-10 rounded w-full ${
             className || ""
           }`}
           size={size}

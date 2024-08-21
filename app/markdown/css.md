@@ -14,7 +14,7 @@
 
 ## CSS-in-JS
 
-В качестве имплементации подхода CSS-in-JS для EQUIX была разработана функция cssToStyle():
+В качестве имплементации подхода CSS-in-JS в EQUIX можете использовать специально разработанную функцию cssToStyle():
 
 ```
 export const cssToStyle = (string: string) =>

@@ -33,7 +33,7 @@ export const DateInput: FC<DateProps> = (props) => {
       <div className="border border-accent rounded flex">
         <input
           type="text"
-          className="p-2 h-10 rounded w-full"
+          className="p h-10 rounded w-full"
           value={parseValue()}
         />
         <Box className="justify-center w-10" onClick={() => ""}>

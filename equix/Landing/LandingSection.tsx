@@ -9,7 +9,7 @@ export const LandingSection: FC<Section> = (props) => {
   return (
     <Col
       as="section"
-      className="w-full justify-center py-12"
+      className="w-full justify-center py-8"
       id={heading?.replaceAll(" ", "_")}
     >
       <H2 className="font-semibold text-[24px]">{heading}</H2>

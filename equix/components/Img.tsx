@@ -35,7 +35,7 @@ export const Img: FC<Props> = (props) => {
     <div
       className={String(
         isExpanded
-          ? "fixed flex items-center justify-center top-0 left-0 h-full w-full bg-black/50 p-2 z-10"
+          ? "fixed flex items-center justify-center top-0 left-0 h-full w-full bg-black/50 p z-10"
           : "contents"
       )}
       onClick={handleClick}

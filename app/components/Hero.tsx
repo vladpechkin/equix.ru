@@ -12,7 +12,7 @@ export const Hero = () => {
 
   return (
     <Col className="items-center">
-      <div className="relative mx-auto">
+      <div className="relative mx-auto scale-90">
         <img src="/iphone.jpg" alt="" className="w-[240px]" />
         <Col className="absolute top-12 left-5 w-[200px] h-[437px]">
           <Input

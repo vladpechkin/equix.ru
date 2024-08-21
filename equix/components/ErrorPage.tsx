@@ -10,7 +10,7 @@ export const ErrorPage = () => {
 
   return (
     <Col className="items-center justify-center h-screen">
-      <p className="p-2 max-w-prose">
+      <p className="p max-w-prose">
         Произошла ошибка. Возможно, данная страница еще не создана, была
         перемещена или удалена.
       </p>

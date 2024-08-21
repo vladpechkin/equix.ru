@@ -79,7 +79,7 @@ export const Box: FC<Props> = (props) => {
     ${
       isInline
         ? `inline-flex ${href ? "hover:underline" : ""} rounded-sm`
-        : "flex p-2 min-h-[2.5rem]"
+        : "flex p min-h-[2.5rem]"
     } ${
       getIsActiveLink() ? "font-semibold" : ""
     } ${getColor()} ${getCursor()} ${className || ""}`;

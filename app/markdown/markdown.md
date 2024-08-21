@@ -1,12 +1,16 @@
 # Использование Markdown
 
+Markdown - язык гипертекстовой разметки. Он крайне прост для понимания, но позволяет создавать страницы не из сплошного текста, а с заголовками, списками, жирным текстом и так далее. Создавать такие текста можно в любом markdown-редакторе. Написанный текст достаточно сохранить в файл с названием на латинице (кириллица может вызывать проблемы на ОС Windows) и окончанием `.md`, например, `hello.md`. EQUIX поддерживает несколько вариантов интеграции markdown-файлов в сайт:
+
 ## Страницы .mdx
 
-Next.js
+Фреймворк Next.js, на котором основан EQUIX, поддерживает создание страниц с расширением `.mdx` вместо `.jsx` или `.tsx`. Такая mdx страница может содержать JSX-разметку, вставленную прямо между словами или параграфами простого markdown-текста. Чтобы включить поддержку `.mdx`-страниц, выполните следующую команду:  
 
 ```
 npm install @next/mdx @mdx-js/loader @mdx-js/react @types/mdx
 ```
+
+Создать файлы с указанным названием и содержимым:
 
 ```
 // next.config.mjs
@@ -37,6 +41,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 }
 ```
 
+...после чего импортировать файл в любую страницу:
+
 ```
 app/*/page.tsx
 import File from '@/markdown/file.mdx'
@@ -48,8 +54,10 @@ export default function Page() {
 
 ## Статичные .md файлы
 
+Также вы можете использовать статично размещенные среди файлов проекта .md-файлы. Чтобы добавлять свои разделы сайта, состоящие из таких файлов, помещайте их в папку /app/markdown, после чего создайте по необходимому пути (например, если вы хотите хранить новости по пути типа site.com/news/novost-1, то путь в приложении будет app/news/\[mdFileName\]/page.tsx) следующий файл:
+
 ```
-// [mdFileName]/page.tsx
+// app/*/[mdFileName]/page.tsx
 import { getAllMarkdownFiles, getMarkdownFileById } from "@/lib/api";
 
 export default async function MarkdownPage({
@@ -59,18 +67,20 @@ export default async function MarkdownPage({
 }) {
   const { contentHtml } = await getMarkdownFileById(id);
   return (
-    <div className="prose" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+    <div className="prose dark:prose-invert" dangerouslySetInnerHTML={{ __html: contentHtml }} />
   );
 }
 
 export async function generateStaticParams() {
-  const posts = await getAllMarkdownFiles();
+  const markdowns = await getAllMarkdownFiles();
 
-  return posts.map((post) => ({
-    id: post.id,
+  return markdowns.map((markdown) => ({
+    id: markdowns.id,
   }));
 }
 ```
+
+Также создайте следующий файл:
 
 ```
 // lib/api.ts
@@ -150,9 +160,9 @@ export async function getHtmlFromMarkdown(string_: string) {
 }
 
 export async function getAllMarkdownFiles() {
-  const posts = await Promise.all(
+  const markdowns = await Promise.all(
     getMarkdownFiles().map((id) => getMarkdownFileById(id))
   );
-  return posts;
+  return markdowns;
 }
 ```

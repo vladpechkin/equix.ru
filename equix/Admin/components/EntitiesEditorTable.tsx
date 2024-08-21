@@ -47,7 +47,7 @@ export const EntitiesEditorTable: FC<Props> = (props) => {
             ).map(([key], index) => (
               <td
                 key={index}
-                className="p-2 font-semibold"
+                className="p font-semibold"
                 onClick={() => setSortKey(key)}
               >
                 <span className="flex items-center gap">
@@ -56,7 +56,7 @@ export const EntitiesEditorTable: FC<Props> = (props) => {
                 </span>
               </td>
             ))}
-          <td className="p-2 font-semibold">Actions</td>
+          <td className="p font-semibold">Actions</td>
         </tr>
       </thead>
       <tbody>

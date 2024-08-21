@@ -48,7 +48,7 @@ export const DragNDropZone: FC<Props> = (props) => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className="flex flex-col gap p-2 w-full min-h-full border border-border rounded"
+            className="flex flex-col gap p w-full min-h-full border border-border rounded"
           >
             <h2 className="font-semibold p-2">
               {capitalize(state.toLowerCase()).replaceAll("_", " ")}

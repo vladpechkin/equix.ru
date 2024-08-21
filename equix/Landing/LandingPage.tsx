@@ -12,7 +12,7 @@ export const LandingPage: FC<LandingLayoutProps> = (props) => {
 
   return (
     <LandingLayout {...props}>
-      <div className="flex w-full justify-evenly gap-4 py-12">
+      <div className="flex w-full justify-evenly gap-4 py-12 flex-wrap sm:flex-nowrap">
         <Col className="w-full max-w-[460px] justify-center">
           <H1>{heading}</H1>
           <p>{description}</p>

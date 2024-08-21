@@ -16,7 +16,7 @@ export const EntityEditorLinks: FC<Props> = (props) => {
       {getAdditionalEntitiesEndpoints(entitiesName as string)?.map(
         (endpoint: string, index: number) => (
           <a
-            className="p-2 text-blue-700"
+            className="p text-blue-700"
             href={`/${endpoint}=${entityId}`}
             key={index}
           >
@@ -29,7 +29,7 @@ export const EntityEditorLinks: FC<Props> = (props) => {
 
         return (
           <a
-            className="p-2 text-blue-700"
+            className="p text-blue-700"
             key={index}
             href={`/${entityName}/${value || "new"}`}
           >
