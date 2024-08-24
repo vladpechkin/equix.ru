@@ -31,7 +31,7 @@ export const TextInput: FC<TextProps> = (props) => {
 
   return (
     <InputBase as="label" label={label}>
-      <div className="border border-accent rounded flex">
+      <div className="border border-accent rounded flex items-center">
         <input
           value={value}
           type={type}

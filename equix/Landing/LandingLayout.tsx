@@ -75,10 +75,10 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
           logo={logo}
           routes={routes || getRoutesFromSection()}
         />
-        <div className="flex grow max-w-[944px] w-full">
+        <div className="flex grow max-w-[960px] w-full">
           {sidebarRoutes ? <Sidebar routes={sidebarRoutes} /> : undefined}
           <View as="main" className="items-center w-full">
-            <Col className="w-full h-full p">
+            <Col className="w-full h-full p-4">
               {children}
               {sections?.map((section, index) => (
                 <LandingSection {...section} key={index} />

@@ -48,7 +48,7 @@ export const Bar: FC<Props> = (props) => {
       className={`flex items-center justify-center shrink-0 ${getBarWidth()} ${getBorder()}`}
     >
       <Row
-        className={`p min-h-[56px] min-w-[56px] max-w-[944px] h-full w-full ${getRowDirection()} ${
+        className={`p min-h-[56px] min-w-[56px] max-w-[960px] h-full w-full ${getRowDirection()} ${
           className || ""
         }`}
       >

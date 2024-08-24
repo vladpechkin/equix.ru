@@ -7,7 +7,7 @@ import { Input } from "@/equix/components/Input";
 import Image from "next/image";
 import { useState } from "react";
 
-const Page = () => {
+export const LandingPreview = () => {
   const [previewTitle, setPreviewTitle] = useState(
     "EQUIX — Не утруждайтесь созданием визуальной части программного обеспечения."
   );
@@ -23,11 +23,6 @@ const Page = () => {
 
   return (
     <Col className="w-full">
-      <p>
-        Ниже находятся интерактивные редактор кода и маленькая копия этого
-        сайта, созданная этим кодом, который вы можете редактировать и в режиме
-        реального времени видеть, как в EQUIX/Лендинг вносятся изменения.
-      </p>
       <Col className="w-full rounded bg-black text-white p font-mono items-stretch">
         {"<LandingPage config={{"}
         <Row className="items-center">
@@ -108,5 +103,3 @@ const Page = () => {
     </Col>
   );
 };
-
-export default Page;

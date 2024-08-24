@@ -3,79 +3,110 @@
 import Image from "next/image";
 
 import { LandingPage } from "@/equix/Landing/LandingPage";
-import { Card } from "@/equix/components/Box";
-import { Row } from "@/equix/components/Flex";
-import { H3 } from "@/equix/components/Heading";
+import { Box, Card } from "@/equix/components/Box";
+import { Col, Row } from "@/equix/components/Flex";
 import { Icon } from "@/equix/components/Icon";
-import { Img } from "@/equix/components/Img";
+import templatesData from "./templates/data";
 
-const features = {
-  Кроссплатформенность: {
+const features = [
+  {
+    name: "Кроссплатформенность",
     description:
-      "EQUIX позволяет создавать веб-приложения и ПО для любых платформ (Android, IOS, Windows, Linux, MacOS, IpadOS).",
+      "Cоздавайте веб-приложения и ПО для любых платформ - Android, IOS, Windows, Linux, MacOS, IpadOS.",
     iconName: "windows",
-    href: "/docs/platforms"
+    href: "/docs/platforms",
   },
-  Универсальность: {
+  {
+    name: "Универсальность",
     description:
-      "EQUIX включает в себя решения для создания всех основных типов приложений - лендинг, интернет-магазин, новостной портал, система управления базами данных.",
+      "Создавайте из заготовок приложения всех основных типов - лендинг, интернет-магазин, новостной портал, СУБД.",
     iconName: "window-stack",
-    href: "/templates"
+    href: "/components",
   },
-  Производительность: {
+  {
+    name: "Производительность",
     description:
-      "EQUIX использует самые современные технологии, обеспечивающие высокую скорость работы, функциональности и отказоустойчивости приложений.",
+      "Получите преимущества самых современных технологий - скорость, функциональность и отказоустойчивость.",
     iconName: "speedometer",
-    href: "/docs/base"
+    href: "/docs/base",
   },
-  "Комфорт использования": {
+  {
+    name: "Комфорт использования",
     description:
-      "EQUIX заботится о пользовательском опыте (UX) и опыте разработчиков (DX), поэтому увеличивает комфорт эксплуатации и скорость разработки сервисов.",
+      "Пользуйтесь с комфортом - об опыте пользователей (UX) и разработчиков (DX) мы позаботились.",
     iconName: "emoji-smile",
-    href: "/components"
+    href: "/docs/ux",
   },
-  Локализация: {
+  {
+    name: "Локализация",
     description:
-      "EQUIX позволяет легко и быстро разработчикам переводить приложения на множество разных языков, а пользователям - переключаться между ними.",
+      "Легко и быстро переводите приложения на разные языки, а как пользователь - переключайтесь между ними.",
     iconName: "translate",
-    href: "/docs/localization"
+    href: "/docs/localization",
   },
-  Доступность: {
+  {
+    name: "Доступность",
     description:
-      "EQUIX продуман с точки зрения использования приложений людьми, плохо видящими и слепыми, использующие голосовое управление.",
+      "Без усилий предоставляйте себе и другим людям с ограниченными возможностями качественные сервисы.",
     iconName: "universal-access-circle",
-    href: "/docs/accessibility"
+    href: "/docs/accessibility",
   },
-  "Поддержка печати": {
+  {
+    name: "Поддержка печати",
     description:
-      "Функция печати страниц предусмотрена в EQUIX. Все страницы при печати оптимизированы в цветах, чтобы экономить ресурсы принтера и избегать искажений цветов на бумаге.",
+      "Легко, качественно и без искажений печатайте текстовые страницы и документы, экономя при этом ресурсы принтера.",
     iconName: "printer",
-    href: "/docs/printing"
+    href: "/docs/printing",
   },
-};
+  {
+    name: "Разработка без кода",
+    description:
+      "Создавайте и настраивайте страницы без знаний кода - редактируя текстовые файлы форматов Markdown и JSON.",
+    iconName: "file-earmark-text",
+    href: "/docs/markdown",
+  },
+  {
+    name: "Поддержка на всех этапах",
+    description:
+      "Обращайтесь за помощью 24/7, или вовсе поручите всю разработку нам - на выгодных условиях.",
+    iconName: "headset",
+    href: "/support",
+  },
+];
 
-const templates = [
+const resources = [
   {
-    id: "landing",
-    name: "Лендинг",
-    description: "Создайте информационное и интерактивное сайт или приложение",
+    href: "https://www.figma.com/file/npn6mOk53B6pBNRnTUgB7P/EQUIX?type=design&mode=design&t=JwiI541x0rVd0W9P-1",
+    name: "Figma",
+    src: "/figma.svg",
   },
   {
-    id: "blog",
-    name: "Блог",
-    description: "Создайте новостной портал, блог или форум",
+    href: "https://www.npmjs.com/package/equix",
+    name: "Node Package Manager",
+    src: "/npm.svg",
   },
   {
-    id: "data",
-    name: "Данные",
+    href: "https://github.com/vladpechkin/equix.git",
+    name: "GitHub",
+    src: "/github.svg",
+  },
+];
+
+const clients = [
+  {
+    imgSource: "/clients/ripo.png",
     description:
-      "Создайте файловый менеджер, админ-панель или систему управления базами данных",
+      "Главный сайт организации, использующий элементы EQUIX/Лендинг, EQUIX/Магазин и EQUIX/Данные",
   },
   {
-    id: "shop",
-    name: "Магазин",
+    imgSource: "/clients/getvip.svg",
     description:
-      "Создайте интернет-магазин или приложение для оформления и оплаты услуг",
+      "Админ-панель сервиса премиум-такси, целиком созданная с помощью EQUIX/Данные",
+  },
+  {
+    imgSource: "/clients/ripo.png",
+    description:
+      "Сайт-визитка организации, целиком созданная с помощью EQUIX/Лендинг",
   },
 ];
 
@@ -83,93 +114,95 @@ const Page = () => (
   <LandingPage
     sections={[
       {
+        heading: "Попробуйте наши решения",
         children: (
           <Row className="flex-wrap">
-            {templates.map((template, index) => (
+            {templatesData.map(({ id, name, description }, index) => (
               <Card
-                href={`/templates/${template.id}`}
-                heading={`EQUIX/${template.name}`}
+                href={`/templates/${id}`}
                 key={index}
+                className="max-w-[460px]"
               >
-                <Img
-                  src={`/templates/${template.id}.jpg`}
+                <Image
+                  src={`/templates/${id}.jpg`}
                   width="320"
                   height="100"
-                  className="border-inherit"
+                  className="rounded border-inherit w-full h-[250px]"
+                  alt=""
                 />
-                <p>{template.description}</p>
+                <p className="text-accent">{`EQUIX/${name}`}</p>
+                <p>{description}</p>
               </Card>
             ))}
           </Row>
         ),
-
-        heading: "Наши решения",
       },
       {
+        heading: "Наши преимущества",
         children: (
           <Row className="flex-wrap">
-            {Object.entries(features).map(
-              ([key, { description, iconName, href }], index) => (
-                <Card key={index} href={href}>
+            {features.map(({ name, description, iconName, href }, index) => (
+              <Card
+                className="flex-col p-4 max-w-[304px] text-inherit w-full"
+                key={index}
+                href={href}
+              >
+                <Row className="items-center text-accent">
                   <Icon name={iconName} className="text-2xl" />
-                  <H3>{key}</H3>
-                  <p>{description}</p>
-                </Card>
-              )
-            )}
+                  {name}
+                </Row>
+                <p className="line-clamp-4">{description}</p>
+              </Card>
+            ))}
           </Row>
         ),
-        heading: "Наши преимущества",
       },
       {
+        heading: "Наши компоненты",
         children: (
-          <Row className="w-full sm:flex-row">
-            {[
-              {
-                href: "https://www.figma.com/file/npn6mOk53B6pBNRnTUgB7P/EQUIX?type=design&mode=design&t=JwiI541x0rVd0W9P-1",
-                label: "Figma",
-                src: "/figma.svg",
-              },
-              {
-                href: "https://www.npmjs.com/package/equix",
-                label: "Node Package Manager",
-                src: "/npm.svg",
-              },
-              {
-                href: "https://github.com/vladpechkin/equix.git",
-                label: "GitHub",
-                src: "/github.png",
-              },
-            ].map(({ href, label, src: source }, index) => (
-              <Card href={href} key={index}>
+          <Col>
+            Здесь пока ничего нет, но скоро все будет.
+            <Box href="/components" className="border">
+              Компоненты
+            </Box>
+          </Col>
+        ),
+      },
+      {
+        heading: "Наши ресурсы",
+        children: (
+          <Col className="w-full sm:flex-row">
+            {resources.map(({ href, name, src: source }, index) => (
+              <Box
+                href={href}
+                key={index}
+                className="w-full border border-inherit items-center p-4"
+              >
                 <Image
                   alt=""
-                  className="w-[60px] h-[60px]"
+                  className="w-[40px] h-[40px]"
                   height={60}
                   src={source}
                   width={60}
                 />
-                {label}
+                <p className="text-accent">{name}</p>
+              </Box>
+            ))}
+          </Col>
+        ),
+      },
+      {
+        heading: "Реализованные проекты",
+        children: (
+          <Row>
+            {clients.map(({ description, imgSource }, index) => (
+              <Card key={index} className="w-full items-start">
+                <img alt="" src={imgSource} className="h-8 w-auto" />
+                <p>{description}</p>
               </Card>
             ))}
           </Row>
         ),
-
-        heading: "Наши ресурсы",
-      },
-      {
-        children: (
-          <Row>
-            <Card>
-              <Image alt="" src="/client-1.png" height={100} width={100} />
-              <span className="px-2 py-1 rounded-full bg-accent text-light h-auto">
-                EQUIX/Лендинг
-              </span>
-            </Card>
-          </Row>
-        ),
-
-        heading: "Реализованные проекты",
       },
     ]}
   />

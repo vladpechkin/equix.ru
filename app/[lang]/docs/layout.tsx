@@ -1,3 +1,4 @@
+import { BannerSection } from "@/app/components/BannerSection";
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
 import { getAllMarkdownFiles } from "@/lib/api";
 import { FC, ReactNode } from "react";
@@ -16,6 +17,7 @@ const Layout: FC<Props> = async (props) => {
         href: `/docs/${post.realId}`,
         label: `${post.title} `,
       }))}
+      sections={[BannerSection]}
     >
       {children}
     </LandingLayout>
