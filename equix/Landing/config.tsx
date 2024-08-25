@@ -39,7 +39,7 @@ const config: LandingConfig = {
     { href: "/", label: "Главная" },
     { href: "/components", label: "Компоненты" },
     { href: "/docs/", label: "Документация" },
-    { href: "/about", label: "О нас" },
+    // { href: "/about", label: "О нас" },
     { href: "/profile", label: "Личный кабинет" },
   ],
   hero: <Hero />,

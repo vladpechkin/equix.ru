@@ -1,7 +1,7 @@
 "use client";
 
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
-import { Card } from "@/equix/components/Box";
+import { Box, Card } from "@/equix/components/Box";
 import { Row } from "@/equix/components/Flex";
 import { H2 } from "@/equix/components/Heading";
 import componentsData from "./data";
@@ -15,9 +15,9 @@ const Page = () => (
     </p>
     <Row className="flex-wrap w-full">
       {Object.keys(componentsData).map((componentName, index) => (
-        <Card key={index} href={`/components/${componentName}`}>
+        <Box key={index} className="border border-inherit" href={`/components/${componentName}`}>
           {componentName}
-        </Card>
+        </Box>
       ))}
     </Row>
   </LandingLayout>

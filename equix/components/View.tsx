@@ -13,29 +13,36 @@ export const View: FC<Props> = (props) => {
 
   const Element = as || "div";
 
-  const getWidth = () => {
+  const getMaxWidth = () => {
     switch (size) {
-      case 3:
+      case 3: {
         return "max-w-[60rem]";
-      case 2:
+      }
+      case 2: {
         return "max-w-screen-sm";
-      case 1:
+      }
+      case 1: {
         return "max-w-xs";
-      default:
+      }
+
+      default: {
         return "max-w-screen-xl";
+      }
     }
   };
 
   const getDirection = () => {
     if (direction === "h") {
       return "flex-row";
-    } else return "flex-col";
+    }
+    
+    return "flex-col";
   };
 
   return (
     <Element
       {...props}
-      className={`flex ${getWidth()} ${getDirection()} ${className || ""}`}
+      className={`flex ${getMaxWidth()} ${getDirection()} ${className || ""}`}
     />
   );
 };

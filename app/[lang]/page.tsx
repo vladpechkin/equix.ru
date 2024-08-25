@@ -7,6 +7,7 @@ import { Box, Card } from "@/equix/components/Box";
 import { Col, Row } from "@/equix/components/Flex";
 import { Icon } from "@/equix/components/Icon";
 import templatesData from "./templates/data";
+import { BannerSection } from "../components/BannerSection";
 
 const features = [
   {
@@ -116,34 +117,34 @@ const Page = () => (
       {
         heading: "Попробуйте наши решения",
         children: (
-          <Row className="flex-wrap">
+          <div className="w-full gap sm:grid grid-cols-2">
             {templatesData.map(({ id, name, description }, index) => (
               <Card
                 href={`/templates/${id}`}
                 key={index}
-                className="max-w-[460px]"
+                className="w-full"
               >
                 <Image
                   src={`/templates/${id}.jpg`}
                   width="320"
                   height="100"
-                  className="rounded border-inherit w-full h-[250px]"
+                  className="rounded border-inherit w-full sm:h-[250px] object-cover"
                   alt=""
                 />
                 <p className="text-accent">{`EQUIX/${name}`}</p>
                 <p>{description}</p>
               </Card>
             ))}
-          </Row>
+          </div>
         ),
       },
       {
         heading: "Наши преимущества",
         children: (
-          <Row className="flex-wrap">
+          <div className="w-full gap grid grid-cols-[repeat(auto-fill,minmax(304px,1fr))]">
             {features.map(({ name, description, iconName, href }, index) => (
               <Card
-                className="flex-col p-4 max-w-[304px] text-inherit w-full"
+                className=""
                 key={index}
                 href={href}
               >
@@ -154,7 +155,7 @@ const Page = () => (
                 <p className="line-clamp-4">{description}</p>
               </Card>
             ))}
-          </Row>
+          </div>
         ),
       },
       {
@@ -194,16 +195,17 @@ const Page = () => (
       {
         heading: "Реализованные проекты",
         children: (
-          <Row>
+          <Col className="w-full sm:flex-row">
             {clients.map(({ description, imgSource }, index) => (
-              <Card key={index} className="w-full items-start">
+              <Card key={index} className="w-full items-start h-full">
                 <img alt="" src={imgSource} className="h-8 w-auto" />
                 <p>{description}</p>
               </Card>
             ))}
-          </Row>
+          </Col>
         ),
       },
+      BannerSection
     ]}
   />
 );
