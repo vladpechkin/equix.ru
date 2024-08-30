@@ -14,6 +14,7 @@ import { ComponentsData } from "@/equix/types";
 import { useState } from "react";
 import Image from "next/image";
 import { Switch } from "@/equix/components/Switch";
+import { Code } from "@/equix/components/Code";
 
 const data: ComponentsData = {
   Flex: {
@@ -77,7 +78,7 @@ const data: ComponentsData = {
         других элементов. Используется для брендинга и основной навигации
         пользователя между большими разделами приложения или секциями одной
         страницы. В случае, если страниц и/или кнопок требуется больше, чем
-        умещается, нужно использовать компонент <code>Sidebar</code>.
+        умещается, нужно использовать компонент <Code>Sidebar</Code>.
       </p>
     ),
     ExampleComponent: () => (
@@ -97,7 +98,7 @@ const data: ComponentsData = {
     description: (
       <p>
         Heading - заголовок. На данный момент файл компонента включает в себя
-        компоненты <code>Heading</code> и <code>Region</code>. Первый из них -
+        компоненты <Code>Heading</Code> и <Code>Region</Code>. Первый из них -
         т.н. "умный компонент" - заголовок, сам понимающий, какого уровня
         вложенности он должен быть (h1, h2, ..., h5 и т.д.). Правильная иерархия
         вложенных заголовков необходима для понятно пользователю навигации по
@@ -129,7 +130,7 @@ const data: ComponentsData = {
           на сайте библиотеки
         </Box>{" "}
         нужное изображение и прописать его название (например, search) в
-        аттрибут <code>name</code>.
+        аттрибут <Code>name</Code>.
       </p>
     ),
     ExampleComponent: () => <Icon name="search" />,
@@ -144,7 +145,7 @@ const data: ComponentsData = {
         приближенными. Именно эту функцию и реализует компонент Img в EQUIX.
         Если необходимо вставить иконку, мелкое неважное изображение, которое не
         подразумевает приближения, то используйте встроенный в Next.js компонент
-        <code>&lt;Image&gt;</code>, импортируемый из библиотеки next/image.
+        <Code>&lt;Image&gt;</Code>, импортируемый из библиотеки next/image.
       </p>
     ),
     ExampleComponent: () => <Img src="/intro.png" height={200} width={200} />,

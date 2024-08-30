@@ -96,7 +96,7 @@ const Page = () => {
         разрабатываемого с помощью EQUIX. Для этого вам необходимо выбрать общий
         тон (оттенок) интерфейса - например, красный или лаймовый. Как правило,
         выбирают тон логотипа. Результат генерации схемы нужно вставить в{" "}
-        <code>tailwind.config.js</code>.
+        <Code>tailwind.config.js</Code>.
       </p>
       <Input label="Hue" value={hue} onChange={setHue} size={3} />
       {hue ? (

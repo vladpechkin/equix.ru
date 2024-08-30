@@ -40,7 +40,7 @@ const Page = () => {
         {
           heading: "Не знаете, с чего начать?",
           children: (
-            <Col className="items-center">
+            <Col className="sm:items-center overflow-x-auto w-full">
               <Box
                 href="/templates/landing"
                 className="justify-center w-full border"

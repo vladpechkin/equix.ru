@@ -28,10 +28,10 @@ const Page = () => {
   const getHref = () => {
     switch (selectedRole?.name) {
       case "Дизайнер": {
-        return "/guide";
+        return "/profile/guide";
       }
       case "Программист": {
-        return "/guide";
+        return "/profile/guide";
       }
 
       default: {

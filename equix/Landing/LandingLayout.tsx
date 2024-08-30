@@ -1,21 +1,21 @@
 "use client";
 
+import Image from "next/image";
 import { FC, ReactNode } from "react";
 import { Bar } from "../components/Bar";
 import { Box } from "../components/Box";
 import {
-  DarkThemeProvider,
-  DarkThemeToggle,
+  DarkThemeProvider
 } from "../components/DarkThemeProvider";
+import { Col } from "../components/Flex";
 import { Header } from "../components/Header";
+import { Region } from "../components/Heading";
 import { Sidebar } from "../components/Sidebar";
 import { View } from "../components/View";
-import { Col } from "../components/Flex";
 import { Route, Section } from "../types";
+import { ConditionalWrapper } from "../utils";
 import { LandingSection } from "./LandingSection";
 import defaultConfig from "./config";
-import { Region } from "../components/Heading";
-import { ConditionalWrapper } from "../utils";
 
 export interface LandingLayoutProps {
   sections?: Section[];
@@ -100,7 +100,12 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
               EQUIX/Лендинг
             </Box>
           </Box>
-          {supportsDarkTheme ? <DarkThemeToggle /> : undefined}
+          <Box isDimmed href="https://fasie.ru/">
+            <Image src="/fasie.svg" alt="" height={48} width={48} />
+            Проект поддержан Фондом содействия инновациям в рамках программы
+            "Студенческий стартап" федерального проекта "Платформа
+            университетского технологического предпринимательства"
+          </Box>
         </Bar>
       </Region>
     </ConditionalWrapper>
