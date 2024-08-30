@@ -33,7 +33,7 @@ export const DialogBase: FC<DialogBaseProps> = ({
   }, [escFunction, close, isCloseable]);
 
   return isOpen ? (
-    <div className="w-full h-full bg-black absolute top-0 left-0 bg-opacity-50 flex overflow-y-auto z-20 items-center justify-center">
+    <div className="w-full h-full bg-black fixed top-0 left-0 bg-opacity-50 flex overflow-y-auto z-20 items-center justify-center">
       <dialog
         className={`dark:bg-dark dark:text-light bg-light text-dark p flex flex-col gap-4 min-w-[320px] w-full max-w-screen-sm overflow-y-auto rounded ${
           className || ""

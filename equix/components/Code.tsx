@@ -6,7 +6,7 @@ export const Code: FC<
   const { children } = props;
 
   return (
-    <code className="w-full whitespace-pre p bg-black text-white rounded h-full">
+    <code className="w-full whitespace-pre-wrap p bg-black text-white rounded h-full">
       {children}
     </code>
   );

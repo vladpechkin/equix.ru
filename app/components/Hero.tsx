@@ -12,7 +12,7 @@ export const Hero = () => {
   const [isAgreed, setIsAgreed] = useState(true);
 
   return (
-    <div className="relative text-sm mx-auto sm:mx-0 shrink-0">
+    <div className="relative text-sm mx-auto sm:mx-0 shrink-0 overflow-hidden">
       <img src="/iphone.jpg" alt="" className="w-[220px]" />
       <Col className="absolute top-12 left-4 w-[188px] h-[437px]">
         <Input

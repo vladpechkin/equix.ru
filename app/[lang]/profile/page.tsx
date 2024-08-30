@@ -28,10 +28,10 @@ const Page = () => {
   const getHref = () => {
     switch (selectedRole?.name) {
       case "Дизайнер": {
-        return "/docs/for_designer";
+        return "/guide";
       }
       case "Программист": {
-        return "/docs/for_programmer";
+        return "/guide";
       }
 
       default: {
@@ -95,7 +95,7 @@ const Page = () => {
     <LandingLayout className="justify-center">
       {user ? (
         <>
-          <Row className="items-center w-full justify-between">
+          <Row className="items-center w-full justify-between flex-wrap">
             <H2>Личный кабинет</H2>
             <Row>
               <Box>Вы вошли как {email}</Box>
