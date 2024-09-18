@@ -1,5 +1,5 @@
-import { LandingPreview } from "./LandingPreview";
-import { DataPreview } from "./DataPreview";
+import { LandingPreview } from "../components/LandingPreview";
+import { DataPreview } from "../components/DataPreview";
 
 const templatesData = [
   {

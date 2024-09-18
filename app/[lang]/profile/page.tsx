@@ -1,147 +1,68 @@
 "use client";
 
-import { Box, Card } from "@/equix/components/Box";
-import { Col, Row } from "@/equix/components/Flex";
-import { H2 } from "@/equix/components/Heading";
-import { Input } from "@/equix/components/Input";
 import { LandingLayout } from "@/equix/Landing/LandingLayout";
-import { InputOption } from "@/equix/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { paidSections } from "../components/paidSections";
+import { UserSection } from "../components/UserSection";
+import { OfferSection } from "../components/OfferSection";
 
 const Page = () => {
   const router = useRouter();
 
   const [user, setUser] = useState<any>();
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
 
-  const roleOptions = [
-    { id: "designer", name: "Дизайнер" },
-    { id: "programmer", name: "Программист" },
-    { id: "other", name: "Другой специалист" },
-  ];
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userId = localStorage.getItem("userId");
 
-  const [selectedRole, setSelectedRole] = useState<InputOption | undefined>();
-
-  const getHref = () => {
-    switch (selectedRole?.name) {
-      case "Дизайнер": {
-        return "/profile/guide";
-      }
-      case "Программист": {
-        return "/profile/guide";
-      }
-
-      default: {
-        return "/";
-      }
-    }
-  };
-
-  const fetchUser = async () => {
-    const userId = localStorage.getItem("userId");
-
-    if (!userId) {
-      router.push("/auth");
-
-      return;
-    }
-
-    if (userId) {
-      const res = await fetch(`/api/users/${userId}`);
-
-      if (!res.ok) {
+      if (!userId) {
         router.push("/auth");
 
         return;
       }
 
-      const user = await res.json();
+      if (userId) {
+        const res = await fetch(`/api/users/${userId}`);
 
-      setUser(user);
+        if (!res.ok) {
+          router.push("/auth");
 
-      const { name, email, phone, role } = user;
+          return;
+        }
 
-      setName(name);
-      setEmail(email);
-      setPhone(phone);
-      setSelectedRole(roleOptions.find((option) => option.id === role));
-    }
-  };
+        const user = await res.json();
 
-  useEffect(() => {
+        setUser(user);
+      }
+    };
+
     fetchUser();
-  }, []);
+  }, [router]);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    router.push("/auth");
-  };
+  const getSections = () => {
+    if (!user) return [{ children: "Загрузка..." }];
 
-  const handleSave = async () => {
-    if (user) {
-      const res = await fetch(`/api/users/${user.id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ name, email, phone, role: selectedRole?.id }),
-      });
+    if (user.role === "paid") return paidSections;
 
-      if (res) window.location.reload();
-    }
+    if (user.role === "it")
+      return [
+        {
+          heading: "Получите всё.",
+          children: <OfferSection />,
+        },
+      ];
+
+    return [
+      {
+        heading: "Личный кабинет",
+        children: <UserSection user={user} />,
+      },
+    ];
   };
 
   return (
-    <LandingLayout className="justify-center">
-      {user ? (
-        <>
-          <Row className="items-center w-full justify-between flex-wrap">
-            <H2>Личный кабинет</H2>
-            <Row>
-              <Box>Вы вошли как {email}</Box>
-              <Box onClick={handleLogout}>Выйти</Box>
-            </Row>
-          </Row>
-          <Card>
-            <p>Заполните личные данные</p>
-            <Input label="ФИО" value={name} onChange={setName} />
-            <Input
-              type="email"
-              value={email}
-              onChange={setEmail}
-              label="Электронная почта"
-            />
-            <Input
-              type="tel"
-              value={phone}
-              onChange={setPhone}
-              label="Телефон"
-            />
-            <Col>
-              <Input
-                label="Ваша роль в компании"
-                type="radio"
-                options={roleOptions}
-                value={selectedRole}
-                onChange={setSelectedRole}
-              />
-              {name !== user.name ||
-              email !== user.email ||
-              phone !== user.phone ||
-              selectedRole?.id !== user.role ? (
-                <Box onClick={handleSave}>Сохранить изменения</Box>
-              ) : (
-                <Box href={getHref()} className="border">
-                  Ознакомиться с документацией
-                </Box>
-              )}
-            </Col>
-          </Card>
-        </>
-      ) : (
-        "Загрузка..."
-      )}
-    </LandingLayout>
+    <LandingLayout className="justify-center" sections={getSections()} />
   );
 };
 

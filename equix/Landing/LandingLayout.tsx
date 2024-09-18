@@ -100,7 +100,7 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
               EQUIX/Лендинг
             </Box>
           </Box>
-          <Box isDimmed href="https://fasie.ru/">
+          <Box isDimmed href="https://fasie.ru/" className="flex-col sm:flex-row">
             <Image src="/fasie.svg" alt="" height={48} width={48} />
             Проект поддержан Фондом содействия инновациям в рамках программы
             "Студенческий стартап" федерального проекта "Платформа

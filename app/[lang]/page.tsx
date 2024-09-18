@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-
 import { LandingPage } from "@/equix/Landing/LandingPage";
 import { Box, Card } from "@/equix/components/Box";
 import { Col, Row } from "@/equix/components/Flex";
@@ -10,9 +9,10 @@ import templatesData from "./templates/data";
 import { BannerSection } from "../components/BannerSection";
 import data from "./data.json";
 import componentsData from "./components/data";
+import { FeaturesSection } from "./components/FeaturesSection";
 
 const Page = () => {
-  const { clients, features, resources } = data;
+  const { clients } = data;
 
   return (
     <LandingPage
@@ -40,53 +40,48 @@ const Page = () => {
         {
           heading: "Не знаете, с чего начать?",
           children: (
-            <Col className="sm:items-center overflow-x-auto w-full">
+            <Col className="sm:items-center overflow-x-auto text-sm">
               <Box
                 href="/templates/landing"
-                className="justify-center w-full border"
+                className="justify-center w-full sm:border p-0 sm:p"
               >
                 Попробуйте любой шаблон
               </Box>
-              <Row className="gap-4">
+              <Row className="gap sm:gap-4">
                 <Col className="items-center">
                   <Icon name="arrow-down" />
-                  <Box className="justify-center border w-full">
+                  <Box className="justify-center sm:border w-full p-0 sm:p">
                     Понравилось?
                   </Box>
                   <Icon name="arrow-down" />
-                  <Box href="/profile" className="justify-center w-full border">
-                    Зарегистрируйтесь и выберите роль
+                  <Box
+                    href="/profile"
+                    className="justify-center w-full sm:border p-0 sm:p"
+                  >
+                    Зарегистрируйтесь и выберите вашу роль
                   </Box>
-                  <Row className="gap-4">
+                  <Row className="gap sm:gap-4">
                     <Col className="items-center">
                       <Icon name="arrow-down" />
-                      <Box className="justify-center border w-full">
-                        Вы программист или дизайнер?
+                      <Box className="justify-center sm:border w-full p-0 sm:p">
+                        Программист или дизайнер?
                       </Box>
-                      <Row className="gap-4">
-                        <Col className="items-center">
-                          <Icon name="arrow-down" />
-                          <Box href="/profile/guide" className="w-48 border">
-                            Получите инструкции по использованию бесплатной
-                            версии...
-                          </Box>
-                        </Col>
-                        <Col className="items-center">
-                          <Icon name="arrow-down" />
-                          <Box href="/" className="w-56 border">
-                            ...или приобретите пожизненную лицензию и получите
-                            полный доступ к системе, а также техподдержку!
-                          </Box>
-                        </Col>
-                      </Row>
+                      <Icon name="arrow-down" />
+                      <Box href="/" className="sm:border p-0 sm:p">
+                        Приобретите полный доступ
+                        к системе и техподдержку
+                      </Box>
                     </Col>
                     <Col className="items-center">
                       <Icon name="arrow-down" />
-                      <Box className="justify-center border w-full">
-                        Вы иной сотрудник?
+                      <Box className="justify-center sm:border w-full p-0 sm:p">
+                        Иной сотрудник?
                       </Box>
                       <Icon name="arrow-down" />
-                      <Box href="mailto:bot@equix.ru" className="border w-56">
+                      <Box
+                        href="mailto:bot@equix.ru"
+                        className="sm:border p-0 sm:p"
+                      >
                         Свяжитесь с нами - мы быстро и недорого создадим для вас
                         любое приложение
                       </Box>
@@ -95,13 +90,13 @@ const Page = () => {
                 </Col>
                 <Col className="items-center">
                   <Icon name="arrow-down" />
-                  <Box className="justify-center border w-full">
+                  <Box className="justify-center sm:border w-full p-0 sm:p">
                     Не подходит?
                   </Box>
                   <Icon name="arrow-down" />
                   <Box
                     href="/templates/landing"
-                    className="border w-56 justify-center"
+                    className="sm:border sm:w-56 justify-center p-0 sm:p"
                   >
                     Попробуйте еще!
                   </Box>
@@ -112,19 +107,7 @@ const Page = () => {
         },
         {
           heading: "Наши преимущества",
-          children: (
-            <div className="w-full gap grid grid-cols-[repeat(auto-fill,minmax(304px,1fr))]">
-              {features.map(({ name, description, iconName, href }, index) => (
-                <Card key={index} href={href}>
-                  <Row className="items-center text-accent">
-                    <Icon name={iconName} className="text-2xl" />
-                    {name}
-                  </Row>
-                  <p className="line-clamp-4">{description}</p>
-                </Card>
-              ))}
-            </div>
-          ),
+          children: <FeaturesSection />,
         },
         {
           heading: "Наши компоненты",
@@ -140,29 +123,6 @@ const Page = () => {
                 </Box>
               ))}
             </Row>
-          ),
-        },
-        {
-          heading: "Наши ресурсы",
-          children: (
-            <Col className="w-full sm:flex-row">
-              {resources.map(({ href, name, src: source }, index) => (
-                <Box
-                  href={href}
-                  key={index}
-                  className="w-full border border-inherit items-center p-4"
-                >
-                  <Image
-                    alt=""
-                    className="w-[40px] h-[40px]"
-                    height={60}
-                    src={source}
-                    width={60}
-                  />
-                  <p className="text-accent">{name}</p>
-                </Box>
-              ))}
-            </Col>
           ),
         },
         {

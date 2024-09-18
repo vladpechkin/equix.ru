@@ -55,23 +55,6 @@
       "href": "/support"
     }
   ],
-  "resources": [
-    {
-      "href": "https://www.figma.com/file/npn6mOk53B6pBNRnTUgB7P/EQUIX?type=design&mode=design&t=JwiI541x0rVd0W9P-1",
-      "name": "Figma",
-      "src": "/figma.svg"
-    },
-    {
-      "href": "https://www.npmjs.com/package/equix",
-      "name": "Node Package Manager",
-      "src": "/npm.svg"
-    },
-    {
-      "href": "https://github.com/vladpechkin/equix.git",
-      "name": "GitHub",
-      "src": "/github.svg"
-    }
-  ],
   "clients": [
     {
       "imgSource": "/clients/ripo.jpg",

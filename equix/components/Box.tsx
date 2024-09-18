@@ -17,10 +17,6 @@ interface Props {
   children: ReactNode;
 }
 
-interface CardProps extends Props {
-  heading?: string;
-}
-
 export const Box: FC<Props> = (props) => {
   const {
     href,
@@ -108,7 +104,7 @@ export const Box: FC<Props> = (props) => {
 
   return (
     <Element
-      onClick={onClick}
+      onClick={isDimmed ? undefined : onClick}
       id={id}
       href={href as string}
       className={getClassName()}
@@ -119,7 +115,7 @@ export const Box: FC<Props> = (props) => {
   );
 };
 
-export const Card: FC<CardProps> = (props) => (
+export const Card: FC<Props> = (props) => (
   <Box
     {...props}
     className={`p-4 border border-inherit flex-col text-inherit ${props.className}`}
