@@ -55,7 +55,7 @@ const Page = () => {
                   </Box>
                   <Icon name="arrow-down" />
                   <Box
-                    href="/profile"
+                    href="/auth"
                     className="justify-center w-full sm:border p-0 sm:p"
                   >
                     Зарегистрируйтесь и выберите вашу роль
@@ -67,7 +67,7 @@ const Page = () => {
                         Программист или дизайнер?
                       </Box>
                       <Icon name="arrow-down" />
-                      <Box href="/" className="sm:border p-0 sm:p">
+                      <Box href="/profile" className="sm:border p-0 sm:p">
                         Приобретите полный доступ
                         к системе и техподдержку
                       </Box>
@@ -95,7 +95,7 @@ const Page = () => {
                   </Box>
                   <Icon name="arrow-down" />
                   <Box
-                    href="/templates/landing"
+                    href="/templates/data"
                     className="sm:border sm:w-56 justify-center p-0 sm:p"
                   >
                     Попробуйте еще!

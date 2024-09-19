@@ -44,7 +44,7 @@ const config: LandingConfig = {
   ],
   hero: <Hero />,
   appName: "EQUIX",
-  appOwnerName: "ООО Эквикс",
+  appOwnerName: "ООО ЭКВИКС · ИНН 6320077469 · ОГРН 1236300030383 · КПП 632001001",
   supportsDarkTheme: true,
 };
 
