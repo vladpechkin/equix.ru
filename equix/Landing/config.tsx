@@ -38,7 +38,8 @@ const config: LandingConfig = {
   routes: [
     { href: "/", label: "Главная" },
     { href: "/components", label: "Компоненты" },
-    { href: "/docs/", label: "Документация" },
+    { href: "/docs", label: "Документация" },
+    { href: "/pricing", label: "Цены" },
     // { href: "/about", label: "О нас" },
     { href: "/profile", label: "Личный кабинет" },
   ],

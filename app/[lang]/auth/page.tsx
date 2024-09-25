@@ -9,12 +9,15 @@ import { useState } from "react";
 
 const Page = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
 
   const handleSendEmail = async () => {
+    setIsLoading(true);
+
     const res = await fetch("/api/auth", {
       method: "POST",
       headers: {
@@ -24,6 +27,7 @@ const Page = () => {
     });
 
     if (res.ok) {
+      setIsLoading(false);
       setIsEmailSent(true);
     }
   };
@@ -47,7 +51,7 @@ const Page = () => {
   return (
     <LandingLayout className="justify-center">
       <Col className="w-full h-full justify-center items-center">
-        <Card>
+        {isLoading ? "Загрузка..." : <Card className="max-w-80">
           {isEmailSent ? (
             <>
               <Input
@@ -55,7 +59,6 @@ const Page = () => {
                 type="text"
                 value={code}
                 onChange={setCode}
-                className="w-auto"
               />
               {code.length === 6 ? (
                 <Box onClick={handleSendCode}>Продолжить</Box>
@@ -64,18 +67,17 @@ const Page = () => {
           ) : (
             <>
               <Input
-                label="Чтобы войти, введите адрес электронной почты"
+                label="Чтобы зарегистрироваться или войти, введите электронную почту"
                 type="email"
                 value={email}
                 onChange={setEmail}
-                className="w-auto"
               />
               {/^[\w.-]+@(?:[\w-]+\.)+[\w-]{2,4}$/u.test(email) ? (
                 <Box onClick={handleSendEmail}>Продолжить</Box>
               ) : null}
             </>
           )}
-        </Card>
+        </Card>}
       </Col>
     </LandingLayout>
   );

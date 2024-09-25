@@ -35,6 +35,8 @@ export const TextInput: FC<TextProps> = (props) => {
         <input
           value={value}
           type={type}
+          name={type}
+          autoComplete="on"
           className={`p bg-transparent h-10 rounded w-full ${
             className || ""
           }`}

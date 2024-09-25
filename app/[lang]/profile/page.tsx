@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { paidSections } from "../components/paidSections";
 import { UserSection } from "../components/UserSection";
-import { OfferSection } from "../components/OfferSection";
 
 const Page = () => {
   const router = useRouter();
@@ -45,14 +44,6 @@ const Page = () => {
 
     if (user.role === "paid") return paidSections;
 
-    if (user.role === "it")
-      return [
-        {
-          heading: "Получите всё.",
-          children: <OfferSection />,
-        },
-      ];
-
     return [
       {
         heading: "Личный кабинет",
@@ -61,9 +52,7 @@ const Page = () => {
     ];
   };
 
-  return (
-    <LandingLayout className="justify-center" sections={getSections()} />
-  );
+  return <LandingLayout className="justify-center" sections={getSections()} />;
 };
 
 export default Page;

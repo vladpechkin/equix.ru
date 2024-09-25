@@ -12,10 +12,10 @@ interface Props {
 export const UserSection: FC<Props> = (props) => {
   const { user } = props;
 
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [role, setRole] = useState("");
+  const [email, setEmail] = useState(user.email);
+  const [name, setName] = useState(user.name || "");
+  const [phone, setPhone] = useState(user.phone || "");
+  const [role, setRole] = useState(user.role || "");
 
   const router = useRouter();
 
@@ -32,7 +32,7 @@ export const UserSection: FC<Props> = (props) => {
       });
 
       if (res) {
-        if (role === "it") router.push("/profile/access");
+        if (role === "it") router.push("/pricing");
         
         if (role === "non-it") router.push("/profile/contact");
       }
@@ -42,7 +42,7 @@ export const UserSection: FC<Props> = (props) => {
   return (
     <Col className="gap-4 pb">
       <Row>
-        Вы вошли как {email}
+        Вы вошли как {user.email}
         <Box onClick={handleLogout} isInline>
           Выйти
         </Box>

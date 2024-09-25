@@ -10,7 +10,7 @@ export const POST = async (request: NextRequest) => {
 
   const targetUser = users.find((user: User) => user.email === email);
 
-  const code = String(Math.round(Math.random() * 600_000));
+  const code = String(Math.floor(100_000 + Math.random() * 900_000));
 
   const transporter = nodemailer.createTransport({
     host: "smtp.mail.ru",
