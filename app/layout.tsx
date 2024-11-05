@@ -1,10 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Metadata } from "next";
 import { FC, ReactNode } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-
-import config from "@/equix/Landing/config";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,12 +19,5 @@ const Layout: FC<Props> = (props) => {
     </html>
   );
 };
-
-export async function generateMetadata() {
-  return {
-    title: config.heading,
-    description: "bbb",
-  };
-}
 
 export default Layout;
