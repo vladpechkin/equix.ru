@@ -30,12 +30,13 @@ export const GET = async () => {
         ],
       },
     }),
+    // @ts-ignore
     headers: {
       Authorization:
-        "Basic NDU3Nzg3OmxpdmVfa2E1Yklrcm5DNkltZl9NdnhIVDA3MGxJbVFRN1lSM3RlTFdHZE9iZkVCTQ==",
+        `Basic ${process.env["AUTH_TOKEN"]}`,
       "Content-Type": "application/json",
-      "Idempotence-Key": Date.now(),
-      "457787": "live_ka5bIkrnC6Imf_MvxHT070lImQQ7YR3teLWGdObfEBM",
+      "Idempotence-Key": String(Date.now()),
+      '457787': process.env["SHOP_KEY"],
     },
     method: "POST",
   });

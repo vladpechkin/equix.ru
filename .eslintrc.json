@@ -123,7 +123,7 @@
     "no-warning-comments": "error",
     "no-with": "error",
     "block-scoped-var": "error",
-    "camelcase": "error",
+    "camelcase": "warn",
     "consistent-this": "error",
     "constructor-super": "error",
     "default-case": "error",

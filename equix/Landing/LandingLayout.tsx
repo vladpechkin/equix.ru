@@ -14,7 +14,6 @@ import { Route, Section } from "../types";
 import { ConditionalWrapper } from "../utils";
 import { LandingSection } from "./LandingSection";
 import defaultConfig from "./config";
-import Head from "next/head";
 
 export interface LandingLayoutProps {
   sections?: Section[];
@@ -60,9 +59,9 @@ export const LandingLayout: FC<LandingLayoutProps> = (props) => {
         }
     ) as Route[];
 
-    useEffect(()=>{
-      document.title = `EQUIX - ${sections[0].heading}`
-    },[])
+  useEffect(() => {
+    if (sections && sections[0]) document.title = `EQUIX - ${sections[0].heading}`;
+  }, [sections]);
 
   return (
     <>
