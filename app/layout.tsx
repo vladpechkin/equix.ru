@@ -17,15 +17,17 @@ const Layout: FC<Props> = (props) => {
 
   return (
     <html lang="ru">
-      <head></head>
+      <head><link rel="icon" href="/favicon.svg" sizes="any" /></head>
       <body className={String(inter.className)}>{children}</body>
     </html>
   );
 };
 
-export const metadata: Metadata = {
-  title: config.heading,
-  description: 'bbb',
-};
+export async function generateMetadata() {
+  return {
+    title: config.heading,
+    description: "bbb",
+  };
+}
 
 export default Layout;

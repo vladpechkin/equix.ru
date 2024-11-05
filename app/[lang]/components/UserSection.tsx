@@ -60,7 +60,7 @@ export const UserSection: FC<Props> = (props) => {
           <Input type="tel" value={phone} onChange={setPhone} label="Телефон" />
         </Card>
         <Card className="w-full">
-          Выберите роль, для которой вы хотите узнать дальнейшие инструкции
+          Чтобы <b>узнать больше</b> о применении EQUIX в своих проектах, выберите вашу роль в разработке
           <Row className="h-full flex-wrap sm:flex-nowrap">
             {[
               {

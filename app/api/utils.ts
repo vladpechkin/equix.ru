@@ -3,7 +3,7 @@ import fsPromises from "node:fs/promises";
 import { Entity } from "./types";
 
 export const getEntitiesFilePath = (entitiesName: string) =>
-  path.join(process.cwd(), `/database/${entitiesName}.json`);
+  entitiesName !== "admin" && entitiesName !== "gateway" ? path.join(process.cwd(), `/database/${entitiesName}.json`) : "";
 
 export const readEntitiesFromFile = async (entitiesName: string) => {
   const entitiesFilePath = getEntitiesFilePath(entitiesName);
