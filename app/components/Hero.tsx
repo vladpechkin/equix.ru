@@ -13,7 +13,7 @@ export const Hero = () => {
 
   return (
     <>
-    <div className="relative text-sm mx-auto sm:mx-0 shrink-0 overflow-hidden bg-dark z-30">
+    <div className="relative text-sm mx-auto sm:mx-0 shrink-0 overflow-hidden bg-light dark:bg-dark z-30">
       <img src="/iphone.jpg" alt="" className="w-[220px]" />
       <Col className="absolute top-12 left-4 w-[188px] h-[437px]">
         <Input

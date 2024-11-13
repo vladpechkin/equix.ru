@@ -23,7 +23,7 @@ export const Header: FC<Props> = (props) => {
     <Bar
       as="header"
       position="top"
-      className="justify-between top-0 left-0 flex-wrap sm:flex-nowrap w-full"
+      className="justify-between top-0 left-0 flex-wrap sm:flex-nowrap w-full bg-light dark:bg-dark z-30"
     >
       <H1 className="sr-only">{appName}</H1>
       <Link href="/" aria-label="Home">
